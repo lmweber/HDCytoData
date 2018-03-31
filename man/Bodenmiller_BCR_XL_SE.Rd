@@ -44,14 +44,17 @@ object for each sample. The protein marker names are stored in the column names 
 (it is not possible to include additional information in the column names to identify the 
 'cell type' and 'cell state' markers). The expression values are formatted into one table per 
 sample, where each table represents a 'flowFrame' within the overall 'flowSet' object.
+}
 \usage{
 Bodenmiller_BCR_XL_SE(metadata = FALSE)
 Bodenmiller_BCR_XL_flowSet(metadata = FALSE)
 }
 \arguments{
-\item{metadata}{
-\code{logical} value indicating whether metadata only should be returned, or if the resource 
-(data set) should be loaded. Default behavior (\code{metadata = FALSE}) loads the data set.
+\itemize{
+\item{metadata}{\code{logical} value indicating whether metadata only should be returned, 
+or if the resource (data set) should be loaded. Default behavior (\code{metadata = FALSE}) 
+loads the data set.}
+}
 }
 \examples{
 Bodenmiller_BCR_XL_SE()
