@@ -12,6 +12,7 @@ df_Bodenmiller_BCR_XL_SE <- data.frame(
   Species = "Homo sapiens", 
   TaxonomyId = "9606", 
   RDataClass = "SummarizedExperiment", 
+  RDataPath = "", 
   DispatchClass = "Rda", 
   stringsAsFactors = FALSE
 )

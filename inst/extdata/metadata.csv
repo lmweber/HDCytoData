@@ -1,0 +1,3 @@
+"Title","Description","BiocVersion","SourceType","Species","TaxonomyId","RDataClass","DispatchClass"
+"Bodenmiller_BCR_XL_SE","Mass cytometry data from Bodenmiller et al. (2012). Paired samples of healthy PBMCs, where one sample from each pair was stimulated with B cell receptor / Fc receptor cross-linker (BCR-XL).","3.7","FCS","Homo sapiens","9606","SummarizedExperiment","Rda"
+"Bodenmiller_BCR_XL_flowSet","Mass cytometry data from Bodenmiller et al. (2012). Paired samples of healthy PBMCs, where one sample from each pair was stimulated with B cell receptor / Fc receptor cross-linker (BCR-XL).","3.7","FCS","Homo sapiens","9606","flowSet","Rda"
