@@ -1,0 +1,14 @@
+Package: cytofData
+Title: Example mass cytometry data
+Version: 0.99.0
+Author: Charlotte Soneson and Lukas Weber
+Maintainer: who?
+Description: A set of example mass cytometry (CyTOF) data sets
+License: MIT + file LICENSE
+Depends: ExperimentHub
+Imports: utils
+Suggests: knitr
+VignetteBuilder: knitr
+biocViews: ExpressionData
+NeedsCompilation: no
+RoxygenNote: 6.0.1
