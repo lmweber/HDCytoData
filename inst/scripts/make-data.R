@@ -23,7 +23,7 @@ dir.create(file.path(DIR_TMP, "fcs_files"), showWarnings = FALSE)
 dir.create(file.path(DIR_TMP, "population_IDs"), showWarnings = FALSE)
 
 # download from 'imlspenticton' server
-URL <- "http://imlspenticton.uzh.ch/robinson_lab/cytofData/"
+URL <- "http://imlspenticton.uzh.ch/robinson_lab/HDCytoData/"
 
 # load .fcs files
 fcs_filename <- "Bodenmiller_BCR_XL_fcs_files.zip"
