@@ -14,5 +14,10 @@ Imports:
 Suggests: 
     knitr
 VignetteBuilder: knitr
-biocViews: ExpressionData
+biocViews: 
+    FlowCytometry, 
+    Proteomics, 
+    SingleCell, 
+    Clustering, 
+    ExpressionData
 NeedsCompilation: no
