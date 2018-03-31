@@ -1,0 +1,62 @@
+# HDCytoData
+
+
+## Overview
+
+This package contains a set of publicly available high-dimensional cytometry data sets, formatted into `SummarizedExperiment` and `flowSet` objects. The objects contain expression values as well as meta-data including sample IDs, group IDs (where relevant), population labels, and protein marker names.
+
+These data sets have been used in our previous publications for benchmarking evaluations. They are provided here as `SummarizedExperiments` and `flowSets` to make them easier to access for other method developers.
+
+The raw data sets are also available from FlowRepository (see help files for each data set).
+
+
+
+## How to load data
+
+The data sets are stored on Bioconductor's ExperimentHub.
+
+```{r}
+library("HDCytoData")
+```
+
+
+The data objects can either be loaded either by referring to the data set name, or by loading via ExperimentHub:
+
+```{r}
+# Load data object by name
+
+# 'SummarizedExperiment' format
+Bodenmiller_BCR_XL_SE()
+
+# 'flowSet' format
+Bodenmiller_BCR_XL_flowSet()
+```
+
+
+```{r}
+# Load via ExperimentHub
+eh <- ExperimentHub()
+
+# 'SummarizedExperiment' format
+query(eh, "Bodenmiller_BCR_XL_SE")
+eh[["Bodenmiller_BCR_XL_SE"]]
+
+# 'flowSet' format
+query(eh, "Bodenmiller_BCR_XL_flowSet")
+eh[["Bodenmiller_BCR_XL_flowSet"]]
+```
+
+
+
+## Details
+
+Details about each data set are provided in the help files. For example:
+
+```{r}
+Bodenmiller_BCR_XL_SE
+```
+
+
+Code to generate the data objects from the raw data files is included in `inst/scripts/make-data.R`.
+
+

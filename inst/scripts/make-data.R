@@ -1,155 +1,187 @@
 ##########################################################################################
-# Script to load CyTOF example data set: BCR-XL and reproduce manually merged
-# cell population labels from Nowicka et al. (2017)
+# Data set: Bodenmiller_BCR_XL
 # 
-# The original 'BCR-XL' data set is sourced from Bodenmiller et al. (2012), and has
-# previously been used for benchmark evaluations by Bruggner et al. (2014) and Nowicka et
-# al. (2017).
-#
-# Raw data downloaded from Cytobank (experiment 15713)
-# - see Citrus wiki (section 'PBMC Example 1'):
-# https://github.com/nolanlab/citrus/wiki/PBMC-Example-1
-# - direct link to Cytobank repository:
-# https://community.cytobank.org/cytobank/experiments/15713/download_files
-#
-# Code in this script is adapted from the workflow paper by Nowicka et al. (2017).
-# Cell population labels are reproduced from Nowicka et al. (2017), where they were
-# generated using a strategy of expert-guided manual merging of automatically generated
-# clusters from the FlowSOM algorithm. 
-# 
-# Lukas Weber, January 2018
+# Script to load data from .fcs files, add meta-data and population labels, and export in
+# 'SummarizedExperiment' and 'flowSet' formats
 ##########################################################################################
 
+
 suppressPackageStartupMessages({
-  library(readxl)
   library(flowCore)
-  library(FlowSOM)
-  library(ConsensusClusterPlus)
   library(SummarizedExperiment)
 })
 
-DIR_RAW_DATA <- "raw_data"
-if (!dir.exists(DIR_RAW_DATA)) dir.create(DIR_RAW_DATA)
 
-####################################################################
-# Run code from first few sections in Nowicka et al. (2017) workflow
-####################################################################
+# ----------------------
+# Download and load data
+# ----------------------
 
-# -----------
-# Data import
-# -----------
-## Load metadata
-url <- "http://imlspenticton.uzh.ch/robinson_lab/cytofWorkflow"
-metadata_filename <- "PBMC8_metadata.xlsx"
-download.file(file.path(url, metadata_filename), destfile = file.path(DIR_RAW_DATA, metadata_filename))
-md <- read_excel(file.path(DIR_RAW_DATA, metadata_filename))
+# create temporary directories
+DIR_TMP <- "tmp"
+dir.create(file.path(DIR_TMP), showWarnings = FALSE)
+dir.create(file.path(DIR_TMP, "fcs_files"), showWarnings = FALSE)
+dir.create(file.path(DIR_TMP, "population_IDs"), showWarnings = FALSE)
 
-## Load .fcs files
-fcs_filename <- "PBMC8_fcs_files.zip"
-download.file(file.path(url, fcs_filename), destfile = file.path(DIR_RAW_DATA, fcs_filename))
-unzip(file.path(DIR_RAW_DATA, fcs_filename), exdir = DIR_RAW_DATA)
-fcs_raw <- read.flowSet(file.path(DIR_RAW_DATA, md$file_name), 
-                        transformation = FALSE, truncate_max_range = FALSE)
+# download from 'imlspenticton' server
+URL <- "http://imlspenticton.uzh.ch/robinson_lab/cytofData/"
 
-## Load panel file
-panel_filename <- "PBMC8_panel.xlsx"
-download.file(file.path(url, panel_filename), destfile = file.path(DIR_RAW_DATA, panel_filename))
-panel <- read_excel(file.path(DIR_RAW_DATA, panel_filename))
+# load .fcs files
+fcs_filename <- "Bodenmiller_BCR_XL_fcs_files.zip"
+download.file(file.path(URL, fcs_filename), destfile = file.path(DIR_TMP, "fcs_files", fcs_filename))
+unzip(file.path(DIR_TMP, "fcs_files", fcs_filename), exdir = file.path(DIR_TMP, "fcs_files"))
 
-# Replace problematic characters
-panel$Antigen <- gsub("-", "_", panel$Antigen)
-panel_fcs <- pData(parameters(fcs_raw[[1]]))
-panel_fcs$desc <- gsub("-", "_", panel_fcs$desc)
+files_load_fcs <- list.files(file.path(DIR_TMP, "fcs_files"), pattern = "\\.fcs$", full.names = TRUE)
 
-# Lineage markers
-(lineage_markers <- panel$Antigen[panel$Lineage == 1])
+data_flowSet <- read.flowSet(files_load_fcs, transformation = FALSE, truncate_max_range = FALSE)
 
-# Functional markers
-(functional_markers <- panel$Antigen[panel$Functional == 1])
+# load population IDs
+pop_filename <- "Bodenmiller_BCR_XL_population_IDs.zip"
+download.file(file.path(URL, pop_filename), destfile = file.path(DIR_TMP, "population_IDs", pop_filename))
+unzip(file.path(DIR_TMP, "population_IDs", pop_filename), exdir = file.path(DIR_TMP, "population_IDs"))
 
-# Spot checks
-stopifnot(all(lineage_markers %in% panel_fcs$desc))
-stopifnot(all(functional_markers %in% panel_fcs$desc))
+files_load_pop <- list.files(file.path(DIR_TMP, "population_IDs"), pattern = "\\.csv$", full.names = TRUE)
 
-# -------------------
-# Data transformation
-# -------------------
-## arcsinh transformation and column subsetting
-fcs <- fsApply(fcs_raw, function(x, cofactor=5){
-  colnames(x) <- panel_fcs$desc
-  expr <- exprs(x)
-  expr <- asinh(expr[, colnames(expr)] / cofactor)
-  exprs(x) <- expr
-  x
-})
+data_population_IDs <- lapply(files_load_pop, read.csv)
 
-# --------------------------------------------------------------------
-# Cell population identification with FlowSOM and ConsensusClusterPlus
-# --------------------------------------------------------------------
-## FlowSOM clustering
-fsom <- ReadInput(fcs, transform = FALSE, scale = FALSE)
-set.seed(1234)
-som <- BuildSOM(fsom, colsToUse = lineage_markers)
+# check numbers of cells match
+stopifnot(all(sapply(seq_along(files_load_fcs), function(i) {
+  nrow(data_population_IDs[[i]]) == nrow(data_flowSet[[i]])
+})))
 
-## Metaclustering into 20 clusters with ConsensusClusterPlus
-codes <- som$map$codes
-plot_outdir <- "consensus_plots"
-nmc <- 20
 
-mc <- ConsensusClusterPlus(t(codes), maxK = nmc, reps = 100,
-                           pItem = 0.9, pFeature = 1, title = plot_outdir, plot = "png",
-                           clusterAlg = "hc", innerLinkage = "average", finalLinkage = "average",
-                           distance = "euclidean", seed = 1234)
+# ----------------------
+# Delete temporary files
+# ----------------------
 
-## Get cluster ids for each cell
-code_clustering1 <- mc[[nmc]]$consensusClass
-cell_clustering1 <- code_clustering1[som$map$mapping[,1]]
+unlink(DIR_TMP, recursive = TRUE)
 
-# ------------------------
-# Cluster merging (manual)
-# ------------------------
 
-## Download manual merging scheme from Nowicka et al. (2017)
-cluster_merging1_filename <- "PBMC8_cluster_merging1.xlsx"
-download.file(file.path(url, cluster_merging1_filename),
-              destfile = file.path(DIR_RAW_DATA, cluster_merging1_filename))
-cluster_merging1 <- read_excel(file.path(DIR_RAW_DATA, cluster_merging1_filename))
+# ------------------
+# Meta-data: samples
+# ------------------
 
-## Convert to factor with merged clusters in correct order
-levels_merged <- c("B-cells IgM+", "B-cells IgM-", "CD4 T-cells", "CD8 T-cells", 
-                   "DC", "NK cells", "monocytes", "surface-")
-cluster_merging1$new_cluster <- factor(cluster_merging1$new_cluster, 
-                                       levels = levels_merged)
+# get meta-data from filenames
 
-## New clustering1m
-mm <- match(cell_clustering1, cluster_merging1$original_cluster)
-cell_clustering1m <- cluster_merging1$new_cluster[mm]
+# check samples are in correct order
+stopifnot(all(pData(data_flowSet)$name == basename(files_load_fcs)))
 
-# ---------------------------
-# Create SummarizedExperiment
-# ---------------------------
-## Generate row (cell) info table
-sample_ids <- rep(gsub("\\.fcs$", "", gsub("^PBMC8_30min_", "", basename(md$file_name))), 
-                  fsApply(fcs_raw, nrow))
-group_ids <- factor(gsub("^patient[0-9+]_", "", sample_ids), 
-                    levels = c("Reference", "BCR-XL"))
-patient_ids <- factor(gsub("_.*$", "", sample_ids))
-row_data <- data.frame(sample_id = sample_ids, group_id = group_ids, 
-                       patient_id = patient_ids, cluster = cell_clustering1, 
-                       population = cell_clustering1m, 
-                       stringsAsFactors = FALSE)
+# sample information
+sample_IDs <- gsub("^PBMC8_30min_", "", gsub("\\.fcs$", "", basename(files_load_fcs)))
+group_IDs <- factor(gsub("^patient[0-9]+_", "", sample_IDs), levels = c("BCR-XL", "Reference"))
+patient_IDs <- factor(gsub("_.*$", "", sample_IDs))
 
-## Extract abundances
-expr <- fsApply(fcs, exprs)
+sample_info <- data.frame(group_IDs, patient_IDs, sample_IDs, stringsAsFactors = FALSE)
 
-bcrxl <- SummarizedExperiment(
-  assays = list(exprs = expr),
-  rowData = row_data,
-  colData = data.frame(marker = colnames(expr),
-                       lineage = colnames(expr) %in% lineage_markers,
-                       functional = colnames(expr) %in% functional_markers,
-                       row.names = colnames(expr),
-                       stringsAsFactors = FALSE)
+
+# ------------------
+# Meta-data: markers
+# ------------------
+
+# additional meta-data to identify 'cell type' and 'cell state' markers
+
+# indices of all marker columns, lineage markers, and functional markers
+# (10 surface markers / 14 functional markers; see Bruggner et al. 2014, Table 1)
+cols_markers <- c(3:4, 7:9, 11:19, 21:22, 24:26, 28:31, 33)
+cols_lineage <- c(3:4, 9, 11, 12, 14, 21, 29, 31, 33)
+cols_func <- setdiff(cols_markers, cols_lineage)
+
+# clean marker names
+marker_names <- colnames(data_flowSet)
+marker_names <- gsub("\\(.*$", "", marker_names)
+
+# marker information
+is_marker <- is_type_marker <- is_state_marker <- rep(FALSE, length(marker_names))
+is_marker[cols_markers] <- TRUE
+is_type_marker[cols_lineage] <- TRUE
+is_state_marker[cols_func] <- TRUE
+
+marker_info <- data.frame(marker_name = marker_names, 
+                          is_marker, is_type_marker, is_state_marker, 
+                          stringsAsFactors = FALSE)
+
+
+# ----------------------------------
+# Create SummarizedExperiment object
+# ----------------------------------
+
+# set up row data
+n_cells <- sapply(as(data_flowSet, "list"), nrow)
+stopifnot(all(names(n_cells) == pData(data_flowSet)$name))
+
+row_data <- as.data.frame(lapply(sample_info, function(col) {
+  as.factor(rep(col, n_cells))
+}))
+
+colnames(row_data) <- gsub("_IDs$", "", colnames(row_data))
+
+stopifnot(nrow(row_data) == sum(n_cells))
+
+# add population IDs
+population <- do.call("rbind", data_population_IDs)
+stopifnot(nrow(population) == sum(n_cells))
+
+row_data <- cbind(row_data, population)
+
+# set up column data
+col_data <- marker_info
+
+# collapse data into a single table of expression values
+d_exprs <- fsApply(data_flowSet, exprs)
+colnames(d_exprs) <- NULL
+
+stopifnot(nrow(d_exprs) == sum(n_cells), 
+          ncol(d_exprs) == nrow(col_data))
+
+# create SummarizedExperiment object
+d_SE <- SummarizedExperiment(
+  d_exprs, 
+  rowData = row_data, 
+  colData = col_data, 
+  metadata = list(sample_info = sample_info)
 )
 
-save(bcrxl, file = "bcrxl.rda")
+
+# --------------
+# Create flowSet
+# --------------
+
+# add sample information as additional columns in the expression data
+
+# (note: additional marker information cannot be included, since marker information is
+# stored in column names only)
+
+# create list of extra columns for each sample
+row_data_FS <- do.call("cbind", lapply(row_data, as.numeric))
+stopifnot(nrow(row_data_FS) == nrow(row_data))
+
+row_data_FS_list <- lapply(split(row_data_FS, row_data$sample), matrix, ncol = ncol(row_data_FS))
+
+# replace column names
+row_data_FS_list <- lapply(row_data_FS_list, function(d) {
+  colnames(d) <- colnames(row_data_FS)
+  d
+})
+
+# create new flowSet object and add extra columns
+data_flowSet_list <- as(data_flowSet, "list")
+
+d_FF <- mapply(function(d, extra_cols) {
+  e <- exprs(d)
+  stopifnot(nrow(e) == nrow(extra_cols))
+  # clean column (marker) names
+  colnames(e) <- gsub("\\(.*$", "", colnames(e))
+  # combine and create flowFrame
+  flowFrame(cbind(e, extra_cols))
+}, data_flowSet_list, row_data_FS_list)
+
+d_FS <- flowSet(d_FF)
+
+
+# ------------
+# Save objects
+# ------------
+
+save(d_SE, file = "Bodenmiller_BCR_XL_SE.rda")
+save(d_FS, file = "Bodenmiller_BCR_XL_flowSet.rda")
+
+
