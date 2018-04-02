@@ -19,7 +19,7 @@ df_Bodenmiller_BCR_XL_SE <- data.frame(
   Maintainer = "Lukas M. Weber <lukmweber@gmail.com>", 
   RDataClass = "SummarizedExperiment", 
   DispatchClass = "Rda", 
-  RDataPath = NA, 
+  RDataPath = "HDCytoData", 
   stringsAsFactors = FALSE
 )
 
