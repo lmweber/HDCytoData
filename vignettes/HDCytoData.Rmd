@@ -59,6 +59,8 @@ The data sets can be loaded either with named functions referring directly to th
 
 For details about the structure of the `SummarizedExperiment` or `flowSet` objects for this data set, see the help file (`?Bodenmiller_BCR_XL`).
 
+Load the data sets using named functions:
+
 ```{r}
 library(HDCytoData)
 
@@ -70,19 +72,20 @@ Bodenmiller_BCR_XL_flowSet()
 ```
 
 
+Alternatively, load the data sets using the `ExperimentHub` interface:
 
 ```{r}
-# Load via ExperimentHub
-eh <- ExperimentHub()
-query(eh, "HDCytoData")
+# Create an ExperimentHub instance
+ehub <- ExperimentHub()
 
-# 'SummarizedExperiment' format
-query(eh, "HDCytoData")[[1]]
-#eh[["HDCytoData"]][[1]]
+# Query ExperimentHub instance to find data sets
+query(ehub, "HDCytoData")
 
-# 'flowSet' format
-query(eh, "HDCytoData")[[2]]
-#eh[["HDCytoData"]][[2]]
+# Load 'SummarizedExperiment' object using index of data set
+ehub[["EH1119"]]
+
+# Load 'flowSet' object using index of data set
+ehub[["EH1120"]]
 ```
 
 
