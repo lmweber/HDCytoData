@@ -64,12 +64,12 @@ eh <- ExperimentHub()
 query(eh, "HDCytoData")
 
 # 'SummarizedExperiment' format
-query(eh, "HDCytoData")[["Bodenmiller_BCR_XL_SE"]]
-#eh[["HDCytoData"]][["Bodenmiller_BCR_XL_SE"]]
+query(eh, "HDCytoData")[[1]]
+#eh[["HDCytoData"]][[1]]
 
 # 'flowSet' format
-query(eh, "HDCytoData")[["Bodenmiller_BCR_XL_flowSet"]]
-#eh[["HDCytoData"]][["Bodenmiller_BCR_XL_flowSet"]]
+query(eh, "HDCytoData")[[2]]
+#eh[["HDCytoData"]][[2]]
 ```
 
 
