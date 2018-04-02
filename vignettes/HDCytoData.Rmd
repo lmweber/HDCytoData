@@ -23,39 +23,52 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
-# HDCytoData data package
 
+# Overview
 
-## Overview
+The `HDCytoData` data package contains a set of publicly available high-dimensional flow cytometry and mass cytometry (CyTOF) data sets, formatted into `SummarizedExperiment` and `flowSet` Bioconductor object formats. The data objects are hosted on the Bioconductor ExperimentHub web resource.
 
-This package contains a set of publicly available high-dimensional cytometry data sets, formatted into `SummarizedExperiment` and `flowSet` objects. The objects contain expression values as well as meta-data including sample IDs, group IDs (where relevant), population labels, and protein marker names.
+The objects contain the cell-level expression values, as well as row and column meta-data, including sample IDs, group IDs, true cell population or cluster labels (where available), protein marker names, and marker information to identify 'cell type' and 'cell state' markers (where relevant).
 
-These data sets have been used in our previous publications for benchmarking evaluations. They are provided here as `SummarizedExperiments` and `flowSets` to make them easier to access for other method developers.
-
-The raw data sets are also available from FlowRepository (see help files for each data set).
+These data sets have been used for benchmarking purposes in our previous work and publications, e.g. to evaluate the performance of clustering algorithms. They are provided here in the `SummarizedExperiment` and `flowSet` formats to make them easier to access.
 
 
 
-## How to load data
+# Data sets
 
-The data sets are stored on Bioconductor's ExperimentHub.
+Currently, the package contains the following data sets:
+
+- Bodenmiller_BCR_XL
+
+Additional details on each data set are included in the help files for the data sets. For each data set, this includes a description of the data set (biological setting, number of samples, number of cells, number and types of protein markers, etc.), as well as an explanation of the object structures, and references and raw data sources.
+
+The help files can be accessed by the data set names, e.g. `?Bodenmiller_BCR_XL`.
+
+
+
+# Example workflow
+
+We demonstrate the use of the `HDCytoData` package with a short example analysis workflow for one of the data sets.
+
+
+## Load data
+
+First, we load one of the data sets.
+
+The data sets can be loaded either with named functions referring directly to the object names, or by using the `ExperimentHub` interface. Both methods are demonstrated below.
+
+For details about the structure of the `SummarizedExperiment` or `flowSet` objects for this data set, see the help file (`?Bodenmiller_BCR_XL`).
 
 ```{r}
-library("HDCytoData")
+library(HDCytoData)
+
+# Load 'SummarizedExperiment' object using named function
+Bodenmiller_BCR_XL_SE()
+
+# Load 'flowSet' object using named function
+Bodenmiller_BCR_XL_flowSet()
 ```
 
-
-The data objects can either be loaded either by referring to the data set name, or by loading via ExperimentHub:
-
-```{r}
-# Load data object by name
-
-# 'SummarizedExperiment' format
-#Bodenmiller_BCR_XL_SE()
-
-# 'flowSet' format
-#Bodenmiller_BCR_XL_flowSet()
-```
 
 
 ```{r}
@@ -72,19 +85,5 @@ query(eh, "HDCytoData")[[2]]
 #eh[["HDCytoData"]][[2]]
 ```
 
-
-
-## Details
-
-Details about each data set are provided in the help files. For example:
-
-```{r}
-?HDCytoData
-#?Bodenmiller_BCR_XL_SE
-#?Bodenmiller_BCR_XL_flowSet
-```
-
-
-Code to generate the data objects from the raw data files is included in `inst/scripts/make-data.R`.
 
 
