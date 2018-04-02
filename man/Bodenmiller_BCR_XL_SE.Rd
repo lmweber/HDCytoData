@@ -50,11 +50,9 @@ Bodenmiller_BCR_XL_SE(metadata = FALSE)
 Bodenmiller_BCR_XL_flowSet(metadata = FALSE)
 }
 \arguments{
-\itemize{
 \item{metadata}{\code{logical} value indicating whether metadata only should be returned, 
 or if the resource (data set) should be loaded. Default behavior (\code{metadata = FALSE}) 
 loads the data set.}
-}
 }
 \examples{
 Bodenmiller_BCR_XL_SE()
