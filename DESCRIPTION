@@ -1,10 +1,17 @@
 Package: HDCytoData
 Title: High-dimensional cytometry data sets in SummarizedExperiment and flowSet formats
 Description: A set of example high-dimensional cytometry data sets, formatted into SummarizedExperiment and flowSet objects, and containing meta-data including sample IDs, group IDs, cluster labels, and protein marker names.
-Version: 0.99.4
+Version: 0.99.5
 Author: Lukas M. Weber <lukmweber@gmail.com>, Charlotte Soneson <charlottesoneson@gmail.com>
 Maintainer: Lukas M. Weber <lukmweber@gmail.com>
 License: MIT + file LICENSE
+biocViews: 
+    ExperimentData, 
+    SingleCellData, 
+    ExpressionData, 
+    Proteome, 
+    FlowCytometryData, 
+    Homo_sapiens_Data
 Depends: ExperimentHub
 Imports: 
     flowCore, 
@@ -16,9 +23,4 @@ Suggests:
     BiocStyle, 
     knitr, 
     rmarkdown
-biocViews: 
-    ExpressionData, 
-    Proteome, 
-    FlowCytometryData, 
-    Homo_sapiens_Data
 NeedsCompilation: no

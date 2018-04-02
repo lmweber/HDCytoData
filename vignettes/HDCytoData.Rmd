@@ -1,4 +1,29 @@
-# HDCytoData
+---
+title: "HDCytoData data package"
+author: 
+  - name: Lukas M. Weber
+    affiliation: 
+      - &id1 "Institute of Molecular Life Sciences, University of Zurich, Zurich, Switzerland"
+      - &id2 "SIB Swiss Institute of Bioinformatics, University of Zurich, Zurich, Switzerland"
+  - name: Charlotte Soneson
+    affiliation: 
+      - *id1
+      - *id2
+package: HDCytoData
+output: 
+  BiocStyle::html_document
+vignette: >
+  %\VignetteIndexEntry{HDCytoData data package}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# HDCytoData data package
 
 
 ## Overview
