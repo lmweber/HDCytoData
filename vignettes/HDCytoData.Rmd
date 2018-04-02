@@ -89,4 +89,14 @@ ehub[["EH1120"]]
 ```
 
 
+## Explore data
+
+Next, we generate some plots to explore the data.
+
+
+## Clustering
+
+Finally, we perform clustering to define cell populations, and compare the clustering results with the reference cell population labels.
+
+
 
