@@ -1,5 +1,7 @@
 # HDCytoData
 
+[![Build Status](https://travis-ci.org/lmweber/HDCytoData.svg?branch=master)](https://travis-ci.org/lmweber/HDCytoData)
+
 ## Overview
 
 This package contains a set of publicly available high-dimensional cytometry data sets, formatted into `SummarizedExperiment` and `flowSet` objects. The objects contain expression values as well as meta-data including sample IDs, group IDs, population labels, and protein marker names.
