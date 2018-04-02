@@ -1,8 +1,8 @@
 Package: HDCytoData
-Version: 0.99.9
+Version: 0.99.10
 Title: Data package of high-dimensional cytometry data sets in SummarizedExperiment and flowSet formats
 Description: Data package containing a set of high-dimensional cytometry data sets saved in SummarizedExperiment and flowSet Bioconductor object formats, and containing meta-data including sample IDs, group IDs, reference population or cluster labels, and protein marker names.
-Authors@R: person("Lukas M.", "Weber", email = "lukmweber@gmail.com", role = c("aut", "cre"), person("Charlotte", "Soneson", email = "charlottesoneson@gmail.com", role = "aut")
+Authors@R: c(person("Lukas M.", "Weber", email = "lukmweber@gmail.com", role = c("aut", "cre")), person("Charlotte", "Soneson", email = "charlottesoneson@gmail.com", role = "aut"))
 URL: https://github.com/lmweber/HDCytoData
 BugReports: https://github.com/lmweber/HDCytoData/issues
 License: MIT + file LICENSE
