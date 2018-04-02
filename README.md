@@ -3,38 +3,32 @@
 [![Build Status](https://travis-ci.org/lmweber/HDCytoData.svg?branch=master)](https://travis-ci.org/lmweber/HDCytoData)
 
 
-Data package containing high-dimensional cytometry data sets saved in Bioconductor object formats.
+## Summary
+
+Data package containing high-dimensional cytometry data sets saved in Bioconductor object formats, hosted on Bioconductor ExperimentHub.
+
+This package contains a set of publicly available high-dimensional flow cytometry and mass cytometry (CyTOF) data sets, which have been formatted into the `SummarizedExperiment` and `flowSet` Bioconductor object formats. The objects contain the cell-level expression values, as well as row and column meta-data, including sample IDs, group IDs, true cell population or cluster labels (where available), and protein marker names.
+
+These data sets have been used in our previous work and publications for benchmarking purposes, e.g. to evaluate the performance of clustering algorithms. They are provided here in the `SummarizedExperiment` and `flowSet` formats to make them easier to access for ourselves and other method developers.
 
 
-## Overview
+## Details
 
-This package contains a set of publicly available high-dimensional cytometry data sets, formatted into `SummarizedExperiment` and `flowSet` objects. The objects contain expression values as well as meta-data including sample IDs, group IDs, population labels, and protein marker names.
-
-These data sets have been used in our previous publications for benchmarking evaluations. They are provided here as `SummarizedExperiments` and `flowSets` to make them easier to access for other method developers.
-
-The raw data sets are also available from FlowRepository (see help files for each data set).
+For additional details, including references and raw data sources, see the help files for each data set.
 
 
-## How to load data
+## Tutorial and example workflow
 
-The data objects are stored on Bioconductor's ExperimentHub. To load the data objects, first install the `HDCytoData` package:
+For a short example workflow demonstrating how to load the data objects and use them in an analysis workflow, see the package vignette.
+
+
+## Availability and installation
+
+The `HDCytoData` package is available as an experiment data package from Bioconductor. It can be installed using the Bioconductor installer (`biocLite`):
 
 ```{r}
 source("https://bioconductor.org/biocLite.R")
 biocLite("HDCytoData")
 ```
 
-Then, the data sets can be loaded by referring to the object names:
-
-```{r}
-library("HDCytoData")
-
-# 'SummarizedExperiment' format
-Bodenmiller_BCR_XL_SE()
-
-# 'flowSet' format
-Bodenmiller_BCR_XL_flowSet()
-```
-
-Alternatively, the data sets can be loaded via ExperimentHub. See the package vignette for details.
 
