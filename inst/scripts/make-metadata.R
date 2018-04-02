@@ -19,13 +19,14 @@ df_Bodenmiller_BCR_XL_SE <- data.frame(
   Maintainer = "Lukas M. Weber <lukmweber@gmail.com>", 
   RDataClass = "SummarizedExperiment", 
   DispatchClass = "Rda", 
-  RDataPath = "HDCytoData", 
+  RDataPath = "HDCytoData/Bodenmiller_BCR_XL_SE.rda", 
   stringsAsFactors = FALSE
 )
 
 df_Bodenmiller_BCR_XL_flowSet <- df_Bodenmiller_BCR_XL_SE
 df_Bodenmiller_BCR_XL_flowSet$Title <- "Bodenmiller_BCR_XL_flowSet"
 df_Bodenmiller_BCR_XL_flowSet$RDataClass <- "flowSet"
+df_Bodenmiller_BCR_XL_flowSet$RDataPath <- "HDCytoData/Bodenmiller_BCR_XL_flowSet.rda"
 
 df_all <- rbind(
   df_Bodenmiller_BCR_XL_SE, 
