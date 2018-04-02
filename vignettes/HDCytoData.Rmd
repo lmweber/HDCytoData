@@ -51,24 +51,25 @@ The data objects can either be loaded either by referring to the data set name, 
 # Load data object by name
 
 # 'SummarizedExperiment' format
-Bodenmiller_BCR_XL_SE()
+#Bodenmiller_BCR_XL_SE()
 
 # 'flowSet' format
-Bodenmiller_BCR_XL_flowSet()
+#Bodenmiller_BCR_XL_flowSet()
 ```
 
 
 ```{r}
 # Load via ExperimentHub
 eh <- ExperimentHub()
+query(eh, "HDCytoData")
 
 # 'SummarizedExperiment' format
-query(eh, "Bodenmiller_BCR_XL_SE")
-eh[["Bodenmiller_BCR_XL_SE"]]
+query(eh, "HDCytoData")[["Bodenmiller_BCR_XL_SE"]]
+#eh[["HDCytoData"]][["Bodenmiller_BCR_XL_SE"]]
 
 # 'flowSet' format
-query(eh, "Bodenmiller_BCR_XL_flowSet")
-eh[["Bodenmiller_BCR_XL_flowSet"]]
+query(eh, "HDCytoData")[["Bodenmiller_BCR_XL_flowSet"]]
+#eh[["HDCytoData"]][["Bodenmiller_BCR_XL_flowSet"]]
 ```
 
 
@@ -78,7 +79,9 @@ eh[["Bodenmiller_BCR_XL_flowSet"]]
 Details about each data set are provided in the help files. For example:
 
 ```{r}
-Bodenmiller_BCR_XL_SE
+?HDCytoData
+#?Bodenmiller_BCR_XL_SE
+#?Bodenmiller_BCR_XL_flowSet
 ```
 
 
