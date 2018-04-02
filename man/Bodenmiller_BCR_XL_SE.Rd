@@ -42,7 +42,7 @@ The expression values are formatted as a single table (i.e. the 16 samples are s
 single matrix).
 
 For the \code{flowSet}, the row meta-data is stored as additional columns of data within the 
-\code{\link[flowFrame]{flowFrame}} object for each sample. The row meta-data includes group IDs, 
+\code{\link[flowCore]{flowFrame}} object for each sample. The row meta-data includes group IDs, 
 patient IDs, sample IDs, and reference population or cluster IDs. Note that the factor values 
 are converted to numeric values, since the tables of expression values must be numeric matrices. 
 The column meta-data consists of marker names only, which are stored in the column names of 
