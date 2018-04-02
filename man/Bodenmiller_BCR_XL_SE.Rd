@@ -39,7 +39,7 @@ protein marker names, and logical vectors indicating all markers, 'cell type' ma
 state' markers. The expression values are formatted as a single table (i.e. the 16 samples are 
 stacked together into one table of values).
 
-For the 'flowSet', the row meta-data is stored as additional columns within the in the 'flowFrame' 
+For the 'flowSet', the row meta-data is stored as additional columns within the 'flowFrame' 
 object for each sample. The protein marker names are stored in the column names of the tables of values 
 (it is not possible to include additional information in the column names to identify the 
 'cell type' and 'cell state' markers). The expression values are formatted into one table per 
