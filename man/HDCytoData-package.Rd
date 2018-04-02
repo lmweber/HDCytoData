@@ -2,24 +2,40 @@
 \docType{data}
 \alias{HDCytoData}
 \alias{HDCytoData-package}
-\title{High-dimensional cytometry data sets in 'SummarizedExperiment' and 'flowSet' formats}
+\title{
+Data package of high-dimensional cytometry data sets
+}
 \description{
-A set of publicly available high-dimensional cytometry data sets, formatted into 'SummarizedExperiment' 
-and 'flowSet' objects, containing expression values as well as meta-data including sample IDs, 
-group IDs, population labels, and protein marker names.
+Data package containing high-dimensional cytometry data sets saved in 
+\code{\link[SummarizedExperiment]{SummarizedExperiment}} and \code{\link[flowCore]{flowSet}} 
+Bioconductor object formats, hosted on Bioconductor ExperimentHub.
 }
 \details{
-This package contains a set of publicly available high-dimensional cytometry data sets, formatted 
-into 'SummarizedExperiment' and 'flowSet' objects. The objects contain expression values as 
-well as meta-data including sample IDs, group IDs (where relevant), population labels, and 
-protein marker names.
+This package contains a set of publicly available high-dimensional flow cytometry and mass 
+cytometry (CyTOF) data sets, which have been formatted into the 
+\code{\link[SummarizedExperiment]SummarizedExperiment}} and 
+\code{\link[flowCore]flowSet}] Bioconductor object formats.
 
-These data sets have been used in our previous publications for benchmarking evaluations. 
-They are provided here as 'SummarizedExperiments' and 'flowSets' to make them easier to access 
-for other method developers.
+The objects contain the cell-level expression values, as well as row and column meta-data, 
+including sample IDs, group IDs, true cell population or cluster labels (where available), 
+and protein marker names.
 
-For details on each data set, see the individual help files for each data set.
+These data sets have been used in our previous work and publications for benchmarking purposes, 
+e.g. to evaluate the performance of clustering algorithms. They are provided here in the 
+\code{SummarizedExperiment} and \code{flowSet} formats to make them easier to access.
 
-The steps to prepare each data set are included in the script \code{inst/scripts/make-data.R}
+Currently, the package contains the following data set:
+\itemize{
+\item \code{\link{Bodenmiller_BCR_XL}}
+}
+
+For additional details on each data set, including references and raw data sources, see the 
+help files for the data sets.
+
+For a short example workflow demonstrating how to load the data objects and use them in an 
+analysis workflow, see the package vignette.
+
+The steps to prepare each data object from the raw data files are included in the script 
+\code{inst/scripts/make-data.R}
 }
 \keyword{datasets}

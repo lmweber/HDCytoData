@@ -1,65 +1,93 @@
-\name{Bodenmiller_BCR_XL_SE}
+\name{Bodenmiller_BCR_XL}
 \docType{data}
+\alias{Bodenmiller_BCR_XL}
 \alias{Bodenmiller_BCR_XL_SE}
 \alias{Bodenmiller_BCR_XL_flowSet}
-\title{'Bodenmiller_BCR_XL' data set}
+\title{
+'Bodenmiller_BCR_XL' data set
+}
 \description{
-Mass cytometry data set from Bodenmiller et al. (2012), consisting of paired samples of healthy 
-PBMCs in unstimulated and BCR-XL stimulated condition.
+Mass cytometry (CyTOF) data set from Bodenmiller et al. (2012), consisting of paired samples 
+of healthy immune cells in unstimulated and BCR-XL stimulated condition.
 }
 \details{
-Mass cytometry data set from Bodenmiller et al. (2012), consisting of paired samples of healthy 
-peripheral blood mononuclear cells (PBMCs), where one sample from each pair was stimulated with 
-B cell receptor / Fc receptor cross-linker (BCR-XL). This induces a strong differential signal 
-for several differential state markers. The strongest observed signal is for phosphorylated 
-S6 (pS6) in B cells.
+This is a mass cytometry (CyTOF) data set originally from Bodenmiller et al. (2012). The data 
+set consists of paired samples of healthy peripheral blood mononuclear cells (PBMCs), where 
+one sample from each pair was stimulated with B cell receptor / Fc receptor cross-linker (BCR-XL). 
+This creates a strong differential expression signal for several signaling markers in several 
+cell populations, especially B cells. The strongest observed differential signal is for the 
+signaling marker phosphorylated S6 (pS6) in B cells (see Nowicka et al., 2017, Figure 29).
 
-Contains 16 samples (8 paired samples); 24 protein markers, consisting of 10 'cell type' 
-markers and 14 'cell state' markers; 172,791 cells in total.
+The data set contains 16 samples (8 paired samples); a total of 172,791 cells; and a total of 
+24 protein markers. The markers consist of 10 'cell type' markers (which can be used to define 
+cell populations or clusters), and 14 'cell state' or signaling markers.
 
-This data set has previously been used for benchmarking evaluations by Bruggner et al. (2014) 
-and Nowicka et al. (2017).
+Reference cell population or cluster labels are available from Nowicka et al. (2017), where 
+these were generated using a strategy of expert-guided manual merging of automatically generated 
+clusters from the FlowSOM clustering algorithm (Van Gassen et al., 2015).
 
-Raw data files are available from Cytobank, experiment 15713 
-(https://community.cytobank.org/cytobank/experiments/15713/download_files; see also Citrus wiki, 
-section 'PBMC Example 1': https://github.com/nolanlab/citrus/wiki/PBMC-Example-1).
+The data set is provided in two Bioconductor object formats: 
+\code{\link[SummarizedExperiment]SummarizedExperiment}} and \code{\link[flowCore]flowSet}}. 
+In each case, cells are stored in rows, and protein markers in columns (this is the usual format 
+used for flow and mass cytometry data).
 
-The population labels (which can be used to compare with clustering results) are sourced from 
-Nowicka et al. (2017), where they were generated using a strategy of expert-guided manual merging 
-of automatically generated clusters from the FlowSOM algorithm (Van Gassen et al., 2015).
+For the \code{SummarizedExperiment}, row and column meta-data can be accessed with the 
+\code{\link[SummarizedExperiment]{rowData}} and \code{\link[SummarizedExperiment]{colData}} 
+accessor functions from the \code{SummarizedExperiment} package. The row data contains 
+group IDs, patient IDs, sample IDs, and reference population or cluster IDs. The column data 
+contains protein marker names, and logical vectors indicating all markers, 'cell type' markers 
+(which are used to define cell populations), and 'cell state' markers (used to define signaling 
+states). The expression values for each cell can be accessed with \code{\link[SummarizedExperiment]{assay}}. 
+The expression values are formatted as a single table (i.e. the 16 samples are stacked into a 
+single matrix).
 
-The data set is provided in two formats: 'SummarizedExperiment' and 'flowSet'. In each case, 
-cells are stored in rows, and protein markers in columns (this is the usual format used for flow 
-cytometry data).
+For the \code{flowSet}, the row meta-data is stored as additional columns of data within the 
+\code{\link[flowFrame]flowFrame}} object for each sample. The row meta-data includes group IDs, 
+patient IDs, sample IDs, and reference population or cluster IDs. Note that the factor values 
+are converted to numeric values, since the tables of expression values must be numeric matrices. 
+The column meta-data consists of marker names only, which are stored in the column names of 
+the \code{flowFrame} object for each sample (column names cannot contain multiple entries, so 
+the column meta-data to identify marker columns, 'cell type' markers, and 'cell state' markers 
+is not included). The expression values for each cell are stored in the remaining columns of 
+the \code{flowFrame} object for each sample. The tables of expression values can be accessed 
+with the \code{\link[flowCore]{exprs}} function from the \code{\link[flowCore]{flowCore}} package. 
+The expression values are stored in one table per sample (i.e. one \code{flowFrame} object per 
+sample, within the overall \code{flowSet} object).
 
-For the 'SummarizedExperiment', row and column meta-data can be accessed with 
-\code{rowData(Bodenmiller_BCR_XL_SE)} and \code{colData(Bodenmiller_BCR_XL_SE)}. The row meta-data 
-contains group IDs, patient IDs, sample IDs, and population IDs. The column meta-data contains 
-protein marker names, and logical vectors indicating all markers, 'cell type' markers, and 'cell 
-state' markers. The expression values are formatted as a single table (i.e. the 16 samples are 
-stacked together into one table of values).
+Prior to performing any analysis, the expression values should be transformed. A standard 
+transformation used for mass cytometry data is the \code{arcsinh} with \code{cofactor = 5}. 
+See the vignette for an example.
 
-For the 'flowSet', the row meta-data is stored as additional columns within the 'flowFrame' 
-object for each sample. The protein marker names are stored in the column names of the tables of values 
-(it is not possible to include additional information in the column names to identify the 
-'cell type' and 'cell state' markers). The expression values are formatted into one table per 
-sample, where each table represents a 'flowFrame' within the overall 'flowSet' object.
+Raw data files for the original data set are available from Cytobank, experiment 15713 
+(https://community.cytobank.org/cytobank/experiments/15713/download_files; additional information 
+is also available from the \code{Citrus} wiki page at: https://github.com/nolanlab/citrus/wiki/PBMC-Example-1).
 }
 \usage{
 Bodenmiller_BCR_XL_SE(metadata = FALSE)
 Bodenmiller_BCR_XL_flowSet(metadata = FALSE)
 }
 \arguments{
-\item{metadata}{\code{logical} value indicating whether metadata only should be returned, 
-or if the resource (data set) should be loaded. Default behavior (\code{metadata = FALSE}) 
-loads the data set.}
+\item{metadata}{\code{logical} value indicating whether ExperimentHub metadata (describing the 
+overall data set) should be returned only, or if the whole data set should be loaded. Default = FALSE, 
+which loads the data set.}
 }
 \examples{
 Bodenmiller_BCR_XL_SE()
 Bodenmiller_BCR_XL_flowSet()
 }
-\value{A 'SummarizedExperiment' or 'flowSet' object.}
+\value{Returns a \code{SummarizedExperiment} or \code{flowSet} object.}
 \references{
-Bodenmiller et al. (2012); Nowicka et al. (2017)
+Bodenmiller, B., Zunder, E. R., Finck, R., Chen, T. J., Savig, E. S., Bruggner, R. V., 
+Simonds, E. F., Bendall, S. C., Sachs, K., Krutzik, P. O., and Nolan, G. P. (2012). \emph{Multiplexed 
+mass cytometry profiling of cellular states perturbed by small-molecule regulators.} Nature 
+Biotechnology, 30(9):858-867.
+
+Nowicka, M., Krieg, C., Weber, L. M., Hartmann, F. J., Guglietta, S., Becher, B., 
+Levesque, M. P., and Robinson, M. D. (2017). \emph{CyTOF workflow: differential discovery in 
+high-throughput high-dimensional cytometry datasets.} F1000Research.
+
+Van Gassen, S., Callebaut, B., Van Helden, M. J., Lambrecht, B. N., Demeester, P., Dhaene, T., 
+and Saeys, Y. (2015). \emph{FlowSOM: Using Self-Organizing Maps for Visualization and Interpretation 
+of Cytometry Data.} Cytometry Part A, 87A:636-645.
 }
 \keyword{datasets}
