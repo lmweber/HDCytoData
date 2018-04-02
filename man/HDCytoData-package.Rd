@@ -20,11 +20,11 @@ The objects contain the cell-level expression values, as well as row and column 
 including sample IDs, group IDs, true cell population or cluster labels (where available), 
 and protein marker names.
 
-These data sets have been used in our previous work and publications for benchmarking purposes, 
+These data sets have been used for benchmarking purposes in our previous work and publications, 
 e.g. to evaluate the performance of clustering algorithms. They are provided here in the 
 \code{SummarizedExperiment} and \code{flowSet} formats to make them easier to access.
 
-Currently, the package contains the following data set:
+Currently, the package contains the following data sets:
 \itemize{
 \item \code{\link{Bodenmiller_BCR_XL}}
 }

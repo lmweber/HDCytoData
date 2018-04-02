@@ -12,10 +12,11 @@ biocViews:
     Proteome, 
     FlowCytometryData, 
     Homo_sapiens_Data
-Depends: ExperimentHub
-Imports: 
-    flowCore, 
+Depends: 
+    ExperimentHub, 
     SummarizedExperiment, 
+    flowCore
+Imports: 
     utils, 
     methods
 VignetteBuilder: knitr
