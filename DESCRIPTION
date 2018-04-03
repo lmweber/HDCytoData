@@ -8,7 +8,6 @@ BugReports: https://github.com/lmweber/HDCytoData/issues
 License: MIT + file LICENSE
 biocViews: 
     ExperimentData, 
-    SingleCellData, 
     ExpressionData, 
     Proteome, 
     FlowCytometryData, 
