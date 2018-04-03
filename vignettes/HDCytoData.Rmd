@@ -46,16 +46,11 @@ The help files can be accessed by the data set names, e.g. `?Bodenmiller_BCR_XL`
 
 
 
-# Example workflow
+# How to load data
 
-We demonstrate the use of the `HDCytoData` package with a short example analysis workflow for one of the data sets.
+First, we show how to load the data sets.
 
-
-## Load data
-
-First, we load one of the data sets.
-
-The data sets can be loaded either with named functions referring directly to the object names, or by using the `ExperimentHub` interface. Both methods are demonstrated below.
+The data sets can be loaded either with named functions referring directly to the object names, or by using the `ExperimentHub` interface. Both methods are demonstrated below, using the `Bodenmiller_BCR_XL` data set as an example.
 
 For details about the structure of the `SummarizedExperiment` or `flowSet` objects for this data set, see the help file (`?Bodenmiller_BCR_XL`).
 
@@ -89,14 +84,70 @@ ehub[["EH1120"]]
 ```
 
 
+
+# Example workflow
+
+We demonstrate the use of the `HDCytoData` package with a short example analysis workflow for one of the data sets.
+
+
+## Load data
+
+We load the data in `SummarizedExperiment` format for the example workflow.
+
+```{r}
+# Load data set in 'SummarizedExperiment' format
+d_SE <- Bodenmiller_BCR_XL_SE()
+
+# Inspect the object
+d_SE
+assay(d_SE)[1:6, 1:6]
+rowData(d_SE)
+colData(d_SE)
+```
+
+
+## Transform data
+
+Flow and mass cytometry data should be transformed before performing any analysis. For mass cytometry (CyTOF), a commonly used standard transformation is the `arcsinh` with parameter `cofactor = 5`. (For flow cytometry, `cofactor = 150` can be used.) This brings the marker expression profiles closer to normal distributions, which improves clustering performance and visualizations.
+
+We apply the `arcsinh` transform with `cofactor = 5` to all protein marker columns.
+
+```{r}
+# Apply transformation to marker columns
+cofactor <- 5
+cols <- colData(d_SE)$is_marker
+assay(d_SE)[, cols] <- asinh(assay(d_SE)[, cols] / cofactor)
+
+summary(assay(d_SE))
+```
+
+
 ## Explore data
 
-Next, we generate some plots to explore the data.
+Generate some plots to explore the data.
+
+```{r}
+# Marker expression profiles
+
+
+# Multi-dimensional scaling (MDS) plot
+
+
+```
 
 
 ## Clustering
 
 Finally, we perform clustering to define cell populations, and compare the clustering results with the reference cell population labels.
 
+```{r}
+# Run clustering
+
+
+# t-SNE plot with cluster labels
+
+
+# t-SNE plot with true population labels
+```
 
 
