@@ -52,12 +52,12 @@ First, we show how to load the data sets.
 
 The data sets can be loaded either with named functions referring directly to the object names, or by using the `ExperimentHub` interface. Both methods are demonstrated below, using the `Bodenmiller_BCR_XL` data set as an example.
 
-For details about the structure of the `SummarizedExperiment` or `flowSet` objects for this data set, see the help file (`?Bodenmiller_BCR_XL`).
+See the help file (`?Bodenmiller_BCR_XL`) for details about the structure of the `SummarizedExperiment` or `flowSet` objects for this data set.
 
 Load the data sets using named functions:
 
 ```{r}
-library(HDCytoData)
+suppressPackageStartupMessages(library(HDCytoData))
 
 # Load 'SummarizedExperiment' object using named function
 Bodenmiller_BCR_XL_SE()
@@ -118,21 +118,23 @@ cofactor <- 5
 cols <- colData(d_SE)$is_marker
 assay(d_SE)[, cols] <- asinh(assay(d_SE)[, cols] / cofactor)
 
-summary(assay(d_SE))
+summary(assay(d_SE)[, 1:10])
 ```
 
 
 ## Explore data
 
-Generate some plots to explore the data. We generate a density plot of the (transformed) marker expression profiles, and a multi-dimensional scaling (MDS) plot to summarize the overall similarity of marker expression profiles between samples. (MDS plots are especially useful for identifying unknown batch effects.)
+Next, generate some plots to explore the data.
+
+We generate a density plot of the (transformed) marker expression profiles, and a multi-dimensional scaling (MDS) plot to summarize the overall similarity of marker expression profiles between samples. (MDS plots are especially useful for identifying unknown batch effects.)
 
 ```{r}
-library(reshape2)
-library(dplyr)
-library(magrittr)
-library(ggplot2)
-library(ggridges)
-library(edgeR)
+suppressPackageStartupMessages(library(reshape2))
+suppressPackageStartupMessages(library(dplyr))
+suppressPackageStartupMessages(library(magrittr))
+suppressPackageStartupMessages(library(ggplot2))
+suppressPackageStartupMessages(library(ggridges))
+suppressPackageStartupMessages(library(edgeR))
 
 
 # ----------------------------------
@@ -194,15 +196,15 @@ legend("bottomright", legend = c("BCR-XL", "Reference"),
 
 ## Clustering
 
-We perform clustering to define cell populations, and compare the clustering results with the reference cell population labels. We use the [FlowSOM](http://bioconductor.org/packages/release/bioc/html/FlowSOM.html) clustering algorithm (Van Gassen et al., 2015), which is available from Bioconductor.
+We perform clustering to define cell populations, and compare the clustering results with the reference cell population labels. We use the [FlowSOM](http://bioconductor.org/packages/release/bioc/html/FlowSOM.html) clustering algorithm (Van Gassen et al., 2015), available from Bioconductor.
 
 We use t-SNE plots to visualize the clustering results. Note that the t-SNE plots show only a subset of cells, to speed up runtime.
 
 Since we are interested in cell populations (not cell states), we use only 'cell type' markers for the clustering and t-SNE plots.
 
 ```{r}
-library(FlowSOM)
-library(Rtsne)
+suppressPackageStartupMessages(library(FlowSOM))
+suppressPackageStartupMessages(library(Rtsne))
 
 
 # --------------
