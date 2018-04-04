@@ -124,30 +124,162 @@ summary(assay(d_SE))
 
 ## Explore data
 
-Generate some plots to explore the data.
+Generate some plots to explore the data. We generate a density plot of the (transformed) marker expression profiles, and a multi-dimensional scaling (MDS) plot to summarize the overall similarity of marker expression profiles between samples. (MDS plots are especially useful for identifying unknown batch effects.)
 
 ```{r}
-# Marker expression profiles
+library(reshape2)
+library(dplyr)
+library(magrittr)
+library(ggplot2)
+library(ggridges)
+library(edgeR)
 
 
+# ----------------------------------
+# Plot of marker expression profiles
+# ----------------------------------
+
+d_plot <- as.data.frame(assay(d_SE)[, colData(d_SE)$is_marker])
+colnames(d_plot) <- colData(d_SE)$marker_name[colData(d_SE)$is_marker]
+d_plot <- as.data.frame(cbind(d_plot, rowData(d_SE)))
+
+d_plot <- melt(d_plot, id.vars = colnames(rowData(d_SE)), 
+               variable.name = "marker", value.name = "expression")
+d_plot$marker <- factor(
+  d_plot$marker, levels = rev(sort(unique(as.character(d_plot$marker))))
+)
+d_plot$is_type_marker <- 
+  d_plot$marker %in% colData(d_SE)$marker_name[colData(d_SE)$is_type_marker]
+d_plot$marker_type <- factor(
+  ifelse(d_plot$is_type_marker, "cell type", "cell state"), 
+  levels = c("cell type", "cell state")
+)
+
+# create plot
+ggplot(d_plot, aes(x = expression, y = marker, fill = group)) + 
+  facet_wrap(~ marker_type, scales = "free") + 
+  geom_density_ridges(alpha = 0.5) + 
+  scale_fill_manual(values = c("orangered", "royalblue")) + 
+  theme_bw()
+
+
+# ------------------------------------
 # Multi-dimensional scaling (MDS) plot
+# ------------------------------------
 
+d_plot <- as.data.frame(assay(d_SE)[, colData(d_SE)$is_marker])
+colnames(d_plot) <- colData(d_SE)$marker_name[colData(d_SE)$is_marker]
+d_plot <- as.data.frame(cbind(d_plot, sample = rowData(d_SE)$sample))
 
+d_plot <- 
+  d_plot %>% 
+  group_by(sample) %>% 
+  summarize_all(median)
+
+sample_names <- d_plot$sample
+d_plot <- t(d_plot[, -which(colnames(d_plot) == "sample")])
+colnames(d_plot) <- sample_names
+
+colors <- ifelse(grepl("Reference", sample_names), 
+                 "royalblue", "orangered")
+
+# create plot
+plotMDS(d_plot, col = colors, 
+        xlab = "MDS dimension 1", ylab = "MDS dimension 2")
+title("Multi-dimensional scaling (MDS) plot")
+legend("bottomright", legend = c("BCR-XL", "Reference"), 
+       pch = 16, col = c("orangered", "royalblue"))
 ```
 
 
 ## Clustering
 
-Finally, we perform clustering to define cell populations, and compare the clustering results with the reference cell population labels.
+We perform clustering to define cell populations, and compare the clustering results with the reference cell population labels. We use the [FlowSOM](http://bioconductor.org/packages/release/bioc/html/FlowSOM.html) clustering algorithm (Van Gassen et al., 2015), which is available from Bioconductor.
+
+We use t-SNE plots to visualize the clustering results. Note that the t-SNE plots show only a subset of cells, to speed up runtime.
+
+Since we are interested in cell populations (not cell states), we use only 'cell type' markers for the clustering and t-SNE plots.
 
 ```{r}
+library(FlowSOM)
+library(Rtsne)
+
+
+# --------------
 # Run clustering
+# --------------
+
+d_FlowSOM <- as.matrix(assay(d_SE)[, colData(d_SE)$is_type_marker])
+colnames(d_FlowSOM) <- colData(d_SE)$marker_name[colData(d_SE)$is_type_marker]
+d_FlowSOM <- flowFrame(d_FlowSOM)
+
+set.seed(123)
+out <- ReadInput(d_FlowSOM, transform = FALSE, scale = FALSE)
+out <- BuildSOM(out, colsToUse = NULL)
+
+labels_pre <- out$map$mapping[, 1]
+
+# number of meta-clusters
+k <- 20
+out <- metaClustering_consensus(out$map$codes, k = k, seed = 123)
+
+labels <- out[labels_pre]
+
+# check meta-cluster labels
+table(labels)
 
 
+# ------------------------------
 # t-SNE plot with cluster labels
+# ------------------------------
+
+d_Rtsne <- as.matrix(assay(d_SE)[, colData(d_SE)$is_type_marker])
+colnames(d_Rtsne) <- colData(d_SE)$marker_name[colData(d_SE)$is_type_marker]
+
+# subsampling
+n_sub <- 1000
+set.seed(123)
+ix <- sample(seq_along(labels), n_sub)
+
+d_Rtsne <- d_Rtsne[ix, ]
+labels <- labels[ix]
+
+# remove any duplicate rows (required by Rtsne)
+dups <- duplicated(d_Rtsne)
+
+d_Rtnse <- d_Rtsne[!dups, ]
+labels <- labels[!dups]
+
+# run Rtsne
+set.seed(123)
+out_Rtsne <- Rtsne(d_Rtsne, pca = FALSE, verbose = TRUE)
+
+d_plot <- as.data.frame(out_Rtsne$Y)
+colnames(d_plot) <- c("tSNE_1", "tSNE_2")
+d_plot$cluster <- as.factor(labels)
+
+# create plot
+ggplot(d_plot, aes(x = tSNE_1, y = tSNE_2, color = cluster)) + 
+  geom_point() + 
+  ggtitle("t-SNE plot: clustering") + 
+  xlab("t-SNE dimension 1") + 
+  ylab("t-SNE dimension 2") + 
+  theme_classic()
 
 
-# t-SNE plot with true population labels
+# -------------------------------------------
+# t-SNE plot with reference population labels
+# -------------------------------------------
+
+d_plot$population <- rowData(d_SE)$population[ix][!dups]
+
+# create plot
+ggplot(d_plot, aes(x = tSNE_1, y = tSNE_2, color = population)) + 
+  geom_point() + 
+  ggtitle("t-SNE plot: reference populations") + 
+  xlab("t-SNE dimension 1") + 
+  ylab("t-SNE dimension 2") + 
+  theme_classic()
 ```
 
 

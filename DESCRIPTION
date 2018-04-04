@@ -23,4 +23,12 @@ VignetteBuilder: knitr
 Suggests: 
     BiocStyle, 
     knitr, 
-    rmarkdown
+    rmarkdown, 
+    reshape2, 
+    dplyr, 
+    magrittr, 
+    ggplot2, 
+    ggridges, 
+    edgeR, 
+    FlowSOM, 
+    Rtsne
