@@ -112,7 +112,7 @@ Flow and mass cytometry data should be transformed before performing any analysi
 
 We apply the `arcsinh` transform with `cofactor = 5` to all protein marker columns.
 
-```{r, eval = FALSE}
+```{r}
 # Apply transformation to marker columns
 cofactor <- 5
 cols <- colData(d_SE)$is_marker
@@ -128,7 +128,7 @@ Next, generate some plots to explore the data.
 
 We generate a density plot of the (transformed) marker expression profiles, and a multi-dimensional scaling (MDS) plot to summarize the overall similarity of marker expression profiles between samples. (MDS plots are especially useful for identifying unknown batch effects.)
 
-```{r, eval = FALSE}
+```{r}
 suppressPackageStartupMessages(library(reshape2))
 suppressPackageStartupMessages(library(dplyr))
 suppressPackageStartupMessages(library(magrittr))
@@ -202,7 +202,7 @@ We use t-SNE plots to visualize the clustering results. Note that the t-SNE plot
 
 Since we are interested in cell populations (not cell states), we use only 'cell type' markers for the clustering and t-SNE plots.
 
-```{r, eval = FALSE}
+```{r}
 suppressPackageStartupMessages(library(FlowSOM))
 suppressPackageStartupMessages(library(Rtsne))
 
@@ -253,35 +253,35 @@ d_Rtnse <- d_Rtsne[!dups, ]
 labels <- labels[!dups]
 
 # run Rtsne
-set.seed(123)
-out_Rtsne <- Rtsne(d_Rtsne, pca = FALSE, verbose = TRUE)
-
-d_plot <- as.data.frame(out_Rtsne$Y)
-colnames(d_plot) <- c("tSNE_1", "tSNE_2")
-d_plot$cluster <- as.factor(labels)
-
-# create plot
-ggplot(d_plot, aes(x = tSNE_1, y = tSNE_2, color = cluster)) + 
-  geom_point() + 
-  ggtitle("t-SNE plot: clustering") + 
-  xlab("t-SNE dimension 1") + 
-  ylab("t-SNE dimension 2") + 
-  theme_classic()
+# set.seed(123)
+# out_Rtsne <- Rtsne(d_Rtsne, pca = FALSE, verbose = TRUE)
+# 
+# d_plot <- as.data.frame(out_Rtsne$Y)
+# colnames(d_plot) <- c("tSNE_1", "tSNE_2")
+# d_plot$cluster <- as.factor(labels)
+# 
+# # create plot
+# ggplot(d_plot, aes(x = tSNE_1, y = tSNE_2, color = cluster)) +
+#   geom_point() +
+#   ggtitle("t-SNE plot: clustering") +
+#   xlab("t-SNE dimension 1") +
+#   ylab("t-SNE dimension 2") +
+#   theme_classic()
 
 
 # -------------------------------------------
 # t-SNE plot with reference population labels
 # -------------------------------------------
 
-d_plot$population <- rowData(d_SE)$population[ix][!dups]
-
-# create plot
-ggplot(d_plot, aes(x = tSNE_1, y = tSNE_2, color = population)) + 
-  geom_point() + 
-  ggtitle("t-SNE plot: reference populations") + 
-  xlab("t-SNE dimension 1") + 
-  ylab("t-SNE dimension 2") + 
-  theme_classic()
+# d_plot$population <- rowData(d_SE)$population[ix][!dups]
+# 
+# # create plot
+# ggplot(d_plot, aes(x = tSNE_1, y = tSNE_2, color = population)) + 
+#   geom_point() + 
+#   ggtitle("t-SNE plot: reference populations") + 
+#   xlab("t-SNE dimension 1") + 
+#   ylab("t-SNE dimension 2") + 
+#   theme_classic()
 ```
 
 
