@@ -122,78 +122,6 @@ summary(assay(d_SE)[, 1:10])
 ```
 
 
-## Explore data
-
-Next, generate some plots to explore the data.
-
-We generate a density plot of the (transformed) marker expression profiles, and a multi-dimensional scaling (MDS) plot to summarize the overall similarity of marker expression profiles between samples. (MDS plots are especially useful for identifying unknown batch effects.)
-
-```{r}
-suppressPackageStartupMessages(library(reshape2))
-suppressPackageStartupMessages(library(dplyr))
-suppressPackageStartupMessages(library(magrittr))
-suppressPackageStartupMessages(library(ggplot2))
-suppressPackageStartupMessages(library(ggridges))
-suppressPackageStartupMessages(library(edgeR))
-
-
-# ----------------------------------
-# Plot of marker expression profiles
-# ----------------------------------
-
-d_plot <- as.data.frame(assay(d_SE)[, colData(d_SE)$is_marker])
-colnames(d_plot) <- colData(d_SE)$marker_name[colData(d_SE)$is_marker]
-d_plot <- as.data.frame(cbind(d_plot, rowData(d_SE)))
-
-d_plot <- melt(d_plot, id.vars = colnames(rowData(d_SE)), 
-               variable.name = "marker", value.name = "expression")
-d_plot$marker <- factor(
-  d_plot$marker, levels = rev(sort(unique(as.character(d_plot$marker))))
-)
-d_plot$is_type_marker <- 
-  d_plot$marker %in% colData(d_SE)$marker_name[colData(d_SE)$is_type_marker]
-d_plot$marker_type <- factor(
-  ifelse(d_plot$is_type_marker, "cell type", "cell state"), 
-  levels = c("cell type", "cell state")
-)
-
-# create plot
-ggplot(d_plot, aes(x = expression, y = marker, fill = group)) + 
-  facet_wrap(~ marker_type, scales = "free") + 
-  geom_density_ridges(alpha = 0.5) + 
-  scale_fill_manual(values = c("orangered", "royalblue")) + 
-  theme_bw()
-
-
-# ------------------------------------
-# Multi-dimensional scaling (MDS) plot
-# ------------------------------------
-
-d_plot <- as.data.frame(assay(d_SE)[, colData(d_SE)$is_marker])
-colnames(d_plot) <- colData(d_SE)$marker_name[colData(d_SE)$is_marker]
-d_plot <- as.data.frame(cbind(d_plot, sample = rowData(d_SE)$sample))
-
-d_plot <- 
-  d_plot %>% 
-  group_by(sample) %>% 
-  summarize_all(median)
-
-sample_names <- d_plot$sample
-d_plot <- t(d_plot[, -which(colnames(d_plot) == "sample")])
-colnames(d_plot) <- sample_names
-
-colors <- ifelse(grepl("Reference", sample_names), 
-                 "royalblue", "orangered")
-
-# create plot
-plotMDS(d_plot, col = colors, 
-        xlab = "MDS dimension 1", ylab = "MDS dimension 2")
-title("Multi-dimensional scaling (MDS) plot")
-legend("bottomright", legend = c("BCR-XL", "Reference"), 
-       pch = 16, col = c("orangered", "royalblue"))
-```
-
-
 ## Clustering
 
 We perform clustering to define cell populations, and compare the clustering results with the reference cell population labels. We use the [FlowSOM](http://bioconductor.org/packages/release/bioc/html/FlowSOM.html) clustering algorithm (Van Gassen et al., 2015), available from Bioconductor.
@@ -205,6 +133,7 @@ Since we are interested in cell populations (not cell states), we use only 'cell
 ```{r}
 suppressPackageStartupMessages(library(FlowSOM))
 suppressPackageStartupMessages(library(Rtsne))
+suppressPackageStartupMessages(library(ggplot2))
 
 
 # --------------
@@ -283,5 +212,12 @@ ggplot(d_plot, aes(x = tSNE_1, y = tSNE_2, color = population)) +
   ylab("t-SNE dimension 2") +
   theme_classic()
 ```
+
+
+## Additional visualizations using 'iSEE'
+
+Additional visualizations to explore the data can be generated using the [iSEE](http://bioconductor.org/packages/devel/iSEE) ("Interactive SummarizedExperiment Explorer") package, available from Bioconductor (Soneson, Lun, Marini, and Rue-Albrecht, 2018), which provides a Shiny-based graphical user interface for exploring single-cell data sets stored in `SummarizedExperiment` objects.
+
+For more details on visualizing data with `iSEE`, see the `iSEE` package vignette.
 
 
