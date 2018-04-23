@@ -1,8 +1,8 @@
 ##########################################################################################
 # Data set: Bodenmiller_BCR_XL
 # 
-# Script to load data from .fcs files, add meta-data and population labels, and export in
-# 'SummarizedExperiment' and 'flowSet' formats
+# Script to load data from .fcs files, add row and column meta-data (including reference
+# population labels), and export in 'SummarizedExperiment' and 'flowSet' formats
 ##########################################################################################
 
 
@@ -10,6 +10,7 @@ suppressPackageStartupMessages({
   library(flowCore)
   library(SummarizedExperiment)
 })
+
 
 
 # ----------------------
@@ -49,6 +50,7 @@ stopifnot(all(sapply(seq_along(files_load_fcs), function(i) {
 })))
 
 
+
 # ----------------------
 # Delete temporary files
 # ----------------------
@@ -56,28 +58,27 @@ stopifnot(all(sapply(seq_along(files_load_fcs), function(i) {
 unlink(DIR_TMP, recursive = TRUE)
 
 
-# ------------------
-# Meta-data: samples
-# ------------------
 
-# get meta-data from filenames
-
-# check samples are in correct order
-stopifnot(all(pData(data_flowSet)$name == basename(files_load_fcs)))
+# ----------------
+# Create meta-data
+# ----------------
 
 # sample information
-sample_IDs <- gsub("^PBMC8_30min_", "", gsub("\\.fcs$", "", basename(files_load_fcs)))
-group_IDs <- factor(gsub("^patient[0-9]+_", "", sample_IDs), levels = c("BCR-XL", "Reference"))
-patient_IDs <- factor(gsub("_.*$", "", sample_IDs))
 
-sample_info <- data.frame(group_IDs, patient_IDs, sample_IDs, stringsAsFactors = FALSE)
+sample_id <- gsub("^PBMC8_30min_", "", gsub("\\.fcs$", "", basename(files_load_fcs)))
+sample_id
+
+group_id <- factor(gsub("^.*_", "", sample_id), levels = c("Reference", "BCR-XL"))
+group_id
+
+patient_id <- factor(gsub("_.*$", "", sample_id))
+patient_id
+
+experiment_info <- data.frame(group_id, patient_id, sample_id, stringsAsFactors = FALSE)
+experiment_info
 
 
-# ------------------
-# Meta-data: markers
-# ------------------
-
-# additional meta-data to identify 'cell type' and 'cell state' markers
+# marker information
 
 # indices of all marker columns, lineage markers, and functional markers
 # (10 surface markers / 14 functional markers; see Bruggner et al. 2014, Table 1)
@@ -85,19 +86,18 @@ cols_markers <- c(3:4, 7:9, 11:19, 21:22, 24:26, 28:31, 33)
 cols_lineage <- c(3:4, 9, 11, 12, 14, 21, 29, 31, 33)
 cols_func <- setdiff(cols_markers, cols_lineage)
 
-# clean marker names
-marker_names <- colnames(data_flowSet)
-marker_names <- gsub("\\(.*$", "", marker_names)
+channel_name <- colnames(data_flowSet)
 
-# marker information
-is_marker <- is_type_marker <- is_state_marker <- rep(FALSE, length(marker_names))
-is_marker[cols_markers] <- TRUE
-is_type_marker[cols_lineage] <- TRUE
-is_state_marker[cols_func] <- TRUE
+marker_name <- gsub("\\(.*$", "", channel_name)
 
-marker_info <- data.frame(marker_name = marker_names, 
-                          is_marker, is_type_marker, is_state_marker, 
-                          stringsAsFactors = FALSE)
+marker_class <- rep("none", length(marker_name))
+marker_class[cols_lineage] <- "type"
+marker_class[cols_func] <- "state"
+marker_class <- factor(marker_class, levels = c("type", "state", "none"))
+
+marker_info <- data.frame(channel_name, marker_name, marker_class, stringsAsFactors = FALSE)
+marker_info
+
 
 
 # ----------------------------------
@@ -106,75 +106,80 @@ marker_info <- data.frame(marker_name = marker_names,
 
 # set up row data
 n_cells <- sapply(as(data_flowSet, "list"), nrow)
-stopifnot(all(names(n_cells) == pData(data_flowSet)$name))
+names(n_cells) <- gsub("^PBMC8_30min_", "", gsub("\\.fcs$", "", names(n_cells)))
 
-row_data <- as.data.frame(lapply(sample_info, function(col) {
+stopifnot(all(names(n_cells) == sample_id))
+
+row_data <- as.data.frame(lapply(experiment_info, function(col) {
   as.factor(rep(col, n_cells))
 }))
-
-colnames(row_data) <- gsub("_IDs$", "", colnames(row_data))
 
 stopifnot(nrow(row_data) == sum(n_cells))
 
 # add population IDs
-population <- do.call("rbind", data_population_IDs)
-stopifnot(nrow(population) == sum(n_cells))
+population_id <- do.call("rbind", data_population_IDs)
+colnames(population_id) <- "population_id"
+stopifnot(nrow(population_id) == sum(n_cells))
 
-row_data <- cbind(row_data, population)
+row_data <- cbind(row_data, population_id)
 
-# set up column data
+# column data
 col_data <- marker_info
 
-# collapse data into a single table of expression values
+# collapse expression data into a single table of values
 d_exprs <- fsApply(data_flowSet, exprs)
-colnames(d_exprs) <- NULL
+stopifnot(all(colnames(d_exprs) == channel_name))
+
+colnames(d_exprs) <- marker_name
 
 stopifnot(nrow(d_exprs) == sum(n_cells), 
           ncol(d_exprs) == nrow(col_data))
 
 # create SummarizedExperiment object
 d_SE <- SummarizedExperiment(
-  d_exprs, 
+  assays = list(exprs = d_exprs), 
   rowData = row_data, 
   colData = col_data, 
-  metadata = list(sample_info = sample_info)
+  metadata = list(experiment_info = experiment_info, n_cells = n_cells)
 )
+
 
 
 # --------------
 # Create flowSet
 # --------------
 
-# add sample information as additional columns in the expression data
+# note: sample information is stored as additional columns of data in the expression value
+# matrices; additional marker information (channel names and marker classes) cannot be
+# included, since marker information is stored in column names only
 
-# (note: additional marker information cannot be included, since marker information is
-# stored in column names only)
+# create list of extra columns of data for each sample
+row_data_fs <- do.call("cbind", lapply(row_data, as.numeric))
+stopifnot(nrow(row_data_fs) == nrow(row_data))
 
-# create list of extra columns for each sample
-row_data_FS <- do.call("cbind", lapply(row_data, as.numeric))
-stopifnot(nrow(row_data_FS) == nrow(row_data))
-
-row_data_FS_list <- lapply(split(row_data_FS, row_data$sample), matrix, ncol = ncol(row_data_FS))
+row_data_fs_list <- lapply(split(row_data_fs, row_data$sample_id), matrix, ncol = ncol(row_data_fs))
+stopifnot(all(names(row_data_fs_list) == sample_id))
 
 # replace column names
-row_data_FS_list <- lapply(row_data_FS_list, function(d) {
-  colnames(d) <- colnames(row_data_FS)
+row_data_fs_list <- lapply(row_data_fs_list, function(d) {
+  colnames(d) <- colnames(row_data_fs)
   d
 })
 
-# create new flowSet object and add extra columns
+# create new flowSet object and add extra columns of data
 data_flowSet_list <- as(data_flowSet, "list")
 
-d_FF <- mapply(function(d, extra_cols) {
+d_flowFrames_list <- mapply(function(d, extra_cols) {
   e <- exprs(d)
   stopifnot(nrow(e) == nrow(extra_cols))
   # clean column (marker) names
   colnames(e) <- gsub("\\(.*$", "", colnames(e))
   # combine and create flowFrame
   flowFrame(cbind(e, extra_cols))
-}, data_flowSet_list, row_data_FS_list)
+}, data_flowSet_list, row_data_fs_list)
 
-d_FS <- flowSet(d_FF)
+d_flowSet <- flowSet(d_flowFrames_list)
+
 
 
 # ------------
@@ -182,6 +187,7 @@ d_FS <- flowSet(d_FF)
 # ------------
 
 save(d_SE, file = "Bodenmiller_BCR_XL_SE.rda")
-save(d_FS, file = "Bodenmiller_BCR_XL_flowSet.rda")
+save(d_flowSet, file = "Bodenmiller_BCR_XL_flowSet.rda")
+
 
 
