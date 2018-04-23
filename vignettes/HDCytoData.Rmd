@@ -115,7 +115,7 @@ We apply the `arcsinh` transform with `cofactor = 5` to all protein marker colum
 ```{r}
 # Apply transformation to marker columns
 cofactor <- 5
-cols <- colData(d_SE)$is_marker
+cols <- colData(d_SE)$marker_class != "none"
 assay(d_SE)[, cols] <- asinh(assay(d_SE)[, cols] / cofactor)
 
 summary(assay(d_SE)[, 1:10])
@@ -140,8 +140,8 @@ suppressPackageStartupMessages(library(ggplot2))
 # Run clustering
 # --------------
 
-d_FlowSOM <- as.matrix(assay(d_SE)[, colData(d_SE)$is_type_marker])
-colnames(d_FlowSOM) <- colData(d_SE)$marker_name[colData(d_SE)$is_type_marker]
+d_FlowSOM <- as.matrix(assay(d_SE)[, colData(d_SE)$marker_class == "type"])
+colnames(d_FlowSOM) <- colData(d_SE)$marker_name[colData(d_SE)$marker_class == "type"]
 d_FlowSOM <- flowFrame(d_FlowSOM)
 
 set.seed(123)
@@ -164,8 +164,8 @@ table(labels)
 # t-SNE plot with cluster labels
 # ------------------------------
 
-d_Rtsne <- as.matrix(assay(d_SE)[, colData(d_SE)$is_type_marker])
-colnames(d_Rtsne) <- colData(d_SE)$marker_name[colData(d_SE)$is_type_marker]
+d_Rtsne <- as.matrix(assay(d_SE)[, colData(d_SE)$marker_class == "type"])
+colnames(d_Rtsne) <- colData(d_SE)$marker_name[colData(d_SE)$marker_class == "type"]
 
 # subsampling
 n_sub <- 1000
@@ -202,7 +202,7 @@ ggplot(d_plot, aes(x = tSNE_1, y = tSNE_2, color = cluster)) +
 # t-SNE plot with reference population labels
 # -------------------------------------------
 
-d_plot$population <- rowData(d_SE)$population[ix][!dups]
+d_plot$population <- rowData(d_SE)$population_id[ix][!dups]
 
 # create plot
 ggplot(d_plot, aes(x = tSNE_1, y = tSNE_2, color = population)) +
