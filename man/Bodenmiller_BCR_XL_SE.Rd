@@ -26,30 +26,32 @@ Reference cell population or cluster labels are available from Nowicka et al. (2
 these were generated using a strategy of expert-guided manual merging of automatically generated 
 clusters from the FlowSOM clustering algorithm (Van Gassen et al., 2015).
 
-The data set is provided in two Bioconductor object formats: \code{\linkS4class{SummarizedExperiment}} 
-and \code{\linkS4class{flowSet}}. In each case, cells are stored in rows, and protein markers 
-in columns (this is the usual format used for flow and mass cytometry data).
+The data set is provided in two Bioconductor object formats: \code{\link{SummarizedExperiment}} 
+and \code{\link{flowSet}}. In each case, cells are stored in rows, and protein markers in 
+columns (this is the usual format used for flow and mass cytometry data).
 
-For the \code{SummarizedExperiment}, row and column meta-data can be accessed with the 
-\code{rowData} and \code{colData} accessor functions from the \code{SummarizedExperiment} 
-package. The row data contains group IDs, patient IDs, sample IDs, and reference population 
-or cluster IDs. The column data contains protein marker names, and logical vectors indicating 
-all markers, 'cell type' markers (which are used to define cell populations), and 'cell state' 
-markers (used to define signaling states). The expression values for each cell can be accessed 
-with \code{assay}. The expression values are formatted as a single table (i.e. the 16 samples 
-are stacked into a single matrix).
+For the \code{link{SummarizedExperiment}}, row and column meta-data can be accessed with the 
+\code{\link{rowData}} and \code{\link{colData}} accessor functions from the 
+\code{SummarizedExperiment} package. The row data contains group IDs, patient IDs, 
+sample IDs, and reference population or cluster IDs. The column data contains channel 
+names, protein marker names, and a factor \code{marker_class} to identify the class of each 
+protein marker ('cell type' or 'cell state'). In this data set, the cell type markers are 
+used to define cell populations, and the cell state markers define signaling states. The 
+expression values for each cell can be accessed with \code{\link{assay}}. The expression values 
+are formatted as a single table (i.e. the 16 samples are stacked into a single matrix).
 
-For the \code{flowSet}, the row meta-data is stored as additional columns of data within the 
-\code{flowFrame} object for each sample. The row meta-data includes group IDs, patient IDs, 
-sample IDs, and reference population or cluster IDs. Note that the factor values are converted 
-to numeric values, since the tables of expression values must be numeric matrices. The column 
-meta-data consists of marker names only, which are stored in the column names of the \code{flowFrame} 
-object for each sample (column names cannot contain multiple entries, so the column meta-data 
-to identify marker columns, 'cell type' markers, and 'cell state' markers is not included). 
-The expression values for each cell are stored in the remaining columns of the \code{flowFrame} 
-object for each sample. The tables of expression values can be accessed with the \code{exprs} 
-function from the \code{flowCore} package. The expression values are stored in one table per 
-sample (i.e. one \code{flowFrame} object per sample, within the overall \code{flowSet} object).
+For the \code{\link{flowSet}}, the row meta-data is stored as additional columns of data 
+within the \code{\link{flowFrame}} object for each sample. The row meta-data includes group IDs, 
+patient IDs, sample IDs, and reference population or cluster IDs. Note that the factor values 
+are converted to numeric values, since the tables of expression values must be numeric matrices. 
+The column meta-data consists of protein marker names only, which are stored in the column names 
+of the \code{flowFrame} object for each sample (since column names cannot contain multiple 
+entries, the \code{marker_class} information to identify cell type and cell state markers 
+cannot be included). The expression values for each cell are stored in the remaining columns 
+of the \code{flowFrame} object for each sample. The tables of expression values can be accessed 
+with the \code{\link{exprs}} function from the \code{\link{flowCore}} package. The expression 
+values are stored in one table per sample (i.e. one \code{flowFrame} object per sample, within 
+the overall \code{flowSet} object).
 
 Prior to performing any analysis, the expression values should be transformed. A standard 
 transformation used for mass cytometry data is the \code{arcsinh} with \code{cofactor = 5}. 
@@ -66,13 +68,13 @@ Bodenmiller_BCR_XL_flowSet(metadata = FALSE)
 \arguments{
 \item{metadata}{\code{logical} value indicating whether ExperimentHub metadata (describing the 
 overall data set) should be returned only, or if the whole data set should be loaded. Default = FALSE, 
-which loads the data set.}
+which loads the whole data set.}
 }
 \examples{
 Bodenmiller_BCR_XL_SE()
 Bodenmiller_BCR_XL_flowSet()
 }
-\value{Returns a \code{SummarizedExperiment} or \code{flowSet} object.}
+\value{Returns a \code{\link{SummarizedExperiment}} or \code{\link{flowSet}} object.}
 \references{
 Bodenmiller, B., Zunder, E. R., Finck, R., Chen, T. J., Savig, E. S., Bruggner, R. V., 
 Simonds, E. F., Bendall, S. C., Sachs, K., Krutzik, P. O., and Nolan, G. P. (2012). \emph{Multiplexed 

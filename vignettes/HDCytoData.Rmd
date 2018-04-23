@@ -28,7 +28,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 The `HDCytoData` data package contains a set of publicly available high-dimensional flow cytometry and mass cytometry (CyTOF) data sets, formatted into `SummarizedExperiment` and `flowSet` Bioconductor object formats. The data objects are hosted on the Bioconductor ExperimentHub web resource.
 
-The objects contain the cell-level expression values, as well as row and column meta-data, including sample IDs, group IDs, true cell population or cluster labels (where available), protein marker names, and marker information to identify 'cell type' and 'cell state' markers (where relevant).
+The objects contain the cell-level expression values, as well as row and column meta-data, including sample IDs, group IDs, true cell population or cluster labels (where available), channel names, protein marker names, and protein marker classes (cell type or cell state).
 
 These data sets have been used for benchmarking purposes in our previous work and publications, e.g. to evaluate the performance of clustering algorithms. They are provided here in the `SummarizedExperiment` and `flowSet` formats to make them easier to access.
 
@@ -40,7 +40,7 @@ Currently, the package contains the following data sets:
 
 - Bodenmiller_BCR_XL
 
-Additional details on each data set are included in the help files for the data sets. For each data set, this includes a description of the data set (biological setting, number of samples, number of cells, number and types of protein markers, etc.), as well as an explanation of the object structures, and references and raw data sources.
+Additional details on each data set are included in the help files for the data sets. For each data set, this includes a description of the data set (biological context, number of samples, number of cells, number and classes of protein markers, etc.), as well as an explanation of the object structures, and references and raw data sources.
 
 The help files can be accessed by the data set names, e.g. `?Bodenmiller_BCR_XL`.
 

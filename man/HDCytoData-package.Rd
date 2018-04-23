@@ -7,18 +7,18 @@ Data package of high-dimensional cytometry data sets
 }
 \description{
 Data package containing high-dimensional cytometry data sets saved in 
-\code{\linkS4class{SummarizedExperiment}} and \code{\linkS4class{flowSet}} Bioconductor 
-object formats, hosted on Bioconductor ExperimentHub.
+\code{\link{SummarizedExperiment}} and \code{\link{flowSet}} Bioconductor object formats, 
+hosted on Bioconductor ExperimentHub.
 }
 \details{
 This package contains a set of publicly available high-dimensional flow cytometry and mass 
 cytometry (CyTOF) data sets, which have been formatted into the 
-\code{\linkS4class{SummarizedExperiment}} and \code{\linkS4class{flowSet}} Bioconductor 
-object formats.
+\code{\link{SummarizedExperiment}} and \code{\link{flowSet}} Bioconductor object formats.
 
-The objects contain the cell-level expression values, as well as row and column meta-data, 
-including sample IDs, group IDs, true cell population or cluster labels (where available), 
-and protein marker names.
+The objects contain the cell-level expression values, as well as row and column meta-data. 
+The row meta-data includes sample IDs, group IDs, and true cell population or cluster labels 
+(where available). The column meta-data includes channel names, protein marker names, and 
+protein marker classes.
 
 These data sets have been used for benchmarking purposes in our previous work and publications, 
 e.g. to evaluate the performance of clustering algorithms. They are provided here in the 
