@@ -141,7 +141,6 @@ suppressPackageStartupMessages(library(ggplot2))
 # --------------
 
 d_FlowSOM <- as.matrix(assay(d_SE)[, colData(d_SE)$marker_class == "type"])
-colnames(d_FlowSOM) <- colData(d_SE)$marker_name[colData(d_SE)$marker_class == "type"]
 d_FlowSOM <- flowFrame(d_FlowSOM)
 
 set.seed(123)
