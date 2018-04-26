@@ -24,7 +24,7 @@ For a short example workflow demonstrating how to load the data objects and use 
 
 ## Availability and installation
 
-The `HDCytoData` package is available as an experiment data package from Bioconductor. It can be installed using the Bioconductor installer (`biocLite`):
+The `HDCytoData` package is available as an experiment data package from [Bioconductor](http://bioconductor.org/packages/HDCytoData). It can be installed using the Bioconductor installer (`biocLite`):
 
 ```{r}
 source("https://bioconductor.org/biocLite.R")
