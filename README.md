@@ -27,8 +27,9 @@ For a short example workflow demonstrating how to load the data objects and use 
 The `HDCytoData` package is available as an experiment data package from [Bioconductor](http://bioconductor.org/packages/HDCytoData). It can be installed using the Bioconductor installer (`biocLite`):
 
 ```{r}
-source("https://bioconductor.org/biocLite.R")
-biocLite("HDCytoData")
+if (!requireNamespace("BiocManager", quietly=TRUE))
+    install.packages("BiocManager")
+BiocManager::install("HDCytoData")
 ```
 
 
