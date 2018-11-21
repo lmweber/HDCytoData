@@ -172,8 +172,6 @@ data_flowSet_list <- as(data_flowSet, "list")
 d_flowFrames_list <- mapply(function(d, extra_cols) {
   e <- exprs(d)
   stopifnot(nrow(e) == nrow(extra_cols))
-  # clean column (marker) names
-  colnames(e) <- gsub("\\(.*$", "", colnames(e))
   # combine and create flowFrame
   flowFrame(cbind(e, extra_cols))
 }, data_flowSet_list, row_data_fs_list)
