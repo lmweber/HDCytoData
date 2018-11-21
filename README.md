@@ -24,11 +24,13 @@ For a short example workflow demonstrating how to load the data objects and use 
 
 ## Availability and installation
 
-The `HDCytoData` package is available as an experiment data package from [Bioconductor](http://bioconductor.org/packages/HDCytoData). It can be installed using `BiocManager::install`:
+The `HDCytoData` package is available as an experiment data package from [Bioconductor](http://bioconductor.org/packages/HDCytoData). It can be installed using `BiocManager`:
 
 ```{r}
-if (!requireNamespace("BiocManager", quietly=TRUE))
-    install.packages("BiocManager")
+# install BiocManager from CRAN (if not already installed)
+install.packages("BiocManager")
+
+# install HDCytoData package
 BiocManager::install("HDCytoData")
 ```
 
