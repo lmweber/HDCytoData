@@ -1,5 +1,5 @@
 Package: HDCytoData
-Version: 1.2.0
+Version: 1.2.1
 Title: Data package of high-dimensional cytometry datasets in SummarizedExperiment and flowSet formats
 Description: Data package containing a set of high-dimensional cytometry datasets saved in SummarizedExperiment and flowSet Bioconductor object formats, including row and column metadata describing samples, cell populations (clusters), and protein markers.
 Authors@R: c(person("Lukas M.", "Weber", email = "lukmweber@gmail.com", role = c("aut", "cre")), person("Charlotte", "Soneson", email = "charlottesoneson@gmail.com", role = "aut"))
