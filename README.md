@@ -5,16 +5,16 @@
 
 ## Summary
 
-Data package containing high-dimensional cytometry data sets saved in Bioconductor object formats, hosted on Bioconductor ExperimentHub.
+Data package containing high-dimensional cytometry datasets saved in Bioconductor object formats, hosted on Bioconductor ExperimentHub.
 
-This package contains a set of publicly available high-dimensional flow cytometry and mass cytometry (CyTOF) data sets, which have been formatted into the `SummarizedExperiment` and `flowSet` Bioconductor object formats. The objects contain the cell-level expression values, as well as row and column meta-data, including sample IDs, group IDs, true cell population labels or cluster labels (where available), channel names, protein marker names, and protein marker classes (cell type or cell state).
+This package contains a set of publicly available high-dimensional flow cytometry and mass cytometry (CyTOF) datasets, which have been formatted into the `SummarizedExperiment` and `flowSet` Bioconductor object formats. The objects contain the cell-level expression values, as well as row and column metadata, including sample IDs, group IDs, true cell population labels or cluster labels (where available), channel names, protein marker names, and protein marker classes (cell type or cell state).
 
-These data sets have been used in our previous work and publications for benchmarking purposes, e.g. to evaluate the performance of clustering algorithms. They are provided here in the `SummarizedExperiment` and `flowSet` formats to make them easier to access for ourselves and other method developers.
+These datasets have been used in our previous work and publications for benchmarking purposes, e.g. to evaluate the performance of clustering algorithms. They are provided here in the `SummarizedExperiment` and `flowSet` formats to make them easier to access for ourselves and other method developers.
 
 
 ## Details
 
-For additional details, including references and raw data sources, see the help files for each data set.
+For additional details, including references and raw data sources, see the help files for each dataset.
 
 
 ## Tutorial and example workflow

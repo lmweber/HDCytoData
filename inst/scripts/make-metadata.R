@@ -1,11 +1,11 @@
-# Meta-data for 'SummarizedExperiment' format
+# Metadata for 'SummarizedExperiment' format
 df_Bodenmiller_BCR_XL_SE <- data.frame(
   Title = "Bodenmiller_BCR_XL_SE", 
   Description = paste0(
     "Mass cytometry data from Bodenmiller et al. (2012). Paired samples of healthy PBMCs, ", 
     "where one sample from each pair was stimulated with B cell receptor / Fc receptor ", 
     "cross-linker (BCR-XL)."), 
-  BiocVersion = "3.7", 
+  BiocVersion = "3.8", 
   Genome = NA, 
   SourceType = "FCS", 
   SourceUrl = "http://imlspenticton.uzh.ch/robinson_lab/HDCytoData/", 
@@ -21,13 +21,13 @@ df_Bodenmiller_BCR_XL_SE <- data.frame(
   stringsAsFactors = FALSE
 )
 
-# Meta-data for 'flowSet' format
+# Metadata for 'flowSet' format
 df_Bodenmiller_BCR_XL_flowSet <- df_Bodenmiller_BCR_XL_SE
 df_Bodenmiller_BCR_XL_flowSet$Title <- "Bodenmiller_BCR_XL_flowSet"
 df_Bodenmiller_BCR_XL_flowSet$RDataClass <- "flowSet"
 df_Bodenmiller_BCR_XL_flowSet$RDataPath <- "HDCytoData/Bodenmiller_BCR_XL_flowSet.rda"
 
-# Combined meta-data for both formats
+# Combined metadata for both formats
 df_all <- rbind(
   df_Bodenmiller_BCR_XL_SE, 
   df_Bodenmiller_BCR_XL_flowSet

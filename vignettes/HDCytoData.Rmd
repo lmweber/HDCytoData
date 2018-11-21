@@ -26,35 +26,35 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Overview
 
-The `HDCytoData` data package contains a set of publicly available high-dimensional flow cytometry and mass cytometry (CyTOF) data sets, formatted into `SummarizedExperiment` and `flowSet` Bioconductor object formats. The data objects are hosted on the Bioconductor ExperimentHub web resource.
+The `HDCytoData` data package contains a set of publicly available high-dimensional flow cytometry and mass cytometry (CyTOF) datasets, formatted into `SummarizedExperiment` and `flowSet` Bioconductor object formats. The data objects are hosted on the Bioconductor ExperimentHub web resource.
 
-The objects contain the cell-level expression values, as well as row and column meta-data, including sample IDs, group IDs, true cell population labels or cluster labels (where available), channel names, protein marker names, and protein marker classes (cell type or cell state).
+The objects contain the cell-level expression values, as well as row and column metadata, including sample IDs, group IDs, true cell population labels or cluster labels (where available), channel names, protein marker names, and protein marker classes (cell type or cell state).
 
-These data sets have been used for benchmarking purposes in our previous work and publications, e.g. to evaluate the performance of clustering algorithms. They are provided here in the `SummarizedExperiment` and `flowSet` formats to make them easier to access.
+These datasets have been used for benchmarking purposes in our previous work and publications, e.g. to evaluate the performance of clustering algorithms. They are provided here in the `SummarizedExperiment` and `flowSet` formats to make them easier to access.
 
 
 
-# Data sets
+# datasets
 
-Currently, the package contains the following data sets:
+Currently, the package contains the following datasets:
 
 - Bodenmiller_BCR_XL
 
-Additional details on each data set are included in the help files for the data sets. For each data set, this includes a description of the data set (biological context, number of samples, number of cells, number and classes of protein markers, etc.), as well as an explanation of the object structures, and references and raw data sources.
+Additional details on each dataset are included in the help files for the datasets. For each dataset, this includes a description of the dataset (biological context, number of samples, number of cells, number and classes of protein markers, etc.), as well as an explanation of the object structures, and references and raw data sources.
 
-The help files can be accessed by the data set names, e.g. `?Bodenmiller_BCR_XL`.
+The help files can be accessed by the dataset names, e.g. `?Bodenmiller_BCR_XL`.
 
 
 
 # How to load data
 
-First, we show how to load the data sets.
+First, we show how to load the datasets.
 
-The data sets can be loaded either with named functions referring directly to the object names, or by using the `ExperimentHub` interface. Both methods are demonstrated below, using the `Bodenmiller_BCR_XL` data set as an example.
+The datasets can be loaded either with named functions referring directly to the object names, or by using the `ExperimentHub` interface. Both methods are demonstrated below, using the `Bodenmiller_BCR_XL` dataset as an example.
 
-See the help file (`?Bodenmiller_BCR_XL`) for details about the structure of the `SummarizedExperiment` or `flowSet` objects for this data set.
+See the help file (`?Bodenmiller_BCR_XL`) for details about the structure of the `SummarizedExperiment` or `flowSet` objects for this dataset.
 
-Load the data sets using named functions:
+Load the datasets using named functions:
 
 ```{r}
 suppressPackageStartupMessages(library(HDCytoData))
@@ -67,19 +67,19 @@ Bodenmiller_BCR_XL_flowSet()
 ```
 
 
-Alternatively, load the data sets using the `ExperimentHub` interface:
+Alternatively, load the datasets using the `ExperimentHub` interface:
 
 ```{r}
 # Create an ExperimentHub instance
 ehub <- ExperimentHub()
 
-# Query ExperimentHub instance to find data sets
+# Query ExperimentHub instance to find datasets
 query(ehub, "HDCytoData")
 
-# Load 'SummarizedExperiment' object using index of data set
+# Load 'SummarizedExperiment' object using index of dataset
 ehub[["EH1119"]]
 
-# Load 'flowSet' object using index of data set
+# Load 'flowSet' object using index of dataset
 ehub[["EH1120"]]
 ```
 
@@ -87,7 +87,7 @@ ehub[["EH1120"]]
 
 # Example workflow
 
-We demonstrate the use of the `HDCytoData` package with a short example analysis workflow for one of the data sets.
+We demonstrate the use of the `HDCytoData` package with a short example analysis workflow for one of the datasets.
 
 
 ## Load data
@@ -95,7 +95,7 @@ We demonstrate the use of the `HDCytoData` package with a short example analysis
 We load the data in `SummarizedExperiment` format for the example workflow.
 
 ```{r}
-# Load data set in 'SummarizedExperiment' format
+# Load dataset in 'SummarizedExperiment' format
 d_SE <- Bodenmiller_BCR_XL_SE()
 
 # Inspect the object
@@ -215,7 +215,7 @@ ggplot(d_plot, aes(x = tSNE_1, y = tSNE_2, color = population)) +
 
 ## Data exploration using 'iSEE' package
 
-Additional visualizations to explore the data can be generated using the [iSEE](http://bioconductor.org/packages/devel/iSEE) ("Interactive SummarizedExperiment Explorer") package, available from Bioconductor (Soneson, Lun, Marini, and Rue-Albrecht, 2018), which provides a Shiny-based graphical user interface for exploring single-cell data sets stored in `SummarizedExperiment` objects.
+Additional visualizations to explore the data can be generated using the [iSEE](http://bioconductor.org/packages/devel/iSEE) ("Interactive SummarizedExperiment Explorer") package, available from Bioconductor (Soneson, Lun, Marini, and Rue-Albrecht, 2018), which provides a Shiny-based graphical user interface for exploring single-cell datasets stored in `SummarizedExperiment` objects.
 
 For more details on exploring data with `iSEE`, see the `iSEE` package vignette.
 

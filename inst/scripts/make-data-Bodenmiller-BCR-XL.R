@@ -1,7 +1,7 @@
 ##########################################################################################
-# Data set: Bodenmiller_BCR_XL
+# Dataset: Bodenmiller_BCR_XL
 # 
-# Script to load data from .fcs files, add row and column meta-data (including reference
+# Script to load data from .fcs files, add row and column metadata (including reference
 # population labels), and export in 'SummarizedExperiment' and 'flowSet' formats
 ##########################################################################################
 
@@ -59,9 +59,9 @@ unlink(DIR_TMP, recursive = TRUE)
 
 
 
-# ----------------
-# Create meta-data
-# ----------------
+# ---------------
+# Create metadata
+# ---------------
 
 # sample information
 
