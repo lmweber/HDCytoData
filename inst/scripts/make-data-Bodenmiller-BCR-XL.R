@@ -1,8 +1,8 @@
 ##########################################################################################
 # Dataset: Bodenmiller_BCR_XL
 # 
-# Script to load data from .fcs files, add row and column metadata (including reference
-# population labels), and export in 'SummarizedExperiment' and 'flowSet' formats
+# Script to load data from .fcs files, add row and column metadata (including population
+# labels), and export in 'SummarizedExperiment' and 'flowSet' formats
 ##########################################################################################
 
 
@@ -19,16 +19,17 @@ suppressPackageStartupMessages({
 
 # create temporary directories
 DIR_TMP <- "tmp"
-dir.create(file.path(DIR_TMP), showWarnings = FALSE)
-dir.create(file.path(DIR_TMP, "fcs_files"), showWarnings = FALSE)
-dir.create(file.path(DIR_TMP, "population_IDs"), showWarnings = FALSE)
+dir.create(file.path(DIR_TMP))
+dir.create(file.path(DIR_TMP, "fcs_files"))
+dir.create(file.path(DIR_TMP, "population_IDs"))
 
 # download from 'imlspenticton' server
 URL <- "http://imlspenticton.uzh.ch/robinson_lab/HDCytoData"
+DIR <- "Bodenmiller_BCR_XL"
 
 # load .fcs files
 fcs_filename <- "Bodenmiller_BCR_XL_fcs_files.zip"
-download.file(file.path(URL, fcs_filename), destfile = file.path(DIR_TMP, "fcs_files", fcs_filename))
+download.file(file.path(URL, DIR, fcs_filename), destfile = file.path(DIR_TMP, "fcs_files", fcs_filename))
 unzip(file.path(DIR_TMP, "fcs_files", fcs_filename), exdir = file.path(DIR_TMP, "fcs_files"))
 
 files_load_fcs <- list.files(file.path(DIR_TMP, "fcs_files"), pattern = "\\.fcs$", full.names = TRUE)
@@ -37,7 +38,7 @@ data_flowSet <- read.flowSet(files_load_fcs, transformation = FALSE, truncate_ma
 
 # load population IDs
 pop_filename <- "Bodenmiller_BCR_XL_population_IDs.zip"
-download.file(file.path(URL, pop_filename), destfile = file.path(DIR_TMP, "population_IDs", pop_filename))
+download.file(file.path(URL, DIR, pop_filename), destfile = file.path(DIR_TMP, "population_IDs", pop_filename))
 unzip(file.path(DIR_TMP, "population_IDs", pop_filename), exdir = file.path(DIR_TMP, "population_IDs"))
 
 files_load_pop <- list.files(file.path(DIR_TMP, "population_IDs"), pattern = "\\.csv$", full.names = TRUE)
@@ -150,7 +151,7 @@ d_SE <- SummarizedExperiment(
 # --------------
 
 # note: sample information is stored as additional columns of data in the expression value
-# matrices; additional marker information (channel names and marker classes) cannot be
+# matrices; additional marker information (marker names and marker classes) cannot be
 # included, since marker information is stored in column names only
 
 # create list of extra columns of data for each sample
@@ -177,6 +178,12 @@ d_flowFrames_list <- mapply(function(d, extra_cols) {
 }, data_flowSet_list, row_data_fs_list)
 
 d_flowSet <- flowSet(d_flowFrames_list)
+
+# include filenames and sample IDs as keywords in 'description' slot
+for (i in seq_along(d_flowSet)) {
+  description(d_flowSet[[i]])$FILENAME <- identifier(d_flowSet[[i]])
+  description(d_flowSet[[i]])$SAMPLE_ID <- sample_id[i]
+}
 
 
 
