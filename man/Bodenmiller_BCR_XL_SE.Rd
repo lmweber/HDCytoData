@@ -8,7 +8,8 @@
 }
 \description{
 Mass cytometry (CyTOF) dataset from Bodenmiller et al. (2012), consisting of paired samples 
-of healthy immune cells in unstimulated and BCR-XL stimulated condition.
+of healthy immune cells in unstimulated and BCR-XL stimulated condition. This dataset can be 
+used to benchmark algorithms for differential analysis.
 }
 \details{
 This is a mass cytometry (CyTOF) dataset originally from Bodenmiller et al. (2012). The 
@@ -17,6 +18,8 @@ one sample from each pair was stimulated with B cell receptor / Fc receptor cros
 This creates a strong differential expression signal for several signaling markers in several 
 cell populations, especially B cells. The strongest observed differential signal is for the 
 signaling marker phosphorylated S6 (pS6) in B cells (see Nowicka et al., 2017, Figure 29).
+
+This dataset can be used to benchmark algorithms for differential analysis.
 
 The dataset contains 16 samples (8 paired samples); a total of 172,791 cells; and a total of 
 24 protein markers. The markers consist of 10 'cell type' markers (which can be used to define 
@@ -44,18 +47,18 @@ For the \code{\link{flowSet}}, the row metadata is stored as additional columns 
 within the \code{\link{flowFrame}} object for each sample. The row metadata includes group IDs, 
 patient IDs, sample IDs, and reference population or cluster IDs. Note that the factor values 
 are converted to numeric values, since the tables of expression values must be numeric matrices. 
-The column metadata consists of protein marker names only, which are stored in the column names 
+The column metadata consists of channel names only, which are stored in the column names 
 of the \code{flowFrame} object for each sample (since column names cannot contain multiple 
 entries, the \code{marker_class} information to identify cell type and cell state markers 
 cannot be included). The expression values for each cell are stored in the remaining columns 
 of the \code{flowFrame} object for each sample. The tables of expression values can be accessed 
 with the \code{\link{exprs}} function from the \code{\link{flowCore}} package. The expression 
 values are stored in one table per sample (i.e. one \code{flowFrame} object per sample, within 
-the overall \code{flowSet} object).
+the overall \code{flowSet} object). Filenames and sample IDs for each sample can be accessed 
+with the \code{\link{description}} accessor function for the individual \code{flowFrame}s.
 
 Prior to performing any analysis, the expression values should be transformed. A standard 
-transformation used for mass cytometry data is the \code{arcsinh} with \code{cofactor = 5}. 
-See the vignette for an example.
+transformation used for mass cytometry data is the \code{arcsinh} with \code{cofactor = 5}.
 
 Raw data files for the original dataset are available from Cytobank, experiment 15713 
 (https://community.cytobank.org/cytobank/experiments/15713/download_files; additional information 

@@ -4,11 +4,11 @@ author:
   - name: Lukas M. Weber
     affiliation: 
       - &id1 "Institute of Molecular Life Sciences, University of Zurich, Zurich, Switzerland"
-      - &id2 "SIB Swiss Institute of Bioinformatics, University of Zurich, Zurich, Switzerland"
+      - &id2 "SIB Swiss Institute of Bioinformatics, Zurich, Switzerland"
   - name: Charlotte Soneson
     affiliation: 
-      - *id1
-      - *id2
+      - *id1 "Friedrich Miescher Institute for Biomedical Research, Basel, Switzerland"
+      - *id2 "SIB Swiss Institute of Bioinformatics, Basel, Switzerland"
 package: HDCytoData
 output: 
   BiocStyle::html_document
@@ -30,15 +30,20 @@ The `HDCytoData` data package contains a set of publicly available high-dimensio
 
 The objects contain the cell-level expression values, as well as row and column metadata, including sample IDs, group IDs, true cell population labels or cluster labels (where available), channel names, protein marker names, and protein marker classes (cell type or cell state).
 
-These datasets have been used for benchmarking purposes in our previous work and publications, e.g. to evaluate the performance of clustering algorithms. They are provided here in the `SummarizedExperiment` and `flowSet` formats to make them easier to access.
+These datasets have been used for benchmarking purposes in our previous work and publications, e.g. to benchmark clustering algorithms or methods for differential analysis. They are provided here in the `SummarizedExperiment` and `flowSet` formats to make them easier to access.
 
 
 
-# datasets
+# Datasets
 
-Currently, the package contains the following datasets:
+Currently, the package contains the following datasets, which can be grouped into datasets useful for benchmarking either clustering algorithms or methods for differential analysis:
 
-- Bodenmiller_BCR_XL
+- Clustering:
+    - Levine_32dim
+    - Levine_13dim
+
+- Differential analysis:
+    - Bodenmiller_BCR_XL
 
 Additional details on each dataset are included in the help files for the datasets. For each dataset, this includes a description of the dataset (biological context, number of samples, number of cells, number and classes of protein markers, etc.), as well as an explanation of the object structures, and references and raw data sources.
 
@@ -48,11 +53,11 @@ The help files can be accessed by the dataset names, e.g. `?Bodenmiller_BCR_XL`.
 
 # How to load data
 
-First, we show how to load the datasets.
+First, we show how to load the datasets, using one of the datasets (`Bodenmiller_BCR_XL`) as an example.
 
-The datasets can be loaded either with named functions referring directly to the object names, or by using the `ExperimentHub` interface. Both methods are demonstrated below, using the `Bodenmiller_BCR_XL` dataset as an example.
+The datasets can be loaded either with named functions referring directly to the object names, or by using the `ExperimentHub` interface. Both methods are demonstrated below.
 
-See the help file (`?Bodenmiller_BCR_XL`) for details about the structure of the `SummarizedExperiment` or `flowSet` objects for this dataset.
+See the help files (e.g. `?Bodenmiller_BCR_XL`) for details about the structure of the `SummarizedExperiment` or `flowSet` objects.
 
 Load the datasets using named functions:
 
@@ -85,14 +90,9 @@ ehub[["EH1120"]]
 
 
 
-# Example workflow
+# Using the data
 
-We demonstrate the use of the `HDCytoData` package with a short example analysis workflow for one of the datasets.
-
-
-## Load data
-
-We load the data in `SummarizedExperiment` format for the example workflow.
+Once the datasets have been loaded from ExperimentHub, they can be used as normal within an R session. For example, using the `SummarizedExperiment` form of the dataset loaded above:
 
 ```{r}
 # Load dataset in 'SummarizedExperiment' format
@@ -106,117 +106,10 @@ colData(d_SE)
 ```
 
 
-## Transform data
 
-Flow and mass cytometry data should be transformed before performing any analysis. For mass cytometry (CyTOF), a commonly used standard transformation is the `arcsinh` with parameter `cofactor = 5`. (For flow cytometry, `cofactor = 150` can be used.) This brings the marker expression profiles closer to normal distributions, which improves clustering performance and visualizations.
+# Exploring the data
 
-We apply the `arcsinh` transform with `cofactor = 5` to all protein marker columns.
+Interactive visualizations to explore the datasets can be generated from the `SummarizedExperiment` objects using the [iSEE](http://bioconductor.org/packages/iSEE) ("Interactive SummarizedExperiment Explorer") package, available from Bioconductor (Soneson, Lun, Marini, and Rue-Albrecht, 2018), which provides a Shiny-based graphical user interface to explore single-cell datasets stored in `SummarizedExperiment`s. For more details, see the `iSEE` package vignettes.
 
-```{r}
-# Apply transformation to marker columns
-cofactor <- 5
-cols <- colData(d_SE)$marker_class != "none"
-assay(d_SE)[, cols] <- asinh(assay(d_SE)[, cols] / cofactor)
-
-summary(assay(d_SE)[, 1:10])
-```
-
-
-## Clustering
-
-We perform clustering to define cell populations, and compare the clustering results with the reference cell population labels. We use the [FlowSOM](http://bioconductor.org/packages/release/bioc/html/FlowSOM.html) clustering algorithm (Van Gassen et al., 2015), available from Bioconductor.
-
-We use t-SNE plots to visualize the clustering results. Note that the t-SNE plots show only a subset of cells, to speed up runtime.
-
-Since we are interested in cell populations (not cell states), we use only 'cell type' markers for the clustering and t-SNE plots.
-
-```{r}
-suppressPackageStartupMessages(library(FlowSOM))
-suppressPackageStartupMessages(library(Rtsne))
-suppressPackageStartupMessages(library(ggplot2))
-
-
-# --------------
-# Run clustering
-# --------------
-
-d_FlowSOM <- as.matrix(assay(d_SE)[, colData(d_SE)$marker_class == "type"])
-d_FlowSOM <- flowFrame(d_FlowSOM)
-
-set.seed(123)
-out <- ReadInput(d_FlowSOM, transform = FALSE, scale = FALSE)
-out <- BuildSOM(out, colsToUse = NULL)
-
-labels_pre <- out$map$mapping[, 1]
-
-# number of meta-clusters
-k <- 20
-out <- metaClustering_consensus(out$map$codes, k = k, seed = 123)
-
-labels <- out[labels_pre]
-
-# check meta-cluster labels
-table(labels)
-
-
-# ------------------------------
-# t-SNE plot with cluster labels
-# ------------------------------
-
-d_Rtsne <- as.matrix(assay(d_SE)[, colData(d_SE)$marker_class == "type"])
-colnames(d_Rtsne) <- colData(d_SE)$marker_name[colData(d_SE)$marker_class == "type"]
-
-# subsampling
-n_sub <- 1000
-set.seed(123)
-ix <- sample(seq_along(labels), n_sub)
-
-d_Rtsne <- d_Rtsne[ix, ]
-labels <- labels[ix]
-
-# remove any duplicate rows (required by Rtsne)
-dups <- duplicated(d_Rtsne)
-
-d_Rtnse <- d_Rtsne[!dups, ]
-labels <- labels[!dups]
-
-# run Rtsne
-set.seed(123)
-out_Rtsne <- Rtsne(d_Rtsne, pca = FALSE, verbose = TRUE)
-
-d_plot <- as.data.frame(out_Rtsne$Y)
-colnames(d_plot) <- c("tSNE_1", "tSNE_2")
-d_plot$cluster <- as.factor(labels)
-
-# create plot
-ggplot(d_plot, aes(x = tSNE_1, y = tSNE_2, color = cluster)) +
-  geom_point() +
-  ggtitle("t-SNE plot: clustering") +
-  xlab("t-SNE dimension 1") +
-  ylab("t-SNE dimension 2") +
-  theme_classic()
-
-
-# -------------------------------------------
-# t-SNE plot with reference population labels
-# -------------------------------------------
-
-d_plot$population <- rowData(d_SE)$population_id[ix][!dups]
-
-# create plot
-ggplot(d_plot, aes(x = tSNE_1, y = tSNE_2, color = population)) +
-  geom_point() +
-  ggtitle("t-SNE plot: reference populations") +
-  xlab("t-SNE dimension 1") +
-  ylab("t-SNE dimension 2") +
-  theme_classic()
-```
-
-
-## Data exploration using 'iSEE' package
-
-Additional visualizations to explore the data can be generated using the [iSEE](http://bioconductor.org/packages/devel/iSEE) ("Interactive SummarizedExperiment Explorer") package, available from Bioconductor (Soneson, Lun, Marini, and Rue-Albrecht, 2018), which provides a Shiny-based graphical user interface for exploring single-cell datasets stored in `SummarizedExperiment` objects.
-
-For more details on exploring data with `iSEE`, see the `iSEE` package vignette.
 
 
