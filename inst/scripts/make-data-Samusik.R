@@ -27,7 +27,6 @@
 suppressPackageStartupMessages({
   library(flowCore)
   library(SummarizedExperiment)
-  library(magrittr)
 })
 
 
