@@ -1,8 +1,8 @@
-#########################################################################################
+##########################################################################################
 # R script to prepare benchmark data set Levine_32dim
 # 
 # This is a 32-dimensional mass cytometry (CyTOF) data set, consisting of expression
-# levels of 32 surface marker proteins. Cell population labels are available for 14
+# levels of 32 surface protein markers. Cell population labels are available for 14
 # manually gated populations. Cells are healthy human bone marrow mononuclear cells
 # (BMMCs), from 2 patients.
 #
@@ -14,11 +14,11 @@
 # Cells that Correlate with Prognosis", Cell, 162, 184-197.
 #
 # Link to paper: https://www.ncbi.nlm.nih.gov/pubmed/26095251
-# Link to raw data: https://www.cytobank.org/cytobank/experiments/46102 (download the ZIP
+# Link to raw data: https://www.cytobank.org/cytobank/experiments/46102 (download the .zip
 # file shown under "Exported Files")
 # 
-# Lukas Weber, Dec 2018
-#########################################################################################
+# Lukas Weber, Jan 2019
+##########################################################################################
 
 
 # original version of this script can be found at:
@@ -46,7 +46,7 @@ dir.create(file.path(DIR_TMP, "fcs_files"))
 URL <- "http://imlspenticton.uzh.ch/robinson_lab/HDCytoData"
 DIR <- "Levine_32dim"
 
-# load .fcs files
+# download .fcs files
 fcs_filename <- "Levine_32dim_fcs_files.zip"
 download.file(file.path(URL, DIR, fcs_filename), destfile = file.path(DIR_TMP, "fcs_files", fcs_filename))
 unzip(file.path(DIR_TMP, "fcs_files", fcs_filename), exdir = file.path(DIR_TMP, "fcs_files"))
@@ -59,7 +59,7 @@ files <- list.files(file.path(DIR_TMP, "fcs_files"), pattern = "\\.fcs$", full.n
 # Load data
 # ---------
 
-# one FCS file per manually gated cluster, per patient (H1 and H2)
+# one .fcs file per manually gated cluster, per patient (H1 and H2)
 # 32 surface markers (dimensions), 14 manually gated populations, 2 patients (H1 and H2)
 
 # "unassigned" cells are those where cluster labels are unavailable
@@ -199,9 +199,9 @@ d_SE <- SummarizedExperiment(
 # Create flowSet
 # --------------
 
-# note: patient and population IDs are stored as additional columns of data in the
-# expression matrices; additional marker information (marker names and marker classes)
-# cannot be included, since marker information is stored in column names only
+# note: population IDs are stored as an additional column of data in the expression
+# matrices; additional marker information (marker names and marker classes) cannot be
+# included here, since marker information is stored in column names only
 
 # create table of cell population names
 df_population_names <- data.frame(

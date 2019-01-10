@@ -1,8 +1,8 @@
-#########################################################################################
+##########################################################################################
 # R script to prepare benchmark data set Levine_13dim
 # 
 # This is a 13-dimensional mass cytometry (CyTOF) data set, consisting of expression
-# levels of 13 surface marker proteins. Cell population labels are available for 24
+# levels of 13 surface protein markers. Cell population labels are available for 24
 # manually gated populations. Cells are healthy human bone marrow mononuclear cells
 # (BMMCs), from 1 patient.
 #
@@ -14,11 +14,11 @@
 # Cells that Correlate with Prognosis", Cell, 162, 184-197.
 #
 # Link to paper: https://www.ncbi.nlm.nih.gov/pubmed/26095251
-# Link to raw data: https://www.cytobank.org/cytobank/experiments/46259 (download the FCS
+# Link to raw data: https://www.cytobank.org/cytobank/experiments/46259 (download the .fcs
 # files with Actions -> Export -> Download Files -> All FCS Files)
 # 
-# Lukas Weber, Dec 2018
-#########################################################################################
+# Lukas Weber, Jan 2019
+##########################################################################################
 
 
 # original version of this script can be found at:
@@ -46,7 +46,7 @@ dir.create(file.path(DIR_TMP, "fcs_files"))
 URL <- "http://imlspenticton.uzh.ch/robinson_lab/HDCytoData"
 DIR <- "Levine_13dim"
 
-# load .fcs files
+# download .fcs files
 fcs_filename <- "Levine_13dim_fcs_files.zip"
 download.file(file.path(URL, DIR, fcs_filename), destfile = file.path(DIR_TMP, "fcs_files", fcs_filename))
 unzip(file.path(DIR_TMP, "fcs_files", fcs_filename), exdir = file.path(DIR_TMP, "fcs_files"))
@@ -59,7 +59,7 @@ files <- list.files(file.path(DIR_TMP, "fcs_files"), pattern = "\\.fcs$", full.n
 # Load data
 # ---------
 
-# one FCS file per manually gated cluster
+# one .fcs file per manually gated cluster
 # 13 surface markers (dimensions), 24 manually gated populations
 
 # "unassigned" cells are those where cluster labels are unavailable
@@ -178,8 +178,8 @@ d_SE <- SummarizedExperiment(
 # --------------
 
 # note: population IDs are stored as an additional column of data in the expression
-# matrix; additional marker information (marker names and marker classes) cannot be
-# included, since marker information is stored in column names only
+# matrices; additional marker information (marker names and marker classes) cannot be
+# included here, since marker information is stored in column names only
 
 # create table of cell population names
 df_population_names <- data.frame(
