@@ -6,34 +6,37 @@
 Data package of high-dimensional cytometry datasets
 }
 \description{
-Data package containing high-dimensional cytometry datasets saved in 
+Data package containing a collection of high-dimensional cytometry datasets saved in 
 \code{\link{SummarizedExperiment}} and \code{\link{flowSet}} Bioconductor object formats, 
 hosted on Bioconductor ExperimentHub.
 }
 \details{
-This package contains a set of publicly available high-dimensional flow cytometry and mass 
-cytometry (CyTOF) datasets, which have been formatted into the 
-\code{\link{SummarizedExperiment}} and \code{\link{flowSet}} Bioconductor object formats.
+This package contains a set of publicly available high-dimensional flow cytometry and 
+mass cytometry (CyTOF) datasets, which have been formatted into \code{\link{SummarizedExperiment}} 
+and \code{\link{flowSet}} Bioconductor object formats.
 
 The objects contain the cell-level expression values, as well as row and column metadata. 
-The row metadata includes sample IDs, group IDs, and true cell population or cluster labels 
+The row metadata includes sample IDs, group IDs, and true cell population labels or cluster labels 
 (where available). The column metadata includes channel names, protein marker names, and 
-protein marker classes.
+protein marker classes (cell type or cell state).
 
-These datasets have been used for benchmarking purposes in our previous work and publications, 
-e.g. to evaluate the performance of clustering algorithms. They are provided here in the 
-\code{SummarizedExperiment} and \code{flowSet} formats to make them easier to access.
+These datasets have been used in our previous work and publications for benchmarking purposes, 
+e.g. to benchmark clustering algorithms or methods for differential analysis. They are provided 
+here in the \code{SummarizedExperiment} and \code{flowSet} formats to make them easier to access.
 
-Currently, the package contains the following datasets:
+The package contains the following datasets:
 \itemize{
+\item \code{\link{Levine_32dim}}
+\item \code{\link{Levine_13dim}}
+\item \code{\link{Samusik_01}}
+\item \code{\link{Samusik_all}}
 \item \code{\link{Bodenmiller_BCR_XL}}
 }
 
 For additional details on each dataset, including references and raw data sources, see the 
-help files for the datasets.
+help files for each dataset.
 
-For a short example workflow demonstrating how to load the data objects and use them in an 
-analysis workflow, see the package vignette.
+For a short tutorial showing how to load the data objects, see the package vignette.
 
 The steps to prepare each data object from the raw data files are included in the \code{make-data} 
 scripts in the directory \code{inst/scripts}.

@@ -1,28 +1,32 @@
-\name{Levine_32dim}
+\name{Samusik_01}
 \docType{data}
-\alias{Levine_32dim}
-\alias{Levine_32dim_SE}
-\alias{Levine_32dim_flowSet}
+\alias{Samusik_01}
+\alias{Samusik_01_SE}
+\alias{Samusik_01_flowSet}
 \title{
-'Levine_32dim' dataset
+'Samusik_01' dataset
 }
 \description{
-Mass cytometry (CyTOF) dataset from Levine et al. (2015), containing 32 dimensions (surface protein markers) 
-and 14 manually gated clusters (cell populations), from healthy human bone marrow mononuclear cells (BMMCs). 
-This dataset can be used to benchmark clustering algorithms.
+Mass cytometry (CyTOF) dataset from Samusik et al. (2016), containing 39 dimensions 
+(surface protein markers) and 24 manually gated clusters (cell populations). 
+The full dataset (Samusik_all) contains cells from 10 replicate bone marrow samples from 
+C57BL/6J mice (samples from 10 different mice); this dataset (Samusik_01) contains the data 
+from sample 01 only. This dataset can be used to benchmark clustering algorithms.
 }
 \details{
-This is a 32-dimensional mass cytometry (CyTOF) data set, consisting of expression levels of 
-32 surface marker proteins. Cell population labels are available for 14 manually gated populations. 
-Cells are healthy human bone marrow mononuclear cells (BMMCs), from 2 patients. Manually gated 
-cell population labels were provided by the original authors.
+This is a 39-dimensional mass cytometry (CyTOF) data set, consisting of expression levels of 
+39 surface marker proteins. Cell population labels are available for 24 manually gated populations. 
+Manually gated cell population labels were provided by the original authors. 
+The full dataset ('Samusik_all') contains cells from 10 replicate bone marrow samples from 
+C57BL/6J mice (samples from 10 different mice); this dataset ('Samusik_01') contains the data 
+from sample 01 only.
 
 This dataset can be used to benchmark clustering algorithms.
 
-The dataset contains cells from 2 patients ('H1' and 'H2'); 
-a total of 265,627 cells (104,184 manually gated and 161,443 unclassified); 
-14 manually gated cell population IDs (as well as 'unassigned'); 
-and a total of 32 surface marker proteins.
+The 'Samusik_01' dataset contains cells from 1 mouse (sample '01'); 
+a total of 86,864 cells (53,173 manually gated and 33,691 unclassified); 
+24 manually gated cell population IDs (as well as 'unassigned'); 
+and a total of 39 surface marker proteins.
 
 The dataset is provided in two Bioconductor object formats: \code{\link{SummarizedExperiment}} 
 and \code{\link{flowSet}}. In each case, cells are stored in rows, and protein markers in 
@@ -30,7 +34,7 @@ columns (this is the usual format used for flow and mass cytometry data).
 
 For the \code{link{SummarizedExperiment}}, row and column metadata can be accessed with the 
 \code{\link{rowData}} and \code{\link{colData}} accessor functions from the 
-\code{SummarizedExperiment} package. The row data contains patient IDs and manually gated 
+\code{SummarizedExperiment} package. The row data contains sample IDs and manually gated 
 cell population IDs. The column data contains channel names, protein marker names, and a 
 factor \code{marker_class} to identify the class of each protein marker ('cell type' or 'cell state'; 
 for this dataset, all proteins are cell type markers). The expression values for each cell can be 
@@ -47,17 +51,16 @@ values for each cell are stored in the remaining columns of the \code{flowFrame}
 sample. The tables of expression values can be accessed with the \code{\link{exprs}} function 
 from the \code{\link{flowCore}} package. The expression values are stored in one table per sample 
 (i.e. one \code{flowFrame} object per sample (patient), within the overall \code{flowSet} object). 
-Patient IDs for each sample and a table to match cell population IDs to cell population names 
-can be accessed with the \code{\link{description}} accessor function for the individual 
-\code{flowFrame}s.
+Note that for the 'Samusik_01' dataset, there is one sample only. Filenames and sample IDs 
+for each sample and a table to match cell population IDs to cell population names can be 
+accessed with the \code{\link{description}} accessor function for the individual \code{flowFrame}s.
 
 Prior to performing any analysis, the expression values should be transformed. A standard 
 transformation used for mass cytometry data is the \code{arcsinh} with \code{cofactor = 5}.
 
-Original source: "benchmark data set 2" in Levine et al. (2015): https://www.ncbi.nlm.nih.gov/pubmed/26095251
+Original source: Samusik et al. (2016): https://www.ncbi.nlm.nih.gov/pubmed/27183440
 
-Original link to raw data: https://www.cytobank.org/cytobank/experiments/46102 (download the .zip 
-file shown under "Exported Files")
+Original link to raw data (.zip file): "https://web.stanford.edu/~samusik/Panorama BM 1-10.zip"
 
 This dataset was previously used to benchmark clustering algorithms for high-dimensional 
 cytometry in our article, Weber and Robinson (2016): https://www.ncbi.nlm.nih.gov/pubmed/27992111
@@ -65,8 +68,8 @@ cytometry in our article, Weber and Robinson (2016): https://www.ncbi.nlm.nih.go
 Data files are also available from FlowRepository (FR-FCM-ZZPH): http://flowrepository.org/id/FR-FCM-ZZPH
 }
 \usage{
-Levine_32dim_SE(metadata = FALSE)
-Levine_32dim_flowSet(metadata = FALSE)
+Samusik_01_SE(metadata = FALSE)
+Samusik_01_flowSet(metadata = FALSE)
 }
 \arguments{
 \item{metadata}{\code{logical} value indicating whether ExperimentHub metadata (describing the 
@@ -74,13 +77,13 @@ overall dataset) should be returned only, or if the whole dataset should be load
 which loads the whole dataset.}
 }
 \examples{
-Levine_32dim_SE()
-Levine_32dim_flowSet()
+Samusik_01_SE()
+Samusik_01_flowSet()
 }
 \value{Returns a \code{\link{SummarizedExperiment}} or \code{\link{flowSet}} object.}
 \references{
-Levine et al. (2015), "Data-driven phenotypic dissection of AML reveals progenitor-like cells 
-that correlate with prognosis", Cell, 162, 184-197: https://www.ncbi.nlm.nih.gov/pubmed/26095251
+Samusik et al. (2016), "Automated mapping of phenotype space with single-cell data", Nature Methods, 
+13(6), 493-496: https://www.ncbi.nlm.nih.gov/pubmed/27183440
 
 Weber and Robinson (2016), "Comparison of clustering methods for high-dimensional single-cell 
 flow and mass cytometry data", Cytometry Part A, 89A, 1084-1096: https://www.ncbi.nlm.nih.gov/pubmed/27992111
