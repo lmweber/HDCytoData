@@ -1,28 +1,26 @@
-\name{Levine_13dim}
+\name{Nilsson_rare}
 \docType{data}
-\alias{Levine_13dim}
-\alias{Levine_13dim_SE}
-\alias{Levine_13dim_flowSet}
+\alias{Nilsson_rare}
+\alias{Nilsson_rare_SE}
+\alias{Nilsson_rare_flowSet}
 \title{
-'Levine_13dim' dataset
+'Nilsson_rare' dataset
 }
 \description{
-Mass cytometry (CyTOF) dataset from Levine et al. (2015), containing 13 dimensions (surface 
-protein markers). Manually gated cell population labels are available for 24 populations. 
-Cells are human bone marrow cells from a single healthy donor. This dataset can be used to benchmark 
-clustering algorithms.
+Flow cytometry dataset from Nilsson et al. (2013), containing 13 dimensions (surface protein 
+markers). Manually gated cell population labels are available for one rare population of 
+hematopoietic stem cells (HSCs). Cells are human bone marrow cells from a single healthy donor. 
+This dataset can be used to benchmark clustering algorithms for rare cell populations.
 }
 \details{
-This is a 13-dimensional mass cytometry (CyTOF) data set, consisting of expression levels of 
-13 surface marker proteins. Cell population labels are available for 24 manually gated populations. 
-Cells are human bone marrow cells from a single healthy donor. Manually gated cell population labels 
-were provided by the original authors.
+This is a 13-dimensional flow cytometry dataset, consisting of expression levels of 
+13 surface protein markers. Cell population labels are available for one rare population of 
+hematopoietic stem cells (HSCs). Cells are human bone marrow cells from a single healthy donor.
 
-This dataset can be used to benchmark clustering algorithms.
+This dataset can be used to benchmark clustering algorithms for rare cell populations.
 
 The dataset contains cells from a single patient; 
-a total of 167,044 cells (81,747 manually gated and 85,297 unclassified); 
-24 manually gated cell population IDs (as well as 'unassigned'); 
+a total of 44,140 cells (including 358 manually gated cells from the rare population of interest); 
 and a total of 13 surface marker proteins.
 
 The dataset is provided in two Bioconductor object formats: \code{\link{SummarizedExperiment}} 
@@ -51,13 +49,12 @@ cell population IDs to cell population names can be accessed with the \code{\lin
 accessor function for the \code{flowFrame}.
 
 Prior to performing any downstream analyses, the expression values should be transformed. 
-A standard transformation used for mass cytometry data is the \code{\link{asinh}} with 
-\code{cofactor = 5}.
+A standard transformation used for flow cytometry data is the \code{\link{asinh}} with 
+\code{cofactor = 150}.
 
-Original source: "benchmark data set 1" in Levine et al. (2015): https://www.ncbi.nlm.nih.gov/pubmed/26095251
+Original source: Figure 2 in Nilsson et al. (2013): https://www.ncbi.nlm.nih.gov/pubmed/23839904
 
-Original link to raw data: https://www.cytobank.org/cytobank/experiments/46259 (download the 
-FCS files with Actions -> Export -> Download Files -> All FCS Files)
+Original link to raw data: http://flowrepository.org/id/FR-FCM-ZZ6L
 
 This dataset was previously used to benchmark clustering algorithms for high-dimensional 
 cytometry in our article, Weber and Robinson (2016): https://www.ncbi.nlm.nih.gov/pubmed/27992111
@@ -65,8 +62,8 @@ cytometry in our article, Weber and Robinson (2016): https://www.ncbi.nlm.nih.go
 Data files are also available from FlowRepository (FR-FCM-ZZPH): http://flowrepository.org/id/FR-FCM-ZZPH
 }
 \usage{
-Levine_13dim_SE(metadata = FALSE)
-Levine_13dim_flowSet(metadata = FALSE)
+Nilsson_rare_SE(metadata = FALSE)
+Nilsson_rare_flowSet(metadata = FALSE)
 }
 \arguments{
 \item{metadata}{\code{logical} value indicating whether ExperimentHub metadata (describing the 
@@ -74,13 +71,13 @@ overall dataset) should be returned only, or if the whole dataset should be load
 which loads the whole dataset.}
 }
 \examples{
-Levine_13dim_SE()
-Levine_13dim_flowSet()
+Nilsson_rare_SE()
+Nilsson_rare_flowSet()
 }
 \value{Returns a \code{\link{SummarizedExperiment}} or \code{\link{flowSet}} object.}
 \references{
-Levine et al. (2015), "Data-driven phenotypic dissection of AML reveals progenitor-like cells 
-that correlate with prognosis", Cell, 162, 184-197: https://www.ncbi.nlm.nih.gov/pubmed/26095251
+Nilsson et al. (2013), "Frequency determination of rare populations by flow cytometry: A 
+hematopoietic stem cell perspective", Cytometry Part A, 83A, 721-727: http://www.ncbi.nlm.nih.gov/pubmed/23839904
 
 Weber and Robinson (2016), "Comparison of clustering methods for high-dimensional single-cell 
 flow and mass cytometry data", Cytometry Part A, 89A, 1084-1096: https://www.ncbi.nlm.nih.gov/pubmed/27992111

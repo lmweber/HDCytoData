@@ -36,16 +36,20 @@ These datasets have been used for benchmarking purposes in our previous work and
 
 # Datasets
 
-Currently, the package contains the following datasets, which can be grouped into datasets useful for benchmarking either clustering algorithms or methods for differential analysis:
+Currently, the package contains the following datasets, which can be grouped into datasets useful for benchmarking either (i) clustering algorithms or (ii) methods for differential analysis.
 
 - Clustering:
     - Levine_32dim
     - Levine_13dim
+    - Samusik_01
+    - Samusik_all
+    - Nilsson_rare
+    - Mosmann_rare
 
 - Differential analysis:
     - Bodenmiller_BCR_XL
 
-Additional details on each dataset are included in the help files for the datasets. For each dataset, this includes a description of the dataset (biological context, number of samples, number of cells, number and classes of protein markers, etc.), as well as an explanation of the object structures, and references and raw data sources.
+Additional details on each dataset are included in the help files for the datasets. For each dataset, this includes a description of the dataset (biological context, number of samples, number of cells, number of manually gated cell populations, number and classes of protein markers, etc.), as well as an explanation of the object structures, and references and raw data sources.
 
 The help files can be accessed by the dataset names, e.g. `?Bodenmiller_BCR_XL`.
 
@@ -53,7 +57,7 @@ The help files can be accessed by the dataset names, e.g. `?Bodenmiller_BCR_XL`.
 
 # How to load data
 
-First, we show how to load the datasets, using one of the datasets (`Bodenmiller_BCR_XL`) as an example.
+This section shows how to load the datasets, using one of the datasets (`Bodenmiller_BCR_XL`) as an example.
 
 The datasets can be loaded either with named functions referring directly to the object names, or by using the `ExperimentHub` interface. Both methods are demonstrated below.
 
@@ -107,9 +111,15 @@ colData(d_SE)
 
 
 
+# Transformation of raw data
+
+Note that flow and mass cytometry data should be transformed prior to performing any downstream analyses, such as clustering. Standard transforms include the \code{\link{asinh}} with \code{cofactor} parameter equal to 5 (for mass cytometry data) or 150 (for flow cytometry data).
+
+
+
 # Exploring the data
 
-Interactive visualizations to explore the datasets can be generated from the `SummarizedExperiment` objects using the [iSEE](http://bioconductor.org/packages/iSEE) ("Interactive SummarizedExperiment Explorer") package, available from Bioconductor (Soneson, Lun, Marini, and Rue-Albrecht, 2018), which provides a Shiny-based graphical user interface to explore single-cell datasets stored in `SummarizedExperiment`s. For more details, see the `iSEE` package vignettes.
+Interactive visualizations to explore the datasets can be generated from the `SummarizedExperiment` objects using the [iSEE](http://bioconductor.org/packages/iSEE) ("Interactive SummarizedExperiment Explorer") package, available from Bioconductor (Soneson, Lun, Marini, and Rue-Albrecht, 2018), which provides a Shiny-based graphical user interface to explore single-cell datasets stored in the `SummarizedExperiment` format. For more details, see the `iSEE` package vignettes.
 
 
 

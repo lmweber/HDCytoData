@@ -7,15 +7,16 @@
 'Levine_32dim' dataset
 }
 \description{
-Mass cytometry (CyTOF) dataset from Levine et al. (2015), containing 32 dimensions (surface protein markers) 
-and 14 manually gated clusters (cell populations), from healthy human bone marrow mononuclear cells (BMMCs). 
-This dataset can be used to benchmark clustering algorithms.
+Mass cytometry (CyTOF) dataset from Levine et al. (2015), containing 32 dimensions (surface 
+protein markers). Manually gated cell population labels are available for 14 populations. 
+Cells are human bone marrow cells from 2 healthy donors. This dataset can be used to benchmark 
+clustering algorithms.
 }
 \details{
 This is a 32-dimensional mass cytometry (CyTOF) data set, consisting of expression levels of 
 32 surface marker proteins. Cell population labels are available for 14 manually gated populations. 
-Cells are healthy human bone marrow mononuclear cells (BMMCs), from 2 patients. Manually gated 
-cell population labels were provided by the original authors.
+Cells are human bone marrow cells from 2 healthy donors. Manually gated cell population labels 
+were provided by the original authors.
 
 This dataset can be used to benchmark clustering algorithms.
 
@@ -51,8 +52,9 @@ Patient IDs for each sample and a table to match cell population IDs to cell pop
 can be accessed with the \code{\link{description}} accessor function for the individual 
 \code{flowFrame}s.
 
-Prior to performing any analysis, the expression values should be transformed. A standard 
-transformation used for mass cytometry data is the \code{arcsinh} with \code{cofactor = 5}.
+Prior to performing any downstream analyses, the expression values should be transformed. 
+A standard transformation used for mass cytometry data is the \code{\link{asinh}} with 
+\code{cofactor = 5}.
 
 Original source: "benchmark data set 2" in Levine et al. (2015): https://www.ncbi.nlm.nih.gov/pubmed/26095251
 

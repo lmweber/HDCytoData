@@ -7,18 +7,18 @@
 'Samusik_01' dataset
 }
 \description{
-Mass cytometry (CyTOF) dataset from Samusik et al. (2016), containing 39 dimensions 
-(surface protein markers) and 24 manually gated clusters (cell populations). 
-The full dataset (Samusik_all) contains cells from 10 replicate bone marrow samples from 
-C57BL/6J mice (samples from 10 different mice); this dataset (Samusik_01) contains the data 
-from sample 01 only. This dataset can be used to benchmark clustering algorithms.
+Mass cytometry (CyTOF) dataset from Samusik et al. (2016), containing 39 dimensions (surface 
+protein markers). Manually gated cell population labels are available for 24 populations. 
+The full dataset ('Samusik_all') contains cells from 10 replicate bone marrow samples from 
+C57BL/6J mice (i.e. samples from 10 different mice); this dataset ('Samusik_01') contains 
+the data from sample 01 only. This dataset can be used to benchmark clustering algorithms.
 }
 \details{
 This is a 39-dimensional mass cytometry (CyTOF) data set, consisting of expression levels of 
 39 surface marker proteins. Cell population labels are available for 24 manually gated populations. 
 Manually gated cell population labels were provided by the original authors. 
 The full dataset ('Samusik_all') contains cells from 10 replicate bone marrow samples from 
-C57BL/6J mice (samples from 10 different mice); this dataset ('Samusik_01') contains the data 
+C57BL/6J mice (i.e. samples from 10 different mice); this dataset ('Samusik_01') contains the data 
 from sample 01 only.
 
 This dataset can be used to benchmark clustering algorithms.
@@ -55,8 +55,9 @@ Note that for the 'Samusik_01' dataset, there is one sample only. Filenames and 
 for each sample and a table to match cell population IDs to cell population names can be 
 accessed with the \code{\link{description}} accessor function for the individual \code{flowFrame}s.
 
-Prior to performing any analysis, the expression values should be transformed. A standard 
-transformation used for mass cytometry data is the \code{arcsinh} with \code{cofactor = 5}.
+Prior to performing any downstream analyses, the expression values should be transformed. 
+A standard transformation used for mass cytometry data is the \code{\link{asinh}} with 
+\code{cofactor = 5}.
 
 Original source: Samusik et al. (2016): https://www.ncbi.nlm.nih.gov/pubmed/27183440
 

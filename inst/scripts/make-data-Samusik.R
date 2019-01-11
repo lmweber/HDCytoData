@@ -1,11 +1,11 @@
 ##########################################################################################
-# R script to prepare benchmark data sets Samusik_01 and Samusik_all
+# R script to prepare benchmark datasets Samusik_01 and Samusik_all
 # 
-# This is a 39-dimensional mass cytometry (CyTOF) data set, consisting of expression
-# levels of 39 surface protein markers. Cell population labels are available for 24
-# manually gated populations. The dataset contains cells from 10 replicate bone marrow
-# samples from C57BL/6J mice (samples from 10 different mice): Samusik_01 contains data
-# from sample 01 only, and Samusik_all contains data from all samples.
+# This is a 39-dimensional mass cytometry (CyTOF) dataset, consisting of expression levels
+# of 39 surface protein markers. Cell population labels are available for 24 manually
+# gated populations. The dataset contains cells from 10 replicate bone marrow samples from
+# C57BL/6J mice (samples from 10 different mice): Samusik_01 contains data from sample 01
+# only, and Samusik_all contains data from all samples.
 # 
 # This R script loads the data, adds manually gated cell population labels, and exports it
 # in SummarizedExperiment and flowSet formats.
@@ -114,7 +114,15 @@ str(population)
 
 # note: 'unassigned' refers to cells not assigned to any population by manual gating
 
-marker_names <- parameters(read.FCS(files_load_fcs[1]))$desc
+# channel and marker names
+channel_name <- as.character(pData(parameters(read.FCS(files_load_fcs[1])))$name)
+marker_name <- as.character(pData(parameters(read.FCS(files_load_fcs[1])))$desc)
+# original column names
+col_names <- colnames(exprs(read.FCS(files_load_fcs[1])))
+
+# marker classes (cell type, cell state, or none)
+marker_class <- rep("none", length(marker_name))
+marker_class[c(9:47)] <- "type"
 
 data <- list()
 row_data <- list()
@@ -152,9 +160,8 @@ prop_assigned
 sum(n_cells)
 
 # check column names
-channel_names <- as.character(colnames(data[[1]]))
 for (i in seq_along(data)) {
-  stopifnot(all(colnames(data[[i]]) == channel_names))
+  stopifnot(all(colnames(data[[i]]) == channel_name))
 }
 
 
@@ -178,22 +185,17 @@ rownames(row_data) <- NULL
 stopifnot(nrow(row_data) == sum(n_cells))
 
 # set up column data
-
-# marker classes (cell type, cell state, or none)
-marker_class <- rep("none", length(marker_names))
-marker_class[c(9:47)] <- "type"
-
 col_data <- data.frame(
-  channel_name = as.character(channel_names), 
-  marker_name = as.character(marker_names), 
-  marker_class = as.factor(marker_class), 
+  channel_name = as.character(channel_name), 
+  marker_name = as.character(marker_name), 
+  marker_class = factor(marker_class, levels = c("none", "type", "state")), 
   stringsAsFactors = FALSE
 )
 
 # set up expression data
 d_exprs <- do.call("rbind", data)
-
-colnames(d_exprs) <- as.character(marker_names)
+# use marker names as column names (for SummarizedExperiment)
+colnames(d_exprs) <- marker_name
 
 stopifnot(nrow(d_exprs) == nrow(row_data))
 stopifnot(ncol(d_exprs) == nrow(col_data))
@@ -236,16 +238,20 @@ stopifnot(all(names(row_data_fs_list) == sample_id_names))
 
 stopifnot(all(sapply(data, nrow) == sapply(row_data_fs_list, nrow)))
 
-# create new flowSet object and add extra columns of data
+# add extra columns of data and create new flowSet object
 exprs_fs_list <- data
-
+exprs_fs_list <- lapply(exprs_fs_list, function(e) {
+  # use original column names (for flowSet)
+  colnames(e) <- col_names
+  e
+})
 d_flowFrames_list <- mapply(function(e, extra_cols) {
   # combine and create flowFrame
   stopifnot(nrow(e) == nrow(extra_cols))
   ff <- flowFrame(cbind(e, extra_cols))
-  # include both channel and marker names
-  stopifnot(length(c(marker_names, colnames(extra_cols))) == nrow(pData(parameters(ff))))
-  pData(parameters(ff))$desc <- c(marker_names, colnames(extra_cols))
+  # include both channel and marker names in 'pData(parameters(.))'
+  stopifnot(length(c(marker_name, colnames(extra_cols))) == nrow(pData(parameters(ff))))
+  pData(parameters(ff))$desc <- c(marker_name, colnames(extra_cols))
   ff
 }, exprs_fs_list, row_data_fs_list)
 

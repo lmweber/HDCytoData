@@ -30,6 +30,8 @@ The package contains the following datasets:
 \item \code{\link{Levine_13dim}}
 \item \code{\link{Samusik_01}}
 \item \code{\link{Samusik_all}}
+\item \code{\link{Nilsson_rare}}
+\item \code{\link{Mosmann_rare}}
 \item \code{\link{Bodenmiller_BCR_XL}}
 }
 
@@ -37,6 +39,10 @@ For additional details on each dataset, including references and raw data source
 help files for each dataset.
 
 For a short tutorial showing how to load the data objects, see the package vignette.
+
+Note that flow and mass cytometry datasets should be transformed prior to performing any 
+downstream analyses, such as clustering. Standard transforms include the \code{\link{asinh}} with 
+\code{cofactor} parameter equal to 5 (for mass cytometry data) or 150 (for flow cytometry data).
 
 The steps to prepare each data object from the raw data files are included in the \code{make-data} 
 scripts in the directory \code{inst/scripts}.

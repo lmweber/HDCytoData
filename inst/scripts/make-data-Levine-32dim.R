@@ -1,10 +1,10 @@
 ##########################################################################################
-# R script to prepare benchmark data set Levine_32dim
+# R script to prepare benchmark dataset Levine_32dim
 # 
-# This is a 32-dimensional mass cytometry (CyTOF) data set, consisting of expression
-# levels of 32 surface protein markers. Cell population labels are available for 14
-# manually gated populations. Cells are healthy human bone marrow mononuclear cells
-# (BMMCs), from 2 patients.
+# This is a 32-dimensional mass cytometry (CyTOF) dataset, consisting of expression levels
+# of 32 surface protein markers. Cell population labels are available for 14 manually
+# gated populations. Cells are healthy human bone marrow mononuclear cells (BMMCs), from 2
+# patients.
 #
 # This R script loads the data, adds manually gated cell population labels, and exports it
 # in SummarizedExperiment and flowSet formats.
@@ -74,19 +74,16 @@ pop_names <-
   gsub("^.*_", "", .) %>% 
   gsub(" ", "_", .)
 
-# column names (protein markers and others)
-col_names <- 
-  read.FCS(files_assigned[1], transformation = FALSE, truncate_max_range = FALSE) %>% 
-  exprs %>% 
-  colnames %>% 
-  unname
-
-# clean column names
-channel_name <- col_names
-marker_name <- gsub("\\(.*", "", col_names)
+# channel and marker names
+channel_name <- as.character(pData(parameters(read.FCS(files_assigned[1])))$name)
+marker_name <- as.character(pData(parameters(read.FCS(files_assigned[1])))$desc)
+# clean marker names
+marker_name <- gsub("\\(.*", "", marker_name)
+# original column names
+col_names <- colnames(exprs(read.FCS(files_assigned[1])))
 
 # marker classes (cell type, cell state, or none)
-marker_class <- rep("none", length(col_names))
+marker_class <- rep("none", length(marker_name))
 marker_class[5:36] <- "type"
 
 # vector of labels for patients H1 and H2
@@ -98,7 +95,7 @@ patient_names_unassigned <- c("H1", "H2")
 
 
 # load data and create vectors of population IDs and sample IDs (for "assigned" cells)
-data_assigned <- matrix(nrow = 0, ncol = length(col_names))
+data_assigned <- matrix(nrow = 0, ncol = length(marker_name))
 pop_id_assigned <- c()
 patient_id_assigned <- c()
 
@@ -121,7 +118,7 @@ stopifnot(nrow(data_assigned) == length(patient_id_assigned))
 
 
 # load data and create vectors of population IDs and sample IDs (for "unassigned" cells)
-data_unassigned <- matrix(nrow = 0, ncol = length(col_names))
+data_unassigned <- matrix(nrow = 0, ncol = length(marker_name))
 pop_id_unassigned <- c()
 patient_id_unassigned <- c()
 
@@ -175,12 +172,13 @@ row_data <- data.frame(
 col_data <- data.frame(
   channel_name = as.character(channel_name), 
   marker_name = as.character(marker_name), 
-  marker_class = as.factor(marker_class), 
+  marker_class = factor(marker_class, levels = c("none", "type", "state")), 
   stringsAsFactors = FALSE
 )
 
 # set up expression data
 d_exprs <- data_all
+# use marker names as column names (for SummarizedExperiment)
 colnames(d_exprs) <- marker_name
 
 stopifnot(nrow(d_exprs) == nrow(row_data))
@@ -226,13 +224,13 @@ row_data_fs_list <- lapply(row_data_fs_list, function(d) {
   d
 })
 
-# create new flowSet object and add extra columns of data
+# add extra columns of data and create new flowSet object
 exprs_fs_list <- lapply(split(d_exprs, row_data$patient_id), matrix, ncol = ncol(d_exprs))
 exprs_fs_list <- lapply(exprs_fs_list, function(e) {
-  colnames(e) <- channel_name
+  # use original column names (for flowSet)
+  colnames(e) <- col_names
   e
 })
-
 d_flowFrames_list <- mapply(function(e, extra_cols) {
   # combine and create flowFrame
   stopifnot(nrow(e) == nrow(extra_cols))

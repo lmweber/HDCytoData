@@ -26,9 +26,9 @@ df_Levine_32dim_SE <- cbind(
   Title = "Levine_32dim_SE", 
   Description = paste0(
     "Mass cytometry (CyTOF) dataset from Levine et al. (2015), ", 
-    "containing 32 dimensions (surface protein markers) ", 
-    "and 14 manually gated clusters (cell populations), ", 
-    "from healthy human bone marrow mononuclear cells (BMMCs). ", 
+    "containing 32 dimensions (surface protein markers). ", 
+    "Manually gated cell population labels are available for 14 populations. ", 
+    "Cells are human bone marrow cells from 2 healthy donors. ", 
     "This dataset can be used to benchmark clustering algorithms."), 
   Species = "Homo sapiens", 
   TaxonomyId = "9606", 
@@ -54,9 +54,9 @@ df_Levine_13dim_SE <- cbind(
   Title = "Levine_13dim_SE", 
   Description = paste0(
     "Mass cytometry (CyTOF) dataset from Levine et al. (2015), ", 
-    "containing 13 dimensions (surface protein markers) ", 
-    "and 24 manually gated clusters (cell populations), ", 
-    "from healthy human bone marrow mononuclear cells (BMMCs). ", 
+    "containing 13 dimensions (surface protein markers). ", 
+    "Manually gated cell population labels are available for 24 populations. ", 
+    "Cells are human bone marrow cells from a single healthy donor. ", 
     "This dataset can be used to benchmark clustering algorithms."), 
   Species = "Homo sapiens", 
   TaxonomyId = "9606", 
@@ -82,10 +82,10 @@ df_Samusik_01_SE <- cbind(
   Title = "Samusik_01_SE", 
   Description = paste0(
     "Mass cytometry (CyTOF) dataset from Samusik et al. (2016), ", 
-    "containing 39 dimensions (surface protein markers) ", 
-    "and 24 manually gated clusters (cell populations). ", 
+    "containing 39 dimensions (surface protein markers). ", 
+    "Manually gated cell population labels are available for 24 populations. ", 
     "The full dataset (Samusik_all) contains cells from 10 replicate bone marrow samples from ", 
-    "C57BL/6J mice (samples from 10 different mice); this dataset (Samusik_01) contains ", 
+    "C57BL/6J mice (i.e. samples from 10 different mice); this dataset (Samusik_01) contains ", 
     "the data from sample 01 only. ", 
     "This dataset can be used to benchmark clustering algorithms."), 
   Species = "Mus musculus", 
@@ -112,10 +112,10 @@ df_Samusik_all_SE <- cbind(
   Title = "Samusik_all_SE", 
   Description = paste0(
     "Mass cytometry (CyTOF) dataset from Samusik et al. (2016), ", 
-    "containing 39 dimensions (surface protein markers) ", 
-    "and 24 manually gated clusters (cell populations). ", 
+    "containing 39 dimensions (surface protein markers). ", 
+    "Manually gated cell population labels are available for 24 populations. ", 
     "This dataset contains cells from 10 replicate bone marrow samples from ", 
-    "C57BL/6J mice (samples from 10 different mice). ", 
+    "C57BL/6J mice (i.e. samples from 10 different mice). ", 
     "This dataset can be used to benchmark clustering algorithms."), 
   Species = "Mus musculus", 
   TaxonomyId = "10090", 
@@ -128,6 +128,66 @@ df_Samusik_all_flowSet <- df_Samusik_all_SE
 df_Samusik_all_flowSet$Title <- "Samusik_all_flowSet"
 df_Samusik_all_flowSet$RDataClass <- "flowSet"
 df_Samusik_all_flowSet$RDataPath <- "HDCytoData/Samusik_all/Samusik_all_flowSet.rda"
+
+
+
+# --------------------
+# Nilsson_rare dataset
+# --------------------
+
+# SummarizedExperiment
+df_Nilsson_rare_SE <- cbind(
+  df_base, 
+  Title = "Nilsson_rare_SE", 
+  Description = paste0(
+    "Flow cytometry dataset from Nilsson et al. (2013), ", 
+    "containing 13 dimensions (surface protein markers). ", 
+    "Manually gated cell population labels are available for one rare population of ", 
+    "hematopoietic stem cells (HSCs). ", 
+    "Cells are human bone marrow cells from a single healthy donor. ", 
+    "This dataset can be used to benchmark clustering algorithms for rare cell populations."
+  ), 
+  Species = "Homo sapiens", 
+  TaxonomyId = "9606", 
+  RDataClass = "SummarizedExperiment", 
+  RDataPath = "HDCytoData/Nilsson_rare/Nilsson_rare_SE.rda"
+)
+
+# flowSet
+df_Nilsson_rare_flowSet <- df_Nilsson_rare_SE
+df_Nilsson_rare_flowSet$Title <- "Nilsson_rare_flowSet"
+df_Nilsson_rare_flowSet$RDataClass <- "flowSet"
+df_Nilsson_rare_flowSet$RDataPath <- "HDCytoData/Nilsson_rare/Nilsson_rare_flowSet.rda"
+
+
+
+# --------------------
+# Mosmann_rare dataset
+# --------------------
+
+# SummarizedExperiment
+df_Mosmann_rare_SE <- cbind(
+  df_base, 
+  Title = "Mosmann_rare_SE", 
+  Description = paste0(
+    "Flow cytometry dataset from Mosmann et al. (2014), ", 
+    "containing 14 dimensions (7 surface protein markers and 7 signaling markers). ", 
+    "Manually gated cell population labels are available for one rare population of ", 
+    "activated (cytokine-producing) memory CD4 T cells. ", 
+    "Cells are human peripheral blood cells exposed to influenza antigens, from a single healthy donor. ", 
+    "This dataset can be used to benchmark clustering algorithms for rare cell populations."
+  ), 
+  Species = "Homo sapiens", 
+  TaxonomyId = "9606", 
+  RDataClass = "SummarizedExperiment", 
+  RDataPath = "HDCytoData/Mosmann_rare/Mosmann_rare_SE.rda"
+)
+
+# flowSet
+df_Mosmann_rare_flowSet <- df_Mosmann_rare_SE
+df_Mosmann_rare_flowSet$Title <- "Mosmann_rare_flowSet"
+df_Mosmann_rare_flowSet$RDataClass <- "flowSet"
+df_Mosmann_rare_flowSet$RDataPath <- "HDCytoData/Mosmann_rare/Mosmann_rare_flowSet.rda"
 
 
 
@@ -171,6 +231,10 @@ df_all <- rbind(
   df_Samusik_01_flowSet, 
   df_Samusik_all_SE, 
   df_Samusik_all_flowSet, 
+  df_Nilsson_rare_SE, 
+  df_Nilsson_rare_flowSet, 
+  df_Mosmann_rare_SE, 
+  df_Mosmann_rare_flowSet, 
   df_Bodenmiller_BCR_XL_SE, 
   df_Bodenmiller_BCR_XL_flowSet
 )
