@@ -35,18 +35,17 @@ factor \code{marker_class} to identify the class of each protein marker ('cell t
 for this dataset, all proteins are cell type markers). The expression values for each cell can be 
 accessed with \code{\link{assay}}. The expression values are formatted as a single table.
 
-For the \code{\link{flowSet}}, the row metadata is stored as an additional column of data 
-within the \code{\link{flowFrame}} object. The row data contains the manually gated 
-cell population IDs. Note that the factor values are converted to numeric values, 
-since the tables of expression values must be numeric matrices. The column metadata consists of 
-channel names only, which are stored in the column names of the \code{flowFrame} object for 
-each sample (since column names cannot contain multiple entries, the \code{marker_class} 
-information to identify cell type and cell state markers is not included here). The expression 
-values for each cell are stored in the remaining columns of the \code{flowFrame} object 
-(within the overall \code{flowSet} object). The table of expression values can be accessed with 
-the \code{\link{exprs}} function from the \code{\link{flowCore}} package. A table to match 
-cell population IDs to cell population names can be accessed with the \code{\link{description}} 
-accessor function for the \code{flowFrame}.
+For the \code{\link{flowSet}}, the expression values are stored in a separate table for each 
+sample. Each sample is represented by one \code{\link{flowFrame}} object within the overall 
+\code{flowSet} (note that for this dataset, there is only one sample). 
+The expression values can be accessed with the \code{\link{exprs}} function from the 
+\code{\link{flowCore}} package. Row metadata is stored as additional columns of data within 
+the \code{flowFrame} for each sample; note that factor values are converted to numeric values, 
+since the expression tables must be numeric matrices. Channel names are stored in the column names 
+of the expression tables. Additional row and column metadata is stored in the \code{description} 
+slots, which can be accessed with the \code{\link{description}} accessor function for the 
+individual \code{flowFrames}; this includes additional sample information (where available), 
+marker information, and cell population information.
 
 Prior to performing any downstream analyses, the expression values should be transformed. 
 A standard transformation used for flow cytometry data is the \code{\link{asinh}} with 

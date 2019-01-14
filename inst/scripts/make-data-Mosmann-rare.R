@@ -166,12 +166,13 @@ row_data <- data.frame(
 )
 
 # set up column data
-col_data <- data.frame(
+marker_info <- data.frame(
   channel_name = as.character(channel_name), 
   marker_name = as.character(marker_name), 
   marker_class = factor(marker_class, levels = c("none", "type", "state")), 
   stringsAsFactors = FALSE
 )
+col_data <- marker_info
 
 # set up expression data
 d_exprs <- data_single_live
@@ -190,16 +191,16 @@ d_SE <- SummarizedExperiment(
 
 
 
-# --------------
-# Create flowSet
-# --------------
+# ---------------------
+# Create flowSet object
+# ---------------------
 
-# note: population IDs are stored as an additional column of data in the expression
-# matrices; additional marker information (marker names and marker classes) cannot be
-# included here, since marker information is stored in column names only
+# note: row data (e.g. population IDs) is stored as additional columns of data in the
+# expression matrices; additional information from row data and column data (e.g. marker
+# classes, cell population names) is stored in 'description' slot
 
-# create table of cell population names
-df_population_names <- data.frame(
+# table of cell population information
+population_info <- data.frame(
   population_id = c(0, 1), 
   name = c("other", "activated"), 
   stringsAsFactors = FALSE
@@ -219,8 +220,9 @@ pData(parameters(d_flowFrame))$desc <- c(marker_name, "population_id")
 
 d_flowSet <- flowSet(d_flowFrame)
 
-# include table of population names in 'description' slot
-description(d_flowSet[[1]])$POPULATION_NAMES <- df_population_names
+# include additional information in 'description' slot
+description(d_flowSet[[1]])$MARKER_INFO <- marker_info
+description(d_flowSet[[1]])$POPULATION_INFO <- population_info
 
 
 
