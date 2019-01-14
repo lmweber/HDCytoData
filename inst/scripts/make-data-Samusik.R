@@ -185,12 +185,13 @@ rownames(row_data) <- NULL
 stopifnot(nrow(row_data) == sum(n_cells))
 
 # set up column data
-col_data <- data.frame(
+marker_info <- data.frame(
   channel_name = as.character(channel_name), 
   marker_name = as.character(marker_name), 
   marker_class = factor(marker_class, levels = c("none", "type", "state")), 
   stringsAsFactors = FALSE
 )
+col_data <- marker_info
 
 # set up expression data
 d_exprs <- do.call("rbind", data)
@@ -212,17 +213,17 @@ d_SE_01 <- d_SE_all[rowData(d_SE_all)$sample_id == "01", ]
 
 
 
-# --------------
-# Create flowSet
-# --------------
+# ---------------------
+# Create flowSet object
+# ---------------------
 
-# note: population IDs are stored as an additional column of data in the expression
-# matrices; additional marker information (marker names and marker classes) cannot be
-# included here, since marker information is stored in column names only
+# note: row data (e.g. population IDs) is stored as additional columns of data in the
+# expression matrices; additional information from row data and column data (e.g. marker
+# classes, cell population names) is stored in 'description' slot
 
-# create table of cell population names
-df_population_names <- data.frame(
-  population_id = 1:nlevels(row_data$population_id), 
+# table of cell population information
+population_info <- data.frame(
+  population_id = seq_len(nlevels(row_data$population_id)), 
   population_name = levels(row_data$population_id), 
   stringsAsFactors = FALSE
 )
@@ -259,23 +260,31 @@ d_flowFrames_list <- mapply(function(e, extra_cols) {
 # create flowSet object for 'Samusik_all' (full dataset)
 d_flowSet_all <- flowSet(d_flowFrames_list)
 
-# include filenames, sample IDs, and table of population names in 'description' slot
+# include additional information in 'description' slot
 for (i in seq_along(d_flowSet_all)) {
+  # filename and sample information
   description(d_flowSet_all[[i]])$FILENAME <- identifier(d_flowSet_all[[i]])
   description(d_flowSet_all[[i]])$SAMPLE_ID <- gsub("^.*_([0-9]+)_.*$", "\\1", identifier(d_flowSet_all[[i]]))
   stopifnot(description(d_flowSet_all[[i]])$SAMPLE_ID == sample_id_names[i])
-  description(d_flowSet_all[[i]])$POPULATION_NAMES <- df_population_names
+  # data frame of marker information
+  description(d_flowSet_all[[i]])$MARKER_INFO <- marker_info
+  # data frame of cell population information
+  description(d_flowSet_all[[i]])$POPULATION_INFO <- population_info
 }
 
 # create flowSet object for 'Samusik_01' (sample 01)
 d_flowSet_01 <- flowSet(d_flowFrames_list[1])
 
-# include filenames, sample IDs, and table of population names in 'description' slot
+# include additional information in 'description' slot
 for (i in seq_along(d_flowSet_01)) {
+  # filename and sample information
   description(d_flowSet_01[[i]])$FILENAME <- identifier(d_flowSet_01[[i]])
   description(d_flowSet_01[[i]])$SAMPLE_ID <- gsub("^.*_([0-9]+)_.*$", "\\1", identifier(d_flowSet_01[[i]]))
   stopifnot(description(d_flowSet_all[[i]])$SAMPLE_ID == sample_id_names[i])
-  description(d_flowSet_01[[i]])$POPULATION_NAMES <- df_population_names
+  # data frame of marker information
+  description(d_flowSet_01[[i]])$MARKER_INFO <- marker_info
+  # data frame of cell population information
+  description(d_flowSet_01[[i]])$POPULATION_INFO <- population_info
 }
 
 

@@ -169,12 +169,13 @@ row_data <- data.frame(
 )
 
 # set up column data
-col_data <- data.frame(
+marker_info <- data.frame(
   channel_name = as.character(channel_name), 
   marker_name = as.character(marker_name), 
   marker_class = factor(marker_class, levels = c("none", "type", "state")), 
   stringsAsFactors = FALSE
 )
+col_data <- marker_info
 
 # set up expression data
 d_exprs <- data_all
@@ -193,17 +194,17 @@ d_SE <- SummarizedExperiment(
 
 
 
-# --------------
-# Create flowSet
-# --------------
+# ---------------------
+# Create flowSet object
+# ---------------------
 
-# note: population IDs are stored as an additional column of data in the expression
-# matrices; additional marker information (marker names and marker classes) cannot be
-# included here, since marker information is stored in column names only
+# note: row data (e.g. population IDs) is stored as additional columns of data in the
+# expression matrices; additional information from row data and column data (e.g. marker
+# classes, cell population names) is stored in 'description' slot
 
-# create table of cell population names
-df_population_names <- data.frame(
-  population_id = 1:(length(pop_names) + 1), 
+# table of cell population information
+population_info <- data.frame(
+  population_id = seq_len(length(pop_names) + 1), 
   population_name = c(pop_names, "unassigned"), 
   stringsAsFactors = FALSE
 )
@@ -239,10 +240,14 @@ d_flowFrames_list <- mapply(function(e, extra_cols) {
 
 d_flowSet <- flowSet(d_flowFrames_list)
 
-# include patient IDs and table of population names in 'description' slot
+# include additional information in 'description' slot
 for (i in seq_along(d_flowSet)) {
+  # sample information
   description(d_flowSet[[i]])$PATIENT_ID <- identifier(d_flowSet[[i]])
-  description(d_flowSet[[i]])$POPULATION_NAMES <- df_population_names
+  # data frame of marker information
+  description(d_flowSet[[i]])$MARKER_INFO <- marker_info
+  # data frame of cell population information
+  description(d_flowSet[[i]])$POPULATION_INFO <- population_info
 }
 
 
