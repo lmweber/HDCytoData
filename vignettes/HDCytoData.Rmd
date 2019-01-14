@@ -36,7 +36,7 @@ These datasets have been used for benchmarking purposes in our previous work and
 
 # Datasets
 
-Currently, the package contains the following datasets, which can be grouped into datasets useful for benchmarking either (i) clustering algorithms or (ii) methods for differential analysis.
+The package contains the following datasets, which can be grouped into datasets useful for benchmarking either (i) clustering algorithms or (ii) methods for differential analysis.
 
 - Clustering:
     - Levine_32dim
@@ -47,6 +47,7 @@ Currently, the package contains the following datasets, which can be grouped int
     - Mosmann_rare
 
 - Differential analysis:
+    - Krieg_Anti_PD_1
     - Bodenmiller_BCR_XL
 
 Additional details on each dataset are included in the help files for the datasets. For each dataset, this includes a description of the dataset (biological context, number of samples, number of cells, number of manually gated cell populations, number and classes of protein markers, etc.), as well as an explanation of the object structures, and references and raw data sources.

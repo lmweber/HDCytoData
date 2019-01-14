@@ -191,6 +191,35 @@ df_Mosmann_rare_flowSet$RDataPath <- "HDCytoData/Mosmann_rare/Mosmann_rare_flowS
 
 
 
+# -----------------------
+# Krieg_Anti_PD_1 dataset
+# -----------------------
+
+# SummarizedExperiment
+df_Krieg_Anti_PD_1_SE <- cbind(
+  df_base, 
+  Title = "Krieg_Anti_PD_1_SE", 
+  Description = paste0(
+    "Mass cytometry (CyTOF) dataset from Krieg et al. (2018), consisting of 20 baseline samples ", 
+    "(prior to treatment) of peripheral blood from melanoma skin cancer patients subsequently treated ", 
+    "with anti-PD-1 immunotherapy. The samples are split across 2 conditions (non-responders and ", 
+    "responders) and 2 batches. This dataset can be used to benchmark algorithms for differential ", 
+    "analysis, in particular detection of differentially abundant rare cell populations."
+  ), 
+  Species = "Homo sapiens", 
+  TaxonomyId = "9606", 
+  RDataClass = "SummarizedExperiment", 
+  RDataPath = "HDCytoData/Krieg_Anti_PD_1/Krieg_Anti_PD_1_SE.rda"
+)
+
+# flowSet
+df_Krieg_Anti_PD_1_flowSet <- df_Krieg_Anti_PD_1_SE
+df_Krieg_Anti_PD_1_flowSet$Title <- "Krieg_Anti_PD_1_flowSet"
+df_Krieg_Anti_PD_1_flowSet$RDataClass <- "flowSet"
+df_Krieg_Anti_PD_1_flowSet$RDataPath <- "HDCytoData/Krieg_Anti_PD_1/Krieg_Anti_PD_1_flowSet.rda"
+
+
+
 # --------------------------
 # Bodenmiller_BCR_XL dataset
 # --------------------------
@@ -200,19 +229,10 @@ df_Bodenmiller_BCR_XL_SE <- cbind(
   df_base, 
   Title = "Bodenmiller_BCR_XL_SE", 
   Description = paste0(
-    "Mass cytometry (CyTOF) dataset from Bodenmiller et al. (2012), ", 
-    "consisting of paired samples of peripheral blood cells from healthy individuals, ", 
-    "where one sample from each pair was stimulated with B cell receptor / Fc receptor ", 
-    "cross-linker (BCR-XL). ", 
-    "There are 8 paired samples (i.e. 16 samples in total). ", 
-    "The dataset contains expression levels of 24 protein markers (10 surface markers and 14 ", 
-    "intracellular signaling markers). ", 
-    "Cell population labels are available from Nowicka et al. (2017). ", 
-    "This dataset can be used to benchmark algorithms for differential analysis, ", 
-    "in particular discovery of differential states within cell populations. ", 
-    "The dataset contains strong differential expression signals for several signaling markers ", 
-    "in several cell populations; one of the strongest effects is differential expression of ", 
-    "phosphorylated S6 (pS6) in B cells."
+    "Mass cytometry (CyTOF) dataset from Bodenmiller et al. (2012), consisting of 8 paired samples ", 
+    "(16 samples) of stimulated (BCR-XL) and unstimulated peripheral blood cells from healthy ", 
+    "individuals. This dataset can be used to benchmark algorithms for differential analysis, ", 
+    "in particular detection of differential states within cell populations."
   ), 
   Species = "Homo sapiens", 
   TaxonomyId = "9606", 
@@ -245,6 +265,8 @@ df_all <- rbind(
   df_Nilsson_rare_flowSet, 
   df_Mosmann_rare_SE, 
   df_Mosmann_rare_flowSet, 
+  df_Krieg_Anti_PD_1_SE, 
+  df_Krieg_Anti_PD_1_flowSet, 
   df_Bodenmiller_BCR_XL_SE, 
   df_Bodenmiller_BCR_XL_flowSet
 )
