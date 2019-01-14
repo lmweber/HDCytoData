@@ -220,7 +220,11 @@ d_flowFrames_list <- mapply(function(d, extra_cols) {
   # use original column names (for flowSet)
   colnames(e) <- col_names
   # combine and create flowFrame
-  flowFrame(cbind(e, extra_cols))
+  ff <- flowFrame(cbind(e, extra_cols))
+  # include both channel and marker names in 'pData(parameters(.))'
+  stopifnot(length(c(marker_info$marker_name, colnames(extra_cols))) == nrow(pData(parameters(ff))))
+  pData(parameters(ff))$desc <- c(marker_info$marker_name, colnames(extra_cols))
+  ff
 }, data_flowSet_list, row_data_fs_list)
 
 d_flowSet <- flowSet(d_flowFrames_list)

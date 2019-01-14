@@ -24,7 +24,11 @@ These datasets have been used in our previous work and publications for benchmar
 e.g. to benchmark clustering algorithms or methods for differential analysis. They are provided 
 here in the \code{SummarizedExperiment} and \code{flowSet} formats to make them easier to access.
 
-The package contains the following datasets:
+The package contains the following datasets, which can be grouped into datasets useful for 
+benchmarking either (i) clustering algorithms or (ii) methods for differential analysis.
+
+Clustering:
+
 \itemize{
 \item \code{\link{Levine_32dim}}
 \item \code{\link{Levine_13dim}}
@@ -32,6 +36,12 @@ The package contains the following datasets:
 \item \code{\link{Samusik_all}}
 \item \code{\link{Nilsson_rare}}
 \item \code{\link{Mosmann_rare}}
+}
+
+Differential analysis:
+
+\itemize{
+\item \code{\link{Krieg_Anti_PD_1}}
 \item \code{\link{Bodenmiller_BCR_XL}}
 }
 

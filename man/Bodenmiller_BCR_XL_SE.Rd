@@ -7,28 +7,28 @@
 'Bodenmiller_BCR_XL' dataset
 }
 \description{
-Mass cytometry (CyTOF) dataset from Bodenmiller et al. (2012), consisting of paired samples 
-of peripheral blood cells from healthy individuals, where one sample from each pair was 
-stimulated with B cell receptor / Fc receptor cross-linker (BCR-XL). This dataset can be 
-used to benchmark algorithms for differential analysis, in particular discovery of differential 
-states within cell populations. The dataset contains strong differential expression signals 
-for several signaling markers in several cell populations; one of the strongest effects is 
-differential expression of phosphorylated S6 (pS6) in B cells.
+Mass cytometry (CyTOF) dataset from Bodenmiller et al. (2012), consisting of 8 paired samples 
+(16 samples) of stimulated (BCR-XL) and unstimulated peripheral blood cells from healthy 
+individuals. This dataset can be used to benchmark algorithms for differential analysis, 
+in particular detection of differential states within cell populations.
 }
 \details{
 This is a mass cytometry (CyTOF) dataset from Bodenmiller et al. (2012), consisting of paired 
 samples of peripheral blood cells from healthy individuals, where one sample from each pair was 
-stimulated with B cell receptor / Fc receptor cross-linker (BCR-XL).
+stimulated with B cell receptor / Fc receptor cross-linker (BCR-XL), and the other sample is 
+the reference. The dataset contains strong differential expression of several signaling markers 
+in several cell populations; one of the strongest effects is differential expression of 
+phosphorylated S6 (pS6) in the population of B cells.
 
 This dataset can be used to benchmark algorithms for differential analysis, in particular 
-discovery of differential states within cell populations. The dataset contains strong 
-differential expression signals for several signaling markers in several cell populations; 
-one of the strongest effects is differential expression of phosphorylated S6 (pS6) in B cells.
+detection of differential states within cell populations (e.g. differential expression of pS6 
+in B cells).
 
 There are 8 paired samples (i.e. 16 samples in total), and a total of 172,791 cells. The 
-dataset contains expression levels of 24 protein markers (10 surface markers or 'cell type' 
-markers used to define cell populations or clusters, and 14 intracellular signaling markers or 
-'cell state' markers).
+dataset contains expression levels of 24 protein markers (10 surface lineage markers used to 
+define cell populations or clusters, and 14 intracellular signaling functional markers). 
+The surface markers are classified as 'cell type' markers, and the signaling markers as 
+'cell state' markers.
 
 Cell population or cluster labels are available from Nowicka et al. (2017), where 
 these were generated using a strategy of expert-guided manual merging of automatically generated 
@@ -54,8 +54,8 @@ the \code{flowFrame} for each sample; note that factor values are converted to n
 since the expression tables must be numeric matrices. Channel names are stored in the column names 
 of the expression tables. Additional row and column metadata is stored in the \code{description} 
 slots, which can be accessed with the \code{\link{description}} accessor function for the 
-individual \code{flowFrames}; this includes additional sample information (where available), 
-marker information, and cell population information.
+individual \code{flowFrames}; this includes filenames, additional sample information, 
+additional marker information, and cell population information.
 
 Prior to performing any downstream analyses, the expression values should be transformed. 
 A standard transformation used for mass cytometry data is the \code{\link{asinh}} with 
