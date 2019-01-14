@@ -7,3 +7,9 @@
 1.3.2
 - add Levine_32dim and Levine_13dim datasets
 - include additional information in 'description' slot for flowSet object for Bodenmiller_BCR_XL dataset
+
+1.3.4
+- add Samusik_01, Samusik_all, Nilsson_rare, and Mosmann_rare datasets
+- add Krieg_Anti_PD_1 dataset
+- include additional information in 'description' slot for flowSet object for Bodenmiller_BCR_XL dataset
+- update documentation
