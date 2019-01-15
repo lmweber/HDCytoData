@@ -87,10 +87,10 @@ ehub <- ExperimentHub()
 query(ehub, "HDCytoData")
 
 # Load 'SummarizedExperiment' object using index of dataset
-ehub[["EH1119"]]
+ehub[["EH2254"]]
 
 # Load 'flowSet' object using index of dataset
-ehub[["EH1120"]]
+ehub[["EH2255"]]
 ```
 
 
