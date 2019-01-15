@@ -16,7 +16,7 @@ analysis, in particular detection of differentially abundant rare cell populatio
 \details{
 This is a mass cytometry (CyTOF) dataset from Krieg et al. (2018), who used mass cytometry to 
 characterize immune cell subsets in peripheral blood from melanoma skin cancer patients treated 
-with anti-PD-1 immunotherapy. This study found that the frequency of CD14+CD16−HLA-DRhi monocytes 
+with anti-PD-1 immunotherapy. This study found that the frequency of CD14+CD16-HLA-DRhi monocytes 
 in baseline samples (taken from patients prior to treatment) was a strong predictor of survival 
 in response to immunotherapy treatment. In particular, the frequency of a small subpopulation of 
 CD14+CD33+HLA-DRhiICAM-1+CD64+CD141+CD86+CD11c+CD38+PD-L1+CD11b+ monocytes in baseline 

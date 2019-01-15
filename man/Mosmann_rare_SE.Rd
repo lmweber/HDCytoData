@@ -78,7 +78,7 @@ Mosmann_rare_flowSet()
 }
 \value{Returns a \code{\link{SummarizedExperiment}} or \code{\link{flowSet}} object.}
 \references{
-Mosmann et al. (2014), "SWIFT — Scalable clustering for automated identification of rare 
+Mosmann et al. (2014), "SWIFT - Scalable clustering for automated identification of rare 
 cell populations in large, high-dimensional flow cytometry datasets, Part 2: Biological 
 evaluation", Cytometry Part A, 85A, 422-433: https://www.ncbi.nlm.nih.gov/pubmed/24532172
 
