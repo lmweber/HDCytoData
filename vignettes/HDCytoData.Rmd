@@ -7,8 +7,8 @@ author:
       - &id2 "SIB Swiss Institute of Bioinformatics, Zurich, Switzerland"
   - name: Charlotte Soneson
     affiliation: 
-      - *id1 "Friedrich Miescher Institute for Biomedical Research, Basel, Switzerland"
-      - *id2 "SIB Swiss Institute of Bioinformatics, Basel, Switzerland"
+      - &id3 "Friedrich Miescher Institute for Biomedical Research, Basel, Switzerland"
+      - &id4 "SIB Swiss Institute of Bioinformatics, Basel, Switzerland"
 package: HDCytoData
 output: 
   BiocStyle::html_document
