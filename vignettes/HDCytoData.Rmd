@@ -72,7 +72,7 @@ Bodenmiller_BCR_XL_flowSet()
 
 Alternatively, load the datasets using the `ExperimentHub` interface:
 
-(Note: this option is currently disabled in the release 3.8 version of Bioconductor, since the ExperimentHub IDs for the `HDCytoData` datasets have been re-numbered. To use this option, use the development version 3.9 version of Bioconductor instead.)
+(Note: this option is currently disabled in the release version 3.8 of Bioconductor, since the ExperimentHub IDs for the `HDCytoData` datasets have been re-numbered. To use this option, use the development version 3.9 of Bioconductor instead.)
 
 ```{r}
 # Create an ExperimentHub instance
