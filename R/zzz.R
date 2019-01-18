@@ -21,45 +21,45 @@ Bodenmiller_BCR_XL_flowSet <- function(metadata = FALSE) {
 }
 
 Levine_32dim_SE <- function(metadata = FALSE) {
-  print("Please use Bioconductor version 3.9 or later to access this dataset.")
+  message("Please use Bioconductor version 3.9 or later to access this dataset.")
 }
 Levine_32dim_flowSet <- function(metadata = FALSE) {
-  print("Please use Bioconductor version 3.9 or later to access this dataset.")
+  message("Please use Bioconductor version 3.9 or later to access this dataset.")
 }
 Levine_13dim_SE <- function(metadata = FALSE) {
-  print("Please use Bioconductor version 3.9 or later to access this dataset.")
+  message("Please use Bioconductor version 3.9 or later to access this dataset.")
 }
 Levine_13dim_flowSet <- function(metadata = FALSE) {
-  print("Please use Bioconductor version 3.9 or later to access this dataset.")
+  message("Please use Bioconductor version 3.9 or later to access this dataset.")
 }
 Samusik_01_SE <- function(metadata = FALSE) {
-  print("Please use Bioconductor version 3.9 or later to access this dataset.")
+  message("Please use Bioconductor version 3.9 or later to access this dataset.")
 }
 Samusik_01_flowSet <- function(metadata = FALSE) {
-  print("Please use Bioconductor version 3.9 or later to access this dataset.")
+  message("Please use Bioconductor version 3.9 or later to access this dataset.")
 }
 Samusik_all_SE <- function(metadata = FALSE) {
-  print("Please use Bioconductor version 3.9 or later to access this dataset.")
+  message("Please use Bioconductor version 3.9 or later to access this dataset.")
 }
 Samusik_all_flowSet <- function(metadata = FALSE) {
-  print("Please use Bioconductor version 3.9 or later to access this dataset.")
+  message("Please use Bioconductor version 3.9 or later to access this dataset.")
 }
 Nilsson_rare_SE <- function(metadata = FALSE) {
-  print("Please use Bioconductor version 3.9 or later to access this dataset.")
+  message("Please use Bioconductor version 3.9 or later to access this dataset.")
 }
 Nilsson_rare_flowSet <- function(metadata = FALSE) {
-  print("Please use Bioconductor version 3.9 or later to access this dataset.")
+  message("Please use Bioconductor version 3.9 or later to access this dataset.")
 }
 Mosmann_rare_SE <- function(metadata = FALSE) {
-  print("Please use Bioconductor version 3.9 or later to access this dataset.")
+  message("Please use Bioconductor version 3.9 or later to access this dataset.")
 }
 Mosmann_rare_flowSet <- function(metadata = FALSE) {
-  print("Please use Bioconductor version 3.9 or later to access this dataset.")
+  message("Please use Bioconductor version 3.9 or later to access this dataset.")
 }
 Krieg_Anti_PD_1_SE <- function(metadata = FALSE) {
-  print("Please use Bioconductor version 3.9 or later to access this dataset.")
+  message("Please use Bioconductor version 3.9 or later to access this dataset.")
 }
 Krieg_Anti_PD_1_flowSet <- function(metadata = FALSE) {
-  print("Please use Bioconductor version 3.9 or later to access this dataset.")
+  message("Please use Bioconductor version 3.9 or later to access this dataset.")
 }
 
