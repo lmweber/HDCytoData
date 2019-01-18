@@ -38,17 +38,10 @@ These datasets have been used for benchmarking purposes in our previous work and
 
 The package contains the following datasets, which can be grouped into datasets useful for benchmarking either (i) clustering algorithms or (ii) methods for differential analysis.
 
-- Clustering:
-    - Levine_32dim
-    - Levine_13dim
-    - Samusik_01
-    - Samusik_all
-    - Nilsson_rare
-    - Mosmann_rare
-
 - Differential analysis:
-    - Krieg_Anti_PD_1
     - Bodenmiller_BCR_XL
+
+(For more datasets, see the updated development version of the `HDCytoData` package, available in the development version of Bioconductor.)
 
 Additional details on each dataset are included in the help files for the datasets. For each dataset, this includes a description of the dataset (biological context, number of samples, number of cells, number of manually gated cell populations, number and classes of protein markers, etc.), as well as an explanation of the object structures, and references and raw data sources.
 
@@ -79,6 +72,8 @@ Bodenmiller_BCR_XL_flowSet()
 
 Alternatively, load the datasets using the `ExperimentHub` interface:
 
+(Note: this option is currently disabled in the release 3.8 version of Bioconductor, since the ExperimentHub IDs for the `HDCytoData` datasets have been re-numbered. To use this option, use the development version 3.9 version of Bioconductor instead.)
+
 ```{r}
 # Create an ExperimentHub instance
 ehub <- ExperimentHub()
@@ -87,10 +82,10 @@ ehub <- ExperimentHub()
 query(ehub, "HDCytoData")
 
 # Load 'SummarizedExperiment' object using index of dataset
-ehub[["EH2254"]]
+#ehub[["EH2254"]]
 
 # Load 'flowSet' object using index of dataset
-ehub[["EH2255"]]
+#ehub[["EH2255"]]
 ```
 
 

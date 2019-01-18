@@ -1,15 +1,5 @@
 1.0.0
 - initial version containing Bodenmiller_BCR_XL dataset
 
-1.3.1
-- update flowSet object for Bodenmiller_BCR_XL dataset to include raw channel names
-
-1.3.2
-- add Levine_32dim and Levine_13dim datasets
-- include additional information in 'description' slot for flowSet object for Bodenmiller_BCR_XL dataset
-
-1.3.4
-- add Samusik_01, Samusik_all, Nilsson_rare, and Mosmann_rare datasets
-- add Krieg_Anti_PD_1 dataset
-- include additional information in 'description' slot for flowSet object for Bodenmiller_BCR_XL dataset
-- update documentation
+1.2.8
+- temporary fixes for Bioconductor version 3.8 due to re-numbering of ExperimentHub IDs (removed from Bioconductor version 3.9 onwards)

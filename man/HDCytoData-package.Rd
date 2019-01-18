@@ -27,23 +27,14 @@ here in the \code{SummarizedExperiment} and \code{flowSet} formats to make them 
 The package contains the following datasets, which can be grouped into datasets useful for 
 benchmarking either (i) clustering algorithms or (ii) methods for differential analysis.
 
-Clustering:
-
-\itemize{
-\item \code{\link{Levine_32dim}}
-\item \code{\link{Levine_13dim}}
-\item \code{\link{Samusik_01}}
-\item \code{\link{Samusik_all}}
-\item \code{\link{Nilsson_rare}}
-\item \code{\link{Mosmann_rare}}
-}
-
 Differential analysis:
 
 \itemize{
-\item \code{\link{Krieg_Anti_PD_1}}
 \item \code{\link{Bodenmiller_BCR_XL}}
 }
+
+(For more datasets, see the updated development version of the \code{HDCytoData} package, 
+available in the development version of Bioconductor.)
 
 For additional details on each dataset, including references and raw data sources, see the 
 help files for each dataset.
