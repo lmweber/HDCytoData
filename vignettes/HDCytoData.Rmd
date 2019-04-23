@@ -114,7 +114,7 @@ colData(d_SE)
 
 # Transformation of raw data
 
-Note that flow and mass cytometry data should be transformed prior to performing any downstream analyses, such as clustering. Standard transforms include the `asinh` with `cofactor` parameter equal to 5 (for mass cytometry data) or 150 (for flow cytometry data).
+Note that flow and mass cytometry data should be transformed prior to performing any downstream analyses, such as clustering. Standard transforms include the `asinh` with `cofactor` parameter equal to 5 for mass cytometry (CyTOF) data, or 150 for flow cytometry data (see Bendall et al. 2011, Supplementary Figure S2).
 
 
 
