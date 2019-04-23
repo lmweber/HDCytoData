@@ -24,8 +24,5 @@ VignetteBuilder: knitr
 Suggests: 
     BiocStyle, 
     knitr, 
-    rmarkdown, 
-    FlowSOM, 
-    Rtsne, 
-    ggplot2
+    rmarkdown
 RoxygenNote: 6.0.1
