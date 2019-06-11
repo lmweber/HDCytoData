@@ -7,8 +7,8 @@ author:
       - &id2 "SIB Swiss Institute of Bioinformatics, Zurich, Switzerland"
   - name: Mark D. Robinson
     affiliation: 
-      - &id1
-      - &id2
+      - *id1
+      - *id2
   - name: Charlotte Soneson
     affiliation: 
       - &id3 "Friedrich Miescher Institute for Biomedical Research, Basel, Switzerland"
@@ -17,7 +17,7 @@ package: HDCytoData
 output: 
   BiocStyle::html_document
 vignette: >
-  %\VignetteIndexEntry{HDCytoData data package}
+  %\VignetteIndexEntry{HDCytoData package}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
