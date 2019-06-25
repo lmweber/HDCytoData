@@ -5,10 +5,6 @@ author:
     affiliation: 
       - &id1 "Institute of Molecular Life Sciences, University of Zurich, Zurich, Switzerland"
       - &id2 "SIB Swiss Institute of Bioinformatics, Zurich, Switzerland"
-  - name: Mark D. Robinson
-    affiliation: 
-      - *id1
-      - *id2
   - name: Charlotte Soneson
     affiliation: 
       - &id3 "Friedrich Miescher Institute for Biomedical Research, Basel, Switzerland"
