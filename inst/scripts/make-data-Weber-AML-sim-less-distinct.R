@@ -1,5 +1,5 @@
 ##########################################################################################
-# R script to prepare benchmark dataset 'Weber-AML-sim-random-seeds'
+# R script to prepare benchmark dataset 'Weber-AML-sim-less-distinct'
 # 
 # See Weber et al. (2019), Supplementary Note 1 (paper introducing 'diffcyt' framework)
 # for more details
@@ -38,7 +38,9 @@
 ##########################################################################################
 
 
-# modified to generate randomized benchmark data sets using different random seeds
+# modified to create 'less distinct' spike-in cells: reduce differences in expression
+# profiles (medians and standard deviations of arcsinh-transformed values) between
+# diseased and healthy blast cells
 
 
 # original version of this script available at: https://github.com/lmweber/diffcyt-evaluations
@@ -177,22 +179,31 @@ unlink(DIR_TMP, recursive = TRUE)
 
 
 
-# ---------------------
-# Randomized replicates
-# ---------------------
+# --------------------------------------------
+# Replicates: reduced levels of 'distinctness'
+# --------------------------------------------
 
-# use different random seed for each replicate
-
-n_replicates <- 3
-
-data_replicates <- vector("list", n_replicates)
-names(data_replicates) <- paste0("randomseed", 1:n_replicates)
+# replicates: create 'less distinct' data sets by reducing difference in median and
+# standard deviation of arcsinh-transformed expression by various proportions (e.g. 50%),
+# along each dimension (protein marker), for the blast population of interest
 
 
-for (r in 1:n_replicates) {
+# cofactor for arcsinh transform
+cofactor <- 5
+
+
+distinctness <- c(0.5, 0.75)  # 50%, 75%
+names(distinctness) <- c("less_50pc", "less_75pc")
+
+
+data_distinctness <- vector("list", length(distinctness))
+names(data_distinctness) <- names(distinctness)
+
+
+for (di in 1:length(distinctness)) {
   
-  data_replicates[[r]] <- vector("list", 3)
-  names(data_replicates[[r]]) <- c("healthy", "CN", "CBF")
+  data_distinctness[[di]] <- vector("list", 3)
+  names(data_distinctness[[di]]) <- c("healthy", "CN", "CBF")
   
   
   
@@ -209,13 +220,13 @@ for (r in 1:n_replicates) {
   names(data_healthy_base) <- names(data_healthy_CN) <- names(data_healthy_CBF) <- 
     names(data_healthy)
   
-  # modified random seed for each replicate
-  seed <- 1000 + 100 * r
+  # note: use same random seed as in main results (i.e. select same cells for comparability)
+  seed <- 100
   
   for (i in 1:length(data_healthy)) {
     data_i <- data_healthy[[i]]
     
-    # modified random seed for each replicate
+    # note: use same random seed as in main results (i.e. select same cells for comparability)
     set.seed(seed + i)
     
     n <- round(nrow(data_i) / 3)
@@ -257,8 +268,8 @@ for (r in 1:n_replicates) {
   data_blasts_AML <- data_SJ10
   cnd <- "CN"
   
-  # modified random seed for each replicate
-  seed <- 2000 + 100 * r
+  # note: use same random seed as in main results (i.e. select same cells for comparability)
+  seed <- 200
   
   for (i in 1:length(data_healthy_CN)) {
     data_i <- data_healthy_CN[[i]]
@@ -270,7 +281,7 @@ for (r in 1:n_replicates) {
     for (z in 1:length(thresholds)) {
       th <- thresholds[z]
       
-      # modified random seed for each replicate
+      # note: use same random seed as in main results (i.e. select same cells for comparability)
       set.seed(seed + 10 * th + i)
       
       n_spikein <- ceiling(th * nrow(data_i))
@@ -280,6 +291,27 @@ for (r in 1:n_replicates) {
       
       # subsample blasts
       spikein_i <- data_blasts_AML[sample(1:nrow(data_blasts_AML), n_spikein), , drop = FALSE]
+      
+      
+      # calculate difference in median and standard deviation between AML blasts and
+      # healthy blasts along each dimension, then reduce by certain proportion
+      
+      # note: use arcsinh-transformed values; then convert back to non-transformed
+      
+      stopifnot(all(colnames(data_blasts_AML) == colnames(data_healthy_blasts[[i]])))
+      stopifnot(all(colnames(spikein_i) == colnames(data_healthy_blasts[[i]])))
+      
+      medians_H <- apply(asinh(data_healthy_blasts[[i]] / cofactor), 2, median)
+      medians_AML <- apply(asinh(data_blasts_AML / cofactor), 2, median)
+      
+      sds_H <- apply(asinh(data_healthy_blasts[[i]] / cofactor), 2, sd)
+      sds_AML <- apply(asinh(data_blasts_AML / cofactor), 2, sd)
+      
+      # use transpose to allow vectorized subtraction
+      spikein_i <- t((t(asinh(spikein_i / cofactor)) - (distinctness[di] * (medians_AML - medians_H))) * (1 - (distinctness[di] * (sds_AML - sds_H)) / sds_AML))
+      # convert back to non-arcsinh-transformed
+      spikein_i <- sinh(spikein_i) * cofactor
+      
       
       data_out_i <- rbind(data_i, spikein_i)
       data_out_i <- cbind(data_out_i, spikein = is_spikein)
@@ -297,8 +329,8 @@ for (r in 1:n_replicates) {
   data_blasts_AML <- data_SJ4
   cnd <- "CBF"
   
-  # modified random seed for each replicate
-  seed <- 3000 + 100 * r
+  # note: use same random seed as in main results (i.e. select same cells for comparability)
+  seed <- 300
   
   for (i in 1:length(data_healthy_CBF)) {
     data_i <- data_healthy_CBF[[i]]
@@ -310,7 +342,7 @@ for (r in 1:n_replicates) {
     for (z in 1:length(thresholds)) {
       th <- thresholds[z]
       
-      # modified random seed for each replicate
+      # note: use same random seed as in main results (i.e. select same cells for comparability)
       set.seed(seed + 10 * th + i)
       
       n_spikein <- ceiling(th * nrow(data_i))
@@ -320,6 +352,27 @@ for (r in 1:n_replicates) {
       
       # subsample blasts
       spikein_i <- data_blasts_AML[sample(1:nrow(data_blasts_AML), n_spikein), , drop = FALSE]
+      
+      
+      # calculate difference in median and standard deviation between AML blasts and
+      # healthy blasts along each dimension, then reduce by certain proportion
+      
+      # note: use arcsinh-transformed values; then convert back to non-transformed
+      
+      stopifnot(all(colnames(data_blasts_AML) == colnames(data_healthy_blasts[[i]])))
+      stopifnot(all(colnames(spikein_i) == colnames(data_healthy_blasts[[i]])))
+      
+      medians_H <- apply(asinh(data_healthy_blasts[[i]] / cofactor), 2, median)
+      medians_AML <- apply(asinh(data_blasts_AML / cofactor), 2, median)
+      
+      sds_H <- apply(asinh(data_healthy_blasts[[i]] / cofactor), 2, sd)
+      sds_AML <- apply(asinh(data_blasts_AML / cofactor), 2, sd)
+      
+      # use transpose to allow vectorized subtraction
+      spikein_i <- t((t(asinh(spikein_i / cofactor)) - (distinctness[di] * (medians_AML - medians_H))) * (1 - (distinctness[di] * (sds_AML - sds_H)) / sds_AML))
+      # convert back to non-arcsinh-transformed
+      spikein_i <- sinh(spikein_i) * cofactor
+      
       
       data_out_i <- rbind(data_i, spikein_i)
       data_out_i <- cbind(data_out_i, spikein = is_spikein)
@@ -332,9 +385,9 @@ for (r in 1:n_replicates) {
   
   
   # store data
-  data_replicates[[r]][["healthy"]] <- data_healthy_base
-  data_replicates[[r]][["CN"]] <- data_spike_CN
-  data_replicates[[r]][["CBF"]] <- data_spike_CBF
+  data_distinctness[[di]][["healthy"]] <- data_healthy_base
+  data_distinctness[[di]][["CN"]] <- data_spike_CN
+  data_distinctness[[di]][["CBF"]] <- data_spike_CBF
   
 }
 
@@ -371,13 +424,13 @@ cols_markers <- 11:41
 cols_lineage <- c(35, 29, 14, 30, 12, 26, 17, 33, 41, 32, 22, 40, 27, 37, 23, 39)
 cols_func <- setdiff(cols_markers, cols_lineage)
 
-for (i in 1:n_replicates) {
-  d_all <- c(data_replicates[[i]][["healthy"]], data_replicates[[i]][["CN"]], data_replicates[[i]][["CBF"]])
+for (i in 1:length(distinctness)) {
+  d_all <- c(data_distinctness[[i]][["healthy"]], data_distinctness[[i]][["CN"]], data_distinctness[[i]][["CBF"]])
   stopifnot(all(sapply(seq_along(d_all), function(i) all(colnames(d_all[[i]]) == colnames(d_all[[1]])))))
 }
 
 # channel and marker names
-channel_name <- colnames(data_replicates[[1]][["healthy"]][[1]])
+channel_name <- colnames(data_distinctness[[1]][["healthy"]][[1]])
 marker_name <- gsub("\\(.*$", "", channel_name)
 
 # marker classes
@@ -396,7 +449,7 @@ marker_info
 # -----------------------------------
 
 # create a separate object for each threshold (simulation), with each object containing
-# separate assays for each replicate
+# separate assays for each replicate (distinctness)
 
 d_SE_list <- vector("list", length(thresholds))
 names(d_SE_list) <- thresholds_nm
@@ -407,17 +460,17 @@ patients_nm <- names(data_healthy)
 for (z in 1:length(d_SE_list)) {
   
   # check numbers of cells are identical across replicates
-  for (r in 1:n_replicates) {
-    stopifnot(identical(sapply(data_replicates[[r]][["healthy"]], dim), sapply(data_replicates[[1]][["healthy"]], dim)))
-    stopifnot(identical(sapply(data_replicates[[r]][["CN"]][[z]], dim), sapply(data_replicates[[1]][["CN"]][[z]], dim)))
-    stopifnot(identical(sapply(data_replicates[[r]][["CBF"]][[z]], dim), sapply(data_replicates[[1]][["CBF"]][[z]], dim)))
+  for (di in 1:length(distinctness)) {
+    stopifnot(identical(sapply(data_distinctness[[di]][["healthy"]], dim), sapply(data_distinctness[[1]][["healthy"]], dim)))
+    stopifnot(identical(sapply(data_distinctness[[di]][["CN"]][[z]], dim), sapply(data_distinctness[[1]][["CN"]][[z]], dim)))
+    stopifnot(identical(sapply(data_distinctness[[di]][["CBF"]][[z]], dim), sapply(data_distinctness[[1]][["CBF"]][[z]], dim)))
   }
   
   
   # set up row data
-  n_cells_healthy <- sapply(data_replicates[[r]][["healthy"]], dim)[1, ]
-  n_cells_CN_z <- sapply(patients_nm, function(i) dim(data_replicates[[r]][["CN"]][[i]][[z]]))[1, ]
-  n_cells_CBF_z <- sapply(patients_nm, function(i) dim(data_replicates[[r]][["CBF"]][[i]][[z]]))[1, ]
+  n_cells_healthy <- sapply(data_distinctness[[di]][["healthy"]], dim)[1, ]
+  n_cells_CN_z <- sapply(patients_nm, function(i) dim(data_distinctness[[di]][["CN"]][[i]][[z]]))[1, ]
+  n_cells_CBF_z <- sapply(patients_nm, function(i) dim(data_distinctness[[di]][["CBF"]][[i]][[z]]))[1, ]
   
   n_cells_z <- c(n_cells_healthy, n_cells_CN_z, n_cells_CBF_z)
   stopifnot(length(n_cells_z) == nrow(experiment_info))
@@ -437,12 +490,12 @@ for (z in 1:length(d_SE_list)) {
   
   
   # set up expression data
-  # note: one assay per replicate
-  d_exprs <- vector("list", length(data_replicates))
-  names(d_exprs) <- names(data_replicates)
+  # note: one assay per replicate (distinctness)
+  d_exprs <- vector("list", length(data_distinctness))
+  names(d_exprs) <- names(data_distinctness)
   
-  for (r in 1:length(d_exprs)) {
-    data_healthy_base_z <- sapply(data_replicates[[r]][["healthy"]], function(d) {
+  for (di in 1:length(d_exprs)) {
+    data_healthy_base_z <- sapply(data_distinctness[[di]][["healthy"]], function(d) {
       cbind(d, spikein = 0)
     })
     
@@ -454,34 +507,34 @@ for (z in 1:length(d_SE_list)) {
       data_z <- rbind(data_z, data_healthy_base_z[[i]])
     }
     for (i in patients_nm) {
-      stopifnot(colnames(data_z) == colnames(data_replicates[[r]][["CN"]][[i]][[z]]))
-      data_z <- rbind(data_z, data_replicates[[r]][["CN"]][[i]][[z]])
+      stopifnot(colnames(data_z) == colnames(data_distinctness[[di]][["CN"]][[i]][[z]]))
+      data_z <- rbind(data_z, data_distinctness[[di]][["CN"]][[i]][[z]])
     }
     for (i in patients_nm) {
-      stopifnot(colnames(data_z) == colnames(data_replicates[[r]][["CBF"]][[i]][[z]]))
-      data_z <- rbind(data_z, data_replicates[[r]][["CBF"]][[i]][[z]])
+      stopifnot(colnames(data_z) == colnames(data_distinctness[[di]][["CBF"]][[i]][[z]]))
+      data_z <- rbind(data_z, data_distinctness[[di]][["CBF"]][[i]][[z]])
     }
     
     stopifnot(nrow(data_z) == nrow(row_data))
     stopifnot(nrow(data_z) == sum(n_cells_z))
     stopifnot(all(colnames(data_z)[-ncol(data_z)] == marker_info$channel_name))
     
-    d_exprs[[r]] <- data_z
+    d_exprs[[di]] <- data_z
   }
   
   
   # move spike-in column to row data
-  for (r in 1:length(d_exprs)) {
-    stopifnot(identical(d_exprs[[r]][, "spikein", drop = FALSE], d_exprs[[1]][, "spikein", drop = FALSE]))
+  for (di in 1:length(d_exprs)) {
+    stopifnot(identical(d_exprs[[di]][, "spikein", drop = FALSE], d_exprs[[1]][, "spikein", drop = FALSE]))
   }
   
   row_data <- cbind(row_data, spikein = as.logical(d_exprs[[1]][, "spikein"]))
   
-  for (r in 1:length(d_exprs)) {
-    d_exprs[[r]] <- d_exprs[[r]][, -ncol(d_exprs[[r]])]
+  for (di in 1:length(d_exprs)) {
+    d_exprs[[di]] <- d_exprs[[di]][, -ncol(d_exprs[[di]])]
     
-    stopifnot(all(colnames(d_exprs[[r]]) == marker_info$channel_name))
-    stopifnot(ncol(d_exprs[[r]]) == nrow(col_data))
+    stopifnot(all(colnames(d_exprs[[di]]) == marker_info$channel_name))
+    stopifnot(ncol(d_exprs[[di]]) == nrow(col_data))
   }
   
   
@@ -505,7 +558,7 @@ for (z in 1:length(d_SE_list)) {
 # 'description' slot
 
 # create a separate flowSet object for each threshold (simulation), with each flowSet
-# containing separate flowFrames for each replicate
+# containing separate flowFrames for each replicate (distinctness)
 
 d_flowSet_list <- vector("list", length(d_SE_list))
 names(d_flowSet_list) <- names(d_SE_list)
@@ -553,9 +606,9 @@ for (i in seq_along(d_SE_list)) {
   ffs <- vector("list", length(d_exprs))
   names(ffs) <- names(d_exprs)
   
-  for (r in 1:length(d_exprs)) {
-    ff <- flowFrame(cbind(d_exprs[[r]], row_data_fs))
-    stopifnot(all(colnames(ff) == c(colnames(d_exprs[[r]]), colnames(row_data_fs))))
+  for (di in 1:length(d_exprs)) {
+    ff <- flowFrame(cbind(d_exprs[[di]], row_data_fs))
+    stopifnot(all(colnames(ff) == c(colnames(d_exprs[[di]]), colnames(row_data_fs))))
     # include both channel and marker names in 'pData(parameters(.))'
     stopifnot(length(c(marker_info$marker_name, colnames(row_data_fs))) == nrow(pData(parameters(ff))))
     pData(parameters(ff))$desc <- c(marker_info$marker_name, colnames(row_data_fs))
@@ -569,10 +622,10 @@ for (i in seq_along(d_SE_list)) {
     description(ff)$EXPERIMENT_INFO <- meta_data$experiment_info
     description(ff)$MARKER_INFO <- marker_info
     # simulation replicate (seed)
-    description(ff)$REPLICATE <- names(d_exprs)[r]
+    description(ff)$REPLICATE <- names(d_exprs)[di]
     
     # store data
-    ffs[[r]] <- ff
+    ffs[[di]] <- ff
   }
   
   # create flowSet
@@ -587,8 +640,8 @@ for (i in seq_along(d_SE_list)) {
 
 stopifnot(all(names(d_SE_list) == names(d_flowSet_list)))
 
-filenames_SE <- paste0("Weber_AML_sim_random_seeds_", names(d_SE_list), "_SE.rda")
-filenames_flowSet <- paste0("Weber_AML_sim_random_seeds_", names(d_flowSet_list), "_flowSet.rda")
+filenames_SE <- paste0("Weber_AML_sim_less_distinct_", names(d_SE_list), "_SE.rda")
+filenames_flowSet <- paste0("Weber_AML_sim_less_distinct_", names(d_flowSet_list), "_flowSet.rda")
 
 for (i in 1:length(d_SE_list)) {
   d_SE <- d_SE_list[[i]]
