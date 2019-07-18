@@ -242,19 +242,19 @@ marker_info
 
 # create a single object containing separate assays for each replicate
 
-
-# check numbers of cells are identical across replicates
-for (r in 1:n_replicates) {
-  stopifnot(identical(sapply(data_replicates[[r]][[1]], dim), sapply(data_replicates[[1]][[1]], dim)))
-  stopifnot(identical(sapply(data_replicates[[r]][[2]], dim), sapply(data_replicates[[1]][[2]], dim)))
-}
-
 patients_nm <- names(data_healthy)
 
 
+# check numbers of cells are identical across replicates
+for (r in 1:n_replicates) {
+  stopifnot(identical(sapply(data_replicates[[r]][["null1"]], dim), sapply(data_replicates[[1]][["null1"]], dim)))
+  stopifnot(identical(sapply(data_replicates[[r]][["null2"]], dim), sapply(data_replicates[[1]][["null2"]], dim)))
+}
+
+
 # set up row data
-n_cells_null1 <- sapply(data_replicates[[1]][[1]], dim)[1, ]
-n_cells_null2 <- sapply(data_replicates[[1]][[2]], dim)[1, ]
+n_cells_null1 <- sapply(data_replicates[[1]][["null1"]], dim)[1, ]
+n_cells_null2 <- sapply(data_replicates[[1]][["null2"]], dim)[1, ]
 
 n_cells_z <- c(n_cells_null1, n_cells_null2)
 stopifnot(length(n_cells_z) == nrow(experiment_info))
@@ -282,8 +282,8 @@ d_exprs <- vector("list", length(data_replicates))
 names(d_exprs) <- names(data_replicates)
 
 for (r in 1:length(d_exprs)) {
-  data_z <- matrix(, nrow = 0, ncol = ncol(data_replicates[[1]][[1]][[1]]))
-  colnames(data_z) <- colnames(data_replicates[[1]][[1]][[1]])
+  data_z <- matrix(, nrow = 0, ncol = ncol(data_replicates[[1]][["null1"]][[1]]))
+  colnames(data_z) <- colnames(data_replicates[[1]][["null1"]][[1]])
   
   for (i in patients_nm) {
     stopifnot(colnames(data_z) == colnames(data_replicates[[r]][["null1"]][[i]]))
@@ -383,7 +383,7 @@ for (r in 1:length(d_exprs)) {
   # simulation replicate (seed)
   description(ff)$REPLICATE <- names(d_exprs)[r]
   
-  # store
+  # store data
   ffs[[r]] <- ff
 }
 
