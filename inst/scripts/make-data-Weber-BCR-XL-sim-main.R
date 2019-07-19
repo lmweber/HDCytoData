@@ -336,7 +336,7 @@ stopifnot(nrow(population_id) == sum(n_cells))
 row_data <- cbind(row_data, population_id)
 
 # add column indicating B cells
-row_data$B_cell <- row_data$population %in% c("B-cells IgM-", "B-cells IgM+")
+row_data$B_cell <- row_data$population_id %in% c("B-cells IgM-", "B-cells IgM+")
 
 # add column indicating spike-in cells (all B cells in 'spike' samples)
 row_data$spikein <- (row_data$group_id == "spike") & (row_data$B_cell == TRUE)

@@ -1,5 +1,5 @@
 ##########################################################################################
-# Script to prepare benchmark dataset 'Weber-BCR-XL-sim-null'
+# Script to prepare benchmark dataset 'Weber-BCR-XL-sim-random-seeds'
 # 
 # See Weber et al. (2019), Supplementary Note 1 (paper introducing 'diffcyt' framework)
 # for more details
@@ -31,7 +31,7 @@
 ##########################################################################################
 
 
-# modified to create 'null' simulations: no true spike-in cells
+# modified to generate randomized benchmark data sets using different random seeds
 
 
 # original version of this script available at: https://github.com/lmweber/diffcyt-evaluations
@@ -142,13 +142,13 @@ unlink(DIR_TMP, recursive = TRUE)
 n_replicates <- 3
 
 data_replicates <- labels_replicates <- vector("list", n_replicates)
-names(data_replicates) <- names(labels_replicates) <- paste0("seed", 1:n_replicates)
+names(data_replicates) <- names(labels_replicates) <- paste0("randomseed", 1:n_replicates)
 
 
 for (r in 1:n_replicates) {
   
   data_replicates[[r]] <- labels_replicates[[r]] <- vector("list", 2)
-  names(data_replicates[[r]]) <- names(labels_replicates[[r]]) <- c("null1", "null2")
+  names(data_replicates[[r]]) <- names(labels_replicates[[r]]) <- c("base", "spike")
   
   
   
@@ -167,35 +167,126 @@ for (r in 1:n_replicates) {
   n_cells_ref <- sapply(data_ref, nrow)
   
   # modified random seed for each replicate
-  set.seed(10000 + 100 * r)
+  seed <- 100 + r
+  set.seed(seed)
   
   # generate random indices
   inds <- lapply(n_cells_ref, function(n) {
-    i_null_1 <- sort(sample(seq_len(n), floor(n / 2)))
-    i_null_2 <- setdiff(seq_len(n), i_null_1)
-    list(null_1 = i_null_1, null_2 = i_null_2)
+    i_base <- sort(sample(seq_len(n), floor(n / 2)))
+    i_spike <- setdiff(seq_len(n), i_base)
+    list(base = i_base, spike = i_spike)
   })
   
-  inds_null_1 <- lapply(inds, function(l) l[[1]])
-  inds_null_2 <- lapply(inds, function(l) l[[2]])
+  inds_base <- lapply(inds, function(l) l[[1]])
+  inds_spike <- lapply(inds, function(l) l[[2]])
   
   # subset data
-  data_null_1 <- mapply(function(d, i) d[i, , drop = FALSE], data_ref, inds_null_1, SIMPLIFY = FALSE)
-  data_null_2 <- mapply(function(d, i) d[i, , drop = FALSE], data_ref, inds_null_2, SIMPLIFY = FALSE)
+  data_base <- mapply(function(d, i) d[i, , drop = FALSE], data_ref, inds_base, SIMPLIFY = FALSE)
+  data_spike <- mapply(function(d, i) d[i, , drop = FALSE], data_ref, inds_spike, SIMPLIFY = FALSE)
   
   # subset labels
-  labels_null_1 <- mapply(function(d, i) d[i, , drop = FALSE], labels_ref, inds_null_1, SIMPLIFY = FALSE)
-  labels_null_2 <- mapply(function(d, i) d[i, , drop = FALSE], labels_ref, inds_null_2, SIMPLIFY = FALSE)
+  labels_base <- mapply(function(d, i) d[i, , drop = FALSE], labels_ref, inds_base, SIMPLIFY = FALSE)
+  labels_spike <- mapply(function(d, i) d[i, , drop = FALSE], labels_ref, inds_spike, SIMPLIFY = FALSE)
   
-  stopifnot(all(sapply(data_null_1, nrow) == sapply(labels_null_1, nrow)))
-  stopifnot(all(sapply(data_null_2, nrow) == sapply(labels_null_2, nrow)))
+  stopifnot(all(sapply(data_base, nrow) == sapply(labels_base, nrow)))
+  stopifnot(all(sapply(data_spike, nrow) == sapply(labels_spike, nrow)))
+  
+  
+  
+  # -------------------------------------------------------------------------------------
+  # Replace B cells in 'spike' samples with an equivalent number of B cells from 'BCR-XL'
+  # (stimulated) condition
+  # -------------------------------------------------------------------------------------
+  
+  # note: for some samples, not enough B cells are available; use all available B cells in
+  # this case
+  
+  
+  # B cells from 'BCR-XL' (stimulated) condition
+  data_BCRXL <- data[conditions == "BCR-XL"]
+  labels_BCRXL <- labels[conditions == "BCR-XL"]
+  
+  names(data_BCRXL) <- gsub("_BCR-XL$", "", names(data_BCRXL))
+  names(labels_BCRXL) <- gsub("_BCR-XL$", "", names(labels_BCRXL))
+  
+  B_cells_BCRXL <- mapply(function(d, l) {
+    d[l$population %in% c("B-cells IgM-", "B-cells IgM+"), , drop = FALSE]
+  }, data_BCRXL, labels_BCRXL, SIMPLIFY = FALSE)
+  
+  B_cells_labels_BCRXL <- lapply(labels_BCRXL, function(l) {
+    l[l$population %in% c("B-cells IgM-", "B-cells IgM+"), , drop = FALSE]
+  })
+  
+  stopifnot(all(sapply(B_cells_BCRXL, nrow) == sapply(B_cells_labels_BCRXL, nrow)))
+  
+  
+  # number of B cells available in stimulated condition
+  sapply(B_cells_BCRXL, nrow)
+  
+  # total number of B cells in reference condition
+  n_spike_ref <- sapply(labels_ref, function(l) {
+    sum(l$population %in% c("B-cells IgM-", "B-cells IgM+"))
+  })
+  n_spike_ref
+  
+  # number of B cells needed
+  n_spike <- sapply(labels_spike, function(l) {
+    sum(l$population %in% c("B-cells IgM-", "B-cells IgM+"))
+  })
+  n_spike
+  
+  
+  # select correct number of B cells from 'BCR-XL' (stimulated) condition for each sample
+  
+  # modified random seed for each replicate
+  seed <- 100 + r
+  set.seed(seed)
+  
+  ixs <- mapply(function(b, n) {
+    # reduce 'n' if not enough B cells available
+    n <- min(n, nrow(b))
+    sample(seq_len(nrow(b)), n)
+  }, B_cells_BCRXL, n_spike, SIMPLIFY = FALSE)
+  
+  B_cells_spike <- mapply(function(b, ix) {
+    b[ix, , drop = FALSE]
+  }, B_cells_BCRXL, ixs, SIMPLIFY = FALSE)
+  
+  B_cells_labels_spike <- mapply(function(bl, ix) {
+    bl[ix, , drop = FALSE]
+  }, B_cells_labels_BCRXL, ixs, SIMPLIFY = FALSE)
+  
+  stopifnot(all(sapply(B_cells_spike, nrow) == sapply(B_cells_labels_spike, nrow)))
+  
+  sapply(B_cells_spike, nrow)
+  
+  
+  # replace B cells in 'spike' samples
+  
+  data_spike <- mapply(function(d, l, b) {
+    stopifnot(nrow(d) == nrow(l))
+    d <- d[!(l$population %in% c("B-cells IgM-", "B-cells IgM+")), , drop = FALSE]
+    d <- rbind(d, b)
+    rownames(d) <- NULL
+    d
+  }, data_spike, labels_spike, B_cells_spike, SIMPLIFY = FALSE)
+  
+  labels_spike <- mapply(function(l, bl) {
+    l <- l[!(l$population %in% c("B-cells IgM-", "B-cells IgM+")), , drop = FALSE]
+    l <- rbind(l, bl)
+    rownames(l) <- NULL
+    l
+  }, labels_spike, B_cells_labels_spike, SIMPLIFY = FALSE)
+  
+  stopifnot(all(sapply(data_spike, nrow) == sapply(labels_spike, nrow)))
+  
   
   # store data
-  data_replicates[[r]][["null1"]] <- data_null_1
-  data_replicates[[r]][["null2"]] <- data_null_2
+  data_replicates[[r]][["base"]] <- data_base
+  data_replicates[[r]][["spike"]] <- data_spike
   
-  labels_replicates[[r]][["null1"]] <- labels_null_1
-  labels_replicates[[r]][["null2"]] <- labels_null_2
+  labels_replicates[[r]][["base"]] <- labels_base
+  labels_replicates[[r]][["spike"]] <- labels_spike
   
 }
 
@@ -205,14 +296,14 @@ for (r in 1:n_replicates) {
 # Create metadata
 # ---------------
 
-data_replicates_combined <- lapply(data_replicates, function(r) c(r[["null1"]], r[["null2"]]))
-labels_replicates_combined <- lapply(labels_replicates, function(r) c(r[["null1"]], r[["null2"]]))
+data_replicates_combined <- lapply(data_replicates, function(r) c(r[["base"]], r[["spike"]]))
+labels_replicates_combined <- lapply(labels_replicates, function(r) c(r[["base"]], r[["spike"]]))
 
 for (r in 1:n_replicates) {
   stopifnot(all(sapply(data_replicates_combined[[r]], nrow) == sapply(labels_replicates_combined[[r]], nrow)))
 }
 
-conditions_combined <- c(rep("null1", length(data_replicates[[1]][["null1"]])), rep("null2", length(data_replicates[[1]][["null2"]])))
+conditions_combined <- c(rep("base", length(data_replicates[[1]][["base"]])), rep("spike", length(data_replicates[[1]][["spike"]])))
 
 
 # sample information
@@ -220,7 +311,7 @@ conditions_combined <- c(rep("null1", length(data_replicates[[1]][["null1"]])), 
 patient_id <- as.factor(names(data_replicates_combined[[1]]))
 patient_id
 
-group_id <- factor(conditions_combined, levels = c("null1", "null2"))
+group_id <- factor(conditions_combined, levels = c("base", "spike"))
 group_id
 
 sample_id <- paste(patient_id, group_id, sep = "_")
@@ -298,7 +389,7 @@ for (r in 1:length(d_SE_list)) {
   row_data$B_cell <- row_data$population_id %in% c("B-cells IgM-", "B-cells IgM+")
   
   # add column indicating spike-in cells (all B cells in 'spike' samples)
-  row_data$spikein <- FALSE
+  row_data$spikein <- (row_data$group_id == "spike") & (row_data$B_cell == TRUE)
   
   
   # set up column data
@@ -420,8 +511,8 @@ stopifnot(all(names(d_SE_list) == names(d_flowSet_list)))
 
 reps <- paste0("rep", 1:3)
 
-filenames_SE <- paste0("Weber_BCR_XL_sim_null_", reps, "_SE.rda")
-filenames_flowSet <- paste0("Weber_BCR_XL_sim_null_", reps, "_flowSet.rda")
+filenames_SE <- paste0("Weber_BCR_XL_sim_random_seeds_", reps, "_SE.rda")
+filenames_flowSet <- paste0("Weber_BCR_XL_sim_random_seeds_", reps, "_flowSet.rda")
 
 for (r in 1:3) {
   d_SE <- d_SE_list[[r]]
