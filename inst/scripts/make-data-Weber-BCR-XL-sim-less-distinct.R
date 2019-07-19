@@ -553,7 +553,7 @@ for (di in 1:length(d_flowSet_list)) {
 
 stopifnot(all(names(d_SE_list) == names(d_flowSet_list)))
 
-reps <- gsub("^less_", "", names(d_SE_list))
+reps <- names(d_SE_list)
 
 filenames_SE <- paste0("Weber_BCR_XL_sim_less_distinct_", reps, "_SE.rda")
 filenames_flowSet <- paste0("Weber_BCR_XL_sim_less_distinct_", reps, "_flowSet.rda")
