@@ -137,6 +137,9 @@ unlink(DIR_TMP, recursive = TRUE)
 data_ref <- data[conditions == "Reference"]
 labels_ref <- labels[conditions == "Reference"]
 
+names(data_ref) <- gsub("_Reference$", "", names(data_ref))
+names(labels_ref) <- gsub("_Reference$", "", names(labels_ref))
+
 stopifnot(all(sapply(data_ref, nrow) == sapply(labels_ref, nrow)))
 
 n_cells_ref <- sapply(data_ref, nrow)
@@ -178,6 +181,9 @@ stopifnot(all(sapply(data_spike, nrow) == sapply(labels_spike, nrow)))
 # B cells from 'BCR-XL' (stimulated) condition
 data_BCRXL <- data[conditions == "BCR-XL"]
 labels_BCRXL <- labels[conditions == "BCR-XL"]
+
+names(data_BCRXL) <- gsub("_BCR-XL$", "", names(data_BCRXL))
+names(labels_BCRXL) <- gsub("_BCR-XL$", "", names(labels_BCRXL))
 
 B_cells_BCRXL <- mapply(function(d, l) {
   d[l$population %in% c("B-cells IgM-", "B-cells IgM+"), , drop = FALSE]
@@ -264,7 +270,7 @@ conditions_combined <- c(rep("base", length(data_base)), rep("spike", length(dat
 
 # sample information
 
-patient_id <- as.factor(gsub("_.*$", "", names(data_combined)))
+patient_id <- as.factor(names(data_combined))
 patient_id
 
 group_id <- factor(conditions_combined, levels = c("base", "spike"))
