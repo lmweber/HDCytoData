@@ -10,8 +10,8 @@
 Mass cytometry (CyTOF) dataset from Krieg et al. (2018), consisting of 20 baseline samples 
 (prior to treatment) of peripheral blood from melanoma skin cancer patients subsequently treated 
 with anti-PD-1 immunotherapy. The samples are split across 2 conditions (non-responders and 
-responders) and 2 batches. This dataset can be used to benchmark algorithms for differential 
-analysis, in particular detection of differentially abundant rare cell populations.
+responders) and 2 batches. This dataset can be used to benchmark differential analysis algorithms 
+used to test for differentially abundant rare cell populations.
 }
 \details{
 This is a mass cytometry (CyTOF) dataset from Krieg et al. (2018), who used mass cytometry to 
@@ -24,8 +24,8 @@ samples was strongly associated with responder status following immunotherapy tr
 Note that this dataset contains a strong batch effect, due to sample acquisition on two 
 different days (Krieg et al., 2018).
 
-This dataset can be used to benchmark algorithms for differential analysis, in particular 
-detection of differentially abundant rare cell populations (i.e. the small subpopulation of 
+This dataset can be used to benchmark differential analysis algorithms used to test for 
+differentially abundant rare cell populations (i.e. the small subpopulation of 
 CD14+CD33+HLA-DRhiICAM-1+CD64+CD141+CD86+CD11c+CD38+PD-L1+CD11b+ monocytes).
 
 The dataset contains 20 baseline samples (i.e. samples taken prior to treatment), from patients 
@@ -71,8 +71,8 @@ Original source: Krieg et al. (2018): https://www.ncbi.nlm.nih.gov/pubmed/293090
 Original link to raw data (FlowRepository, FR-FCM-ZY34): http://flowrepository.org/id/FR-FCM-ZY34
 
 This dataset was previously used to benchmark algorithms for differential analysis in our article, 
-Weber et al. (2018): https://www.biorxiv.org/content/early/2018/11/22/349738. (For additional 
-details on the dataset, see Supplementary Note 3: Benchmark datasets.)
+Weber et al. (2019): https://www.ncbi.nlm.nih.gov/pubmed/31098416. (For additional details on 
+the dataset, see Supplementary Note 1: Benchmark datasets.)
 
 Data files are also available from FlowRepository (FR-FCM-ZYL8): http://flowrepository.org/id/FR-FCM-ZYL8
 }
@@ -94,7 +94,7 @@ Krieg_Anti_PD_1_flowSet()
 Krieg et al. (2018), "High-dimensional single-cell analysis predicts response to anti-PD-1 immunotherapy." 
 Nature Medicine, 24, 144-153: https://www.ncbi.nlm.nih.gov/pubmed/29309059
 
-Weber et al. (2018). "diffcyt: Differential discovery in high-dimensional cytometry via high-resolution 
-clustering." bioRxiv: https://www.biorxiv.org/content/early/2018/11/22/349738
+Weber et al. (2019). "diffcyt: Differential discovery in high-dimensional cytometry via high-resolution 
+clustering." Communications Biology, 2:183: https://www.ncbi.nlm.nih.gov/pubmed/31098416
 }
 \keyword{datasets}

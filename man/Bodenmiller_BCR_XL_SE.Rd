@@ -9,8 +9,8 @@
 \description{
 Mass cytometry (CyTOF) dataset from Bodenmiller et al. (2012), consisting of 8 paired samples 
 (16 samples) of stimulated (BCR-XL) and unstimulated peripheral blood cells from healthy 
-individuals. This dataset can be used to benchmark algorithms for differential analysis, 
-in particular detection of differential states within cell populations.
+individuals. This dataset can be used to benchmark differential analysis algorithms used to 
+test for differential states within cell populations.
 }
 \details{
 This is a mass cytometry (CyTOF) dataset from Bodenmiller et al. (2012), consisting of paired 
@@ -20,9 +20,8 @@ the reference. The dataset contains strong differential expression of several si
 in several cell populations; one of the strongest effects is differential expression of 
 phosphorylated S6 (pS6) in the population of B cells.
 
-This dataset can be used to benchmark algorithms for differential analysis, in particular 
-detection of differential states within cell populations (e.g. differential expression of pS6 
-in B cells).
+This dataset can be used to benchmark differential analysis algorithms used to test for 
+differential states within cell populations (e.g. differential expression of pS6 in B cells).
 
 There are 8 paired samples (i.e. 16 samples in total), and a total of 172,791 cells. The 
 dataset contains expression levels of 24 protein markers (10 surface lineage markers used to 
@@ -73,7 +72,7 @@ This dataset has previously been used to benchmark algorithms for differential a
 ourselves and other authors, including 
 Bruggner et al. (2014) (https://www.ncbi.nlm.nih.gov/pubmed/24979804/), 
 Nowicka et al. (2017) (https://f1000research.com/articles/6-748/v2), and 
-Weber et al. (2018) (https://www.biorxiv.org/content/early/2018/11/22/349738).
+Weber et al. (2019) (https://www.ncbi.nlm.nih.gov/pubmed/31098416).
 
 Data files are also available from FlowRepository (FR-FCM-ZYL8): http://flowrepository.org/id/FR-FCM-ZYL8
 }
@@ -104,7 +103,7 @@ cytometry datasets." F1000Research, v2: https://f1000research.com/articles/6-748
 Van Gassen et al. (2015). "FlowSOM: Using self-organizing maps for visualization and interpretation 
 of cytometry data." Cytometry Part A, 87A, 636-645: https://www.ncbi.nlm.nih.gov/pubmed/25573116
 
-Weber et al. (2018). "diffcyt: Differential discovery in high-dimensional cytometry via high-resolution 
-clustering." bioRxiv: https://www.biorxiv.org/content/early/2018/11/22/349738
+Weber et al. (2019). "diffcyt: Differential discovery in high-dimensional cytometry via high-resolution 
+clustering." Communications Biology, 2:183: https://www.ncbi.nlm.nih.gov/pubmed/31098416
 }
 \keyword{datasets}
