@@ -63,8 +63,8 @@ cytometry in our article, Weber and Robinson (2016): https://www.ncbi.nlm.nih.go
 Data files are also available from FlowRepository (FR-FCM-ZZPH): http://flowrepository.org/id/FR-FCM-ZZPH
 }
 \usage{
-Samusik_all_SE(metadata = FALSE)
-Samusik_all_flowSet(metadata = FALSE)
+Samusik_all_SE()
+Samusik_all_flowSet()
 }
 \arguments{
 \item{metadata}{\code{logical} value indicating whether ExperimentHub metadata (describing the 
