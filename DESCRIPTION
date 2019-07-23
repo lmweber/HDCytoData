@@ -1,5 +1,5 @@
 Package: HDCytoData
-Version: 1.5.3
+Version: 1.5.4
 Title: Benchmark datasets for high-dimensional cytometry in Bioconductor object formats
 Description: Data package containing a collection of high-dimensional cytometry benchmark datasets saved in SummarizedExperiment and flowSet Bioconductor object formats, including row and column metadata describing samples, cell populations (clusters), and protein markers.
 Authors@R: c(person("Lukas M.", "Weber", email = "lukmweber@gmail.com", role = c("aut", "cre")), person("Charlotte", "Soneson", email = "charlottesoneson@gmail.com", role = "aut"))
@@ -25,4 +25,4 @@ Suggests:
     BiocStyle, 
     knitr, 
     rmarkdown
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1
