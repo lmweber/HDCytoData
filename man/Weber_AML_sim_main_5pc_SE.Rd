@@ -36,10 +36,10 @@ Raw data sourced from Levine et al. (2015), and data generation strategy modifie
 Arvaniti et al. (2017). See Weber et al. (2019), Supplementary Note 1, for more details.
 }
 \details{
-This is a semi-simulated mass cytometry (CyTOF) dataset, generated for benchmarking purposes 
-in our paper introducing the 'diffcyt' framework (Weber et al., 2019).
+This is a set of semi-simulated mass cytometry (CyTOF) datasets, generated for benchmarking 
+purposes in our paper introducing the 'diffcyt' framework (Weber et al., 2019).
 
-The dataset is constructed by computationally 'spiking in' small percentages of AML (acute 
+The datasets are constructed by computationally 'spiking in' small percentages of AML (acute 
 myeloid leukemia) blast cells into samples of healthy BMMCs (bone marrow mononuclear cells), 
 simulating the phenotype of minimal residual disease (MRD) in AML patients. Blast cells are 
 spiked in at 3 different thresholds of abundance (5\%, 1\%, and 0.1\%), to create multiple 
