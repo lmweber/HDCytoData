@@ -5,11 +5,11 @@
 
 ## Summary
 
-Data package containing a collection of high-dimensional cytometry datasets saved in Bioconductor object formats, hosted on Bioconductor ExperimentHub.
+Data package containing a collection of high-dimensional cytometry datasets saved in Bioconductor object formats, hosted on Bioconductor's ExperimentHub.
 
-This package contains a set of publicly available high-dimensional flow cytometry and mass cytometry (CyTOF) datasets, which have been formatted into `SummarizedExperiment` and `flowSet` Bioconductor object formats. The objects contain the cell-level expression values, as well as row and column metadata, including sample IDs, group IDs, true cell population labels or cluster labels (where available), channel names, protein marker names, and protein marker classes (cell type or cell state).
+This package contains a set of publicly available high-dimensional flow cytometry and mass cytometry (CyTOF) datasets, which have been formatted into `SummarizedExperiment` and `flowSet` Bioconductor object formats. The objects contain the cell-level expression values, as well as row and column metadata, including sample IDs, group IDs, reference cell population or cluster labels (where available), channel names, protein marker names, and protein marker classes (cell type or cell state).
 
-These datasets have been used in our previous work and publications for benchmarking purposes, e.g. to benchmark clustering algorithms or methods for differential analysis. They are provided here in the `SummarizedExperiment` and `flowSet` formats to make them easier to access for ourselves and other method developers.
+These datasets have been used in our previous work and publications for benchmarking purposes, e.g. to benchmark clustering algorithms or methods for differential analysis. They are provided here in the `SummarizedExperiment` and `flowSet` formats to make them easier to access.
 
 
 ## Details
@@ -19,7 +19,7 @@ For additional details, including references and raw data sources, see the help 
 
 ## Tutorial
 
-A short tutorial showing how to load the data objects is included in the package vignette.
+A short tutorial showing how to load the data objects is included in the package vignette, available from the [Bioconductor](http://bioconductor.org/packages/HDCytoData) website.
 
 
 ## Availability and installation
