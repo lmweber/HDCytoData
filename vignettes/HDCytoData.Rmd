@@ -28,7 +28,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 The `HDCytoData` data package contains a set of publicly available high-dimensional flow cytometry and mass cytometry (CyTOF) datasets, formatted into `SummarizedExperiment` and `flowSet` Bioconductor object formats. The data objects are hosted on the Bioconductor ExperimentHub web resource.
 
-The objects contain the cell-level expression values, as well as row and column metadata, including sample IDs, group IDs, true cell population labels or cluster labels (where available), channel names, protein marker names, and protein marker classes (cell type or cell state).
+The objects contain the cell-level expression values, as well as row and column metadata, including sample IDs, group IDs, reference cell population or cluster labels (where available), channel names, protein marker names, and protein marker classes (cell type or cell state).
 
 These datasets have been used for benchmarking purposes in our previous work and publications, e.g. to benchmark clustering algorithms or methods for differential analysis. They are provided here in the `SummarizedExperiment` and `flowSet` formats to make them easier to access.
 
@@ -49,8 +49,10 @@ The package contains the following datasets, which can be grouped into datasets 
 - Differential analysis:
     - Krieg_Anti_PD_1
     - Bodenmiller_BCR_XL
+    - Weber_AML_sim (consisting of multiple semi-simulated datasets)
+    - Weber_BCR_XL_sim (consisting of multiple semi-simulated datasets)
 
-Additional details on each dataset are included in the help files for the datasets. For each dataset, this includes a description of the dataset (biological context, number of samples, number of cells, number of manually gated cell populations, number and classes of protein markers, etc.), as well as an explanation of the object structures, and references and raw data sources.
+Additional details on each dataset are included in the help files for the datasets. For each dataset, this includes a description of the dataset (e.g. biological context, number of samples and conditions, number of cells, number of reference cell populations, number and classes of protein markers, etc.), as well as an explanation of the object structures, and references and raw data sources.
 
 The help files can be accessed by the dataset names, e.g. `?Bodenmiller_BCR_XL`.
 
@@ -105,6 +107,7 @@ d_SE <- Bodenmiller_BCR_XL_SE()
 
 # Inspect the object
 d_SE
+length(assays(d_SE))
 assay(d_SE)[1:6, 1:6]
 rowData(d_SE)
 colData(d_SE)
@@ -114,7 +117,7 @@ colData(d_SE)
 
 # Transformation of raw data
 
-Note that flow and mass cytometry data should be transformed prior to performing any downstream analyses, such as clustering. Standard transforms include the `asinh` with `cofactor` parameter equal to 5 for mass cytometry (CyTOF) data, or 150 for flow cytometry data (see Bendall et al. 2011, Supplementary Figure S2).
+Note that flow and mass cytometry data should be transformed prior to performing any downstream analyses, such as clustering. Standard transformations include the `asinh` with `cofactor` parameter equal to 5 for mass cytometry (CyTOF) data, or 150 for flow cytometry data (see Bendall et al. 2011, Supplementary Figure S2).
 
 
 
