@@ -20,7 +20,7 @@
 # 
 # The 'Weber-BCR-XL-sim' dataset in this script is generated as follows:
 # - select unstimulated reference samples from the main 'BCR-XL' dataset (8 individuals)
-# - randomly split each unstimulaed sample into two halves
+# - randomly split each unstimulated sample into two halves
 # - in one half, replace B cells with equivalent number of B cells from the corresponding
 # paired sample from BCR-XL stimulated condition
 # 
