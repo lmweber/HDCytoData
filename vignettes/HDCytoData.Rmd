@@ -26,17 +26,19 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Overview
 
-The `HDCytoData` data package contains a set of publicly available high-dimensional flow cytometry and mass cytometry (CyTOF) datasets, formatted into `SummarizedExperiment` and `flowSet` Bioconductor object formats. The data objects are hosted on the Bioconductor ExperimentHub web resource.
+The `HDCytoData` package is an extensible resource containing a set of publicly available high-dimensional flow cytometry and mass cytometry (CyTOF) benchmark datasets, which have been formatted into `SummarizedExperiment` and `flowSet` Bioconductor object formats. The data objects are hosted on Bioconductor's ExperimentHub platform.
 
-The objects contain the cell-level expression values, as well as row and column metadata, including sample IDs, group IDs, reference cell population or cluster labels (where available), channel names, protein marker names, and protein marker classes (cell type or cell state).
+The objects each contain one or more tables of cell-level expression values, as well as all required metadata. Row metadata includes sample IDs, group IDs, patient IDs, reference cell population or cluster labels (where available), and labels identifying 'spiked in' cells (where available). Column metadata includes channel names, protein marker names, and protein marker classes (cell type or cell state).
 
-These datasets have been used for benchmarking purposes in our previous work and publications, e.g. to benchmark clustering algorithms or methods for differential analysis. They are provided here in the `SummarizedExperiment` and `flowSet` formats to make them easier to access.
+Note that raw expression values should be transformed prior to any downstream analyses (see below).
+
+Currently, the package includes benchmark datasets used in our previous work to evaluate methods for clustering and differential analyses. The datasets are provided here in `SummarizedExperiment` and `flowSet` formats in order to make them easier to access and integrate into R/Bioconductor workflows.
 
 
 
 # Datasets
 
-The package contains the following datasets, which can be grouped into datasets useful for benchmarking either (i) clustering algorithms or (ii) methods for differential analysis.
+The package contains the following datasets, which can be grouped into datasets useful for benchmarking methods for (i) clustering, and (ii) differential analyses.
 
 - Clustering:
     - Levine_32dim
@@ -46,15 +48,31 @@ The package contains the following datasets, which can be grouped into datasets 
     - Nilsson_rare
     - Mosmann_rare
 
-- Differential analysis:
+- Differential analyses:
     - Krieg_Anti_PD_1
     - Bodenmiller_BCR_XL
-    - Weber_AML_sim (consisting of multiple semi-simulated datasets)
-    - Weber_BCR_XL_sim (consisting of multiple semi-simulated datasets)
+    - Weber_AML_sim (multiple datasets from several simulation scenarios)
+    - Weber_BCR_XL_sim (multiple datasets from several simulation scenarios)
 
-Additional details on each dataset are included in the help files for the datasets. For each dataset, this includes a description of the dataset (e.g. biological context, number of samples and conditions, number of cells, number of reference cell populations, number and classes of protein markers, etc.), as well as an explanation of the object structures, and references and raw data sources.
+Extensive documentation is available in the help files for the objects. For each dataset, this includes a description of the dataset (e.g. biological context, number of samples and conditions, number of cells, number of reference cell populations, number and classes of protein markers, etc.), as well as an explanation of the object structures, details on accessor functions required to access the expression tables and metadata, and references to original data sources.
 
-The help files can be accessed by the dataset names, e.g. `?Bodenmiller_BCR_XL`.
+The help files can be accessed by the dataset names, e.g. `?Bodenmiller_BCR_XL` or `help(Bodenmiller_BCR_XL)`.
+
+
+
+# Contributing new datasets
+
+We welcome contributions or suggestions for new datasets to include in the `HDCytoData` package. Suitable datasets are any high-dimensional cytometry datasets that are useful for benchmarking, and contain some sort of ground truth or known signal (e.g. a known ground truth in simulated data, or a known biological result in experimental data).
+
+To contribute a dataset, the following are required:
+
+- formatted `SummarizedExperiment` and `flowSet` objects containing table(s) of expression values and all required row, column, and other metadata
+- reproducible R scripts showing how the formatted objects were generated from the original raw data files (for examples, see the `.R` files in the directory `inst/scripts` in the source code of the `HDCytoData` package)
+- comprehensive documentation (for examples, see the `.Rd` files in the directory `man` in the source code of the `HDCytoData` package)
+
+Contributions or suggestions can be provided via GitHub issues on the [HDCytoData GitHub page](https://github.com/lmweber/HDCytoData).
+
+For more details on how to contribute resources to `ExperimentHub`, see the `ExperimentHub` vignettes available from [Bioconductor](http://bioconductor.org/packages/ExperimentHub).
 
 
 
@@ -62,7 +80,7 @@ The help files can be accessed by the dataset names, e.g. `?Bodenmiller_BCR_XL`.
 
 This section shows how to load the datasets, using one of the datasets (`Bodenmiller_BCR_XL`) as an example.
 
-The datasets can be loaded either with named functions referring directly to the object names, or by using the `ExperimentHub` interface. Both methods are demonstrated below.
+The datasets can be loaded by either (i) referring to named functions for each dataset, or (ii) creating an `ExperimentHub` instance and referring to the dataset IDs. Both methods are demonstrated below.
 
 See the help files (e.g. `?Bodenmiller_BCR_XL`) for details about the structure of the `SummarizedExperiment` or `flowSet` objects.
 
@@ -79,7 +97,7 @@ Bodenmiller_BCR_XL_flowSet()
 ```
 
 
-Alternatively, load the datasets using the `ExperimentHub` interface:
+Alternatively, load the datasets by creating an `ExperimentHub` instance:
 
 ```{r}
 # Create an ExperimentHub instance
@@ -88,10 +106,10 @@ ehub <- ExperimentHub()
 # Query ExperimentHub instance to find datasets
 query(ehub, "HDCytoData")
 
-# Load 'SummarizedExperiment' object using index of dataset
+# Load 'SummarizedExperiment' object using dataset ID
 ehub[["EH2254"]]
 
-# Load 'flowSet' object using index of dataset
+# Load 'flowSet' object using dataset ID
 ehub[["EH2255"]]
 ```
 
@@ -99,18 +117,19 @@ ehub[["EH2255"]]
 
 # Using the data
 
-Once the datasets have been loaded from ExperimentHub, they can be used as normal within an R session. For example, using the `SummarizedExperiment` form of the dataset loaded above:
+Once the datasets have been loaded from `ExperimentHub`, they can be used as normal within an R session. For example, using the `SummarizedExperiment` form of the dataset loaded above:
 
 ```{r}
 # Load dataset in 'SummarizedExperiment' format
 d_SE <- Bodenmiller_BCR_XL_SE()
 
-# Inspect the object
+# Inspect object
 d_SE
 length(assays(d_SE))
 assay(d_SE)[1:6, 1:6]
 rowData(d_SE)
 colData(d_SE)
+metadata(d_SE)
 ```
 
 
