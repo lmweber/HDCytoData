@@ -5,29 +5,28 @@
 
 ## Summary
 
-Data package containing a collection of high-dimensional cytometry datasets saved in Bioconductor object formats, hosted on Bioconductor's ExperimentHub.
+The `HDCytoData` package is an extensible resource containing a set of publicly available high-dimensional flow cytometry and mass cytometry (CyTOF) benchmark datasets, which have been formatted into `SummarizedExperiment` and `flowSet` Bioconductor object formats. The data objects are hosted on Bioconductor's `ExperimentHub` platform.
 
-This package contains a set of publicly available high-dimensional flow cytometry and mass cytometry (CyTOF) datasets, which have been formatted into `SummarizedExperiment` and `flowSet` Bioconductor object formats. The objects contain the cell-level expression values, as well as row and column metadata, including sample IDs, group IDs, reference cell population or cluster labels (where available), channel names, protein marker names, and protein marker classes (cell type or cell state).
+The objects each contain one or more tables of cell-level expression values, as well as all required metadata. Row metadata includes sample IDs, group IDs, patient IDs, reference cell population or cluster labels (where available), and labels identifying 'spiked in' cells (where available). Column metadata includes channel names, protein marker names, and protein marker classes (cell type or cell state).
 
-These datasets have been used in our previous work and publications for benchmarking purposes, e.g. to benchmark clustering algorithms or methods for differential analysis. They are provided here in the `SummarizedExperiment` and `flowSet` formats to make them easier to access.
+Note that raw expression values should be transformed prior to any downstream analyses.
+
+Currently, the package includes benchmark datasets used in our previous work to evaluate methods for clustering and differential analyses. The datasets are provided here in `SummarizedExperiment` and `flowSet` formats in order to make them easier to access and integrate into R/Bioconductor workflows.
 
 
 ## Details
 
-For additional details, including references and raw data sources, see the help files for each dataset.
+For additional details and an example showing how to load the datasets, see the package vignette available from [Bioconductor](http://bioconductor.org/packages/HDCytoData).
 
-
-## Tutorial
-
-A short tutorial showing how to load the data objects is included in the package vignette, available from the [Bioconductor](http://bioconductor.org/packages/HDCytoData) website.
+For details on the individual datasets, see the help files within the package.
 
 
 ## Availability and installation
 
-The `HDCytoData` package is available as an experiment data package from [Bioconductor](http://bioconductor.org/packages/HDCytoData). It can be installed using `BiocManager`:
+The `HDCytoData` package is freely available from [Bioconductor](http://bioconductor.org/packages/HDCytoData), and can be installed by following standard Bioconductor package installation procedures:
 
 ```{r}
-# install BiocManager from CRAN (if not already installed)
+# install BiocManager (if not already installed)
 install.packages("BiocManager")
 
 # install HDCytoData package
