@@ -116,7 +116,7 @@ Separate files for each replicate.
 \item Weber_BCR_XL_sim_less_distinct_less_50pc_SE
 \item Weber_BCR_XL_sim_less_distinct_less_50pc_flowSet
 \item Weber_BCR_XL_sim_less_distinct_less_75pc_SE
-\item Weber_BCR_XL_sim_less_distinct_less_75pc_flowSet}
+\item Weber_BCR_XL_sim_less_distinct_less_75pc_flowSet
 }
 
 Note that prior to performing any downstream analyses, the expression values should be 
