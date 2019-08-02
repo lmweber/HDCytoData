@@ -282,7 +282,7 @@ df_Weber_AML_sim_main_5pc_SE <- cbind(
   Species = "Homo sapiens", 
   TaxonomyId = "9606", 
   RDataClass = "SummarizedExperiment", 
-  RDataPath = "HDCytoData/Weber_AML_sim_main/Weber_AML_sim_main_5pc_SE.rda", 
+  RDataPath = "HDCytoData/Weber_AML_sim/Weber_AML_sim_main_5pc_SE.rda", 
   stringsAsFactors = FALSE
 )
 
@@ -349,7 +349,7 @@ df_Weber_AML_sim_null_SE <- cbind(
   Species = "Homo sapiens", 
   TaxonomyId = "9606", 
   RDataClass = "SummarizedExperiment", 
-  RDataPath = "HDCytoData/Weber_AML_sim_null/Weber_AML_sim_null_SE.rda", 
+  RDataPath = "HDCytoData/Weber_AML_sim/Weber_AML_sim_null_SE.rda", 
   stringsAsFactors = FALSE
 )
 
@@ -387,7 +387,7 @@ df_Weber_AML_sim_random_seeds_5pc_SE <- cbind(
   Species = "Homo sapiens", 
   TaxonomyId = "9606", 
   RDataClass = "SummarizedExperiment", 
-  RDataPath = "HDCytoData/Weber_AML_sim_random_seeds/Weber_AML_sim_random_seeds_5pc_SE.rda", 
+  RDataPath = "HDCytoData/Weber_AML_sim/Weber_AML_sim_random_seeds_5pc_SE.rda", 
   stringsAsFactors = FALSE
 )
 
@@ -444,7 +444,7 @@ df_Weber_AML_sim_less_distinct_5pc_SE <- cbind(
   Species = "Homo sapiens", 
   TaxonomyId = "9606", 
   RDataClass = "SummarizedExperiment", 
-  RDataPath = "HDCytoData/Weber_AML_sim_less_distinct/Weber_AML_sim_less_distinct_5pc_SE.rda", 
+  RDataPath = "HDCytoData/Weber_AML_sim/Weber_AML_sim_less_distinct_5pc_SE.rda", 
   stringsAsFactors = FALSE
 )
 
@@ -501,7 +501,7 @@ df_Weber_BCR_XL_sim_main_SE <- cbind(
   Species = "Homo sapiens", 
   TaxonomyId = "9606", 
   RDataClass = "SummarizedExperiment", 
-  RDataPath = "HDCytoData/Weber_BCR_XL_sim_main/Weber_BCR_XL_sim_main_SE.rda", 
+  RDataPath = "HDCytoData/Weber_BCR_XL_sim/Weber_BCR_XL_sim_main_SE.rda", 
   stringsAsFactors = FALSE
 )
 
@@ -539,7 +539,7 @@ df_Weber_BCR_XL_sim_null_rep1_SE <- cbind(
   Species = "Homo sapiens", 
   TaxonomyId = "9606", 
   RDataClass = "SummarizedExperiment", 
-  RDataPath = "HDCytoData/Weber_BCR_XL_sim_null_rep1/Weber_BCR_XL_sim_null_rep1_SE.rda", 
+  RDataPath = "HDCytoData/Weber_BCR_XL_sim/Weber_BCR_XL_sim_null_rep1_SE.rda", 
   stringsAsFactors = FALSE
 )
 
@@ -596,7 +596,7 @@ df_Weber_BCR_XL_sim_random_seeds_rep1_SE <- cbind(
   Species = "Homo sapiens", 
   TaxonomyId = "9606", 
   RDataClass = "SummarizedExperiment", 
-  RDataPath = "HDCytoData/Weber_BCR_XL_sim_random_seeds_rep1/Weber_BCR_XL_sim_random_seeds_rep1_SE.rda", 
+  RDataPath = "HDCytoData/Weber_BCR_XL_sim/Weber_BCR_XL_sim_random_seeds_rep1_SE.rda", 
   stringsAsFactors = FALSE
 )
 
@@ -653,7 +653,7 @@ df_Weber_BCR_XL_sim_less_distinct_less_50pc_SE <- cbind(
   Species = "Homo sapiens", 
   TaxonomyId = "9606", 
   RDataClass = "SummarizedExperiment", 
-  RDataPath = "HDCytoData/Weber_BCR_XL_sim_less_distinct_less_50pc/Weber_BCR_XL_sim_less_distinct_less_50pc_SE.rda", 
+  RDataPath = "HDCytoData/Weber_BCR_XL_sim/Weber_BCR_XL_sim_less_distinct_less_50pc_SE.rda", 
   stringsAsFactors = FALSE
 )
 
