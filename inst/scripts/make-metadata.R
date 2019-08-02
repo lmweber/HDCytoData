@@ -304,22 +304,22 @@ df_Weber_AML_sim_main_blasts_all_SE$RDataPath <- gsub("5pc", "blasts_all", df_We
 df_Weber_AML_sim_main_5pc_flowSet <- df_Weber_AML_sim_main_5pc_SE
 df_Weber_AML_sim_main_5pc_flowSet$Title <- gsub("_SE$", "_flowSet", df_Weber_AML_sim_main_5pc_flowSet$Title)
 df_Weber_AML_sim_main_5pc_flowSet$RDataClass <- "flowSet"
-df_Weber_AML_sim_main_5pc_flowSet$RDataPath <- gsub("_SE$", "_flowSet", df_Weber_AML_sim_main_5pc_flowSet$RDataPath)
+df_Weber_AML_sim_main_5pc_flowSet$RDataPath <- gsub("_SE.rda", "_flowSet.rda", df_Weber_AML_sim_main_5pc_flowSet$RDataPath)
 
 df_Weber_AML_sim_main_1pc_flowSet <- df_Weber_AML_sim_main_1pc_SE
 df_Weber_AML_sim_main_1pc_flowSet$Title <- gsub("_SE$", "_flowSet", df_Weber_AML_sim_main_1pc_flowSet$Title)
 df_Weber_AML_sim_main_1pc_flowSet$RDataClass <- "flowSet"
-df_Weber_AML_sim_main_1pc_flowSet$RDataPath <- gsub("_SE$", "_flowSet", df_Weber_AML_sim_main_1pc_flowSet$RDataPath)
+df_Weber_AML_sim_main_1pc_flowSet$RDataPath <- gsub("_SE.rda", "_flowSet.rda", df_Weber_AML_sim_main_1pc_flowSet$RDataPath)
 
 df_Weber_AML_sim_main_0.1pc_flowSet <- df_Weber_AML_sim_main_0.1pc_SE
 df_Weber_AML_sim_main_0.1pc_flowSet$Title <- gsub("_SE$", "_flowSet", df_Weber_AML_sim_main_0.1pc_flowSet$Title)
 df_Weber_AML_sim_main_0.1pc_flowSet$RDataClass <- "flowSet"
-df_Weber_AML_sim_main_0.1pc_flowSet$RDataPath <- gsub("_SE$", "_flowSet", df_Weber_AML_sim_main_0.1pc_flowSet$RDataPath)
+df_Weber_AML_sim_main_0.1pc_flowSet$RDataPath <- gsub("_SE.rda", "_flowSet.rda", df_Weber_AML_sim_main_0.1pc_flowSet$RDataPath)
 
 df_Weber_AML_sim_main_blasts_all_flowSet <- df_Weber_AML_sim_main_blasts_all_SE
 df_Weber_AML_sim_main_blasts_all_flowSet$Title <- gsub("_SE$", "_flowSet", df_Weber_AML_sim_main_blasts_all_flowSet$Title)
 df_Weber_AML_sim_main_blasts_all_flowSet$RDataClass <- "flowSet"
-df_Weber_AML_sim_main_blasts_all_flowSet$RDataPath <- gsub("_SE$", "_flowSet", df_Weber_AML_sim_main_blasts_all_flowSet$RDataPath)
+df_Weber_AML_sim_main_blasts_all_flowSet$RDataPath <- gsub("_SE.rda", "_flowSet.rda", df_Weber_AML_sim_main_blasts_all_flowSet$RDataPath)
 
 
 
@@ -357,7 +357,7 @@ df_Weber_AML_sim_null_SE <- cbind(
 df_Weber_AML_sim_null_flowSet <- df_Weber_AML_sim_null_SE
 df_Weber_AML_sim_null_flowSet$Title <- gsub("_SE$", "_flowSet", df_Weber_AML_sim_null_flowSet$Title)
 df_Weber_AML_sim_null_flowSet$RDataClass <- "flowSet"
-df_Weber_AML_sim_null_flowSet$RDataPath <- gsub("_SE$", "_flowSet", df_Weber_AML_sim_null_flowSet$RDataPath)
+df_Weber_AML_sim_null_flowSet$RDataPath <- gsub("_SE.rda", "_flowSet.rda", df_Weber_AML_sim_null_flowSet$RDataPath)
 
 
 
@@ -404,17 +404,17 @@ df_Weber_AML_sim_random_seeds_0.1pc_SE$RDataPath <- gsub("5pc", "0.1pc", df_Webe
 df_Weber_AML_sim_random_seeds_5pc_flowSet <- df_Weber_AML_sim_random_seeds_5pc_SE
 df_Weber_AML_sim_random_seeds_5pc_flowSet$Title <- gsub("_SE$", "_flowSet", df_Weber_AML_sim_random_seeds_5pc_flowSet$Title)
 df_Weber_AML_sim_random_seeds_5pc_flowSet$RDataClass <- "flowSet"
-df_Weber_AML_sim_random_seeds_5pc_flowSet$RDataPath <- gsub("_SE$", "_flowSet", df_Weber_AML_sim_random_seeds_5pc_flowSet$RDataPath)
+df_Weber_AML_sim_random_seeds_5pc_flowSet$RDataPath <- gsub("_SE.rda", "_flowSet.rda", df_Weber_AML_sim_random_seeds_5pc_flowSet$RDataPath)
 
 df_Weber_AML_sim_random_seeds_1pc_flowSet <- df_Weber_AML_sim_random_seeds_1pc_SE
 df_Weber_AML_sim_random_seeds_1pc_flowSet$Title <- gsub("_SE$", "_flowSet", df_Weber_AML_sim_random_seeds_1pc_flowSet$Title)
 df_Weber_AML_sim_random_seeds_1pc_flowSet$RDataClass <- "flowSet"
-df_Weber_AML_sim_random_seeds_1pc_flowSet$RDataPath <- gsub("_SE$", "_flowSet", df_Weber_AML_sim_random_seeds_1pc_flowSet$RDataPath)
+df_Weber_AML_sim_random_seeds_1pc_flowSet$RDataPath <- gsub("_SE.rda", "_flowSet.rda", df_Weber_AML_sim_random_seeds_1pc_flowSet$RDataPath)
 
 df_Weber_AML_sim_random_seeds_0.1pc_flowSet <- df_Weber_AML_sim_random_seeds_0.1pc_SE
 df_Weber_AML_sim_random_seeds_0.1pc_flowSet$Title <- gsub("_SE$", "_flowSet", df_Weber_AML_sim_random_seeds_0.1pc_flowSet$Title)
 df_Weber_AML_sim_random_seeds_0.1pc_flowSet$RDataClass <- "flowSet"
-df_Weber_AML_sim_random_seeds_0.1pc_flowSet$RDataPath <- gsub("_SE$", "_flowSet", df_Weber_AML_sim_random_seeds_0.1pc_flowSet$RDataPath)
+df_Weber_AML_sim_random_seeds_0.1pc_flowSet$RDataPath <- gsub("_SE.rda", "_flowSet.rda", df_Weber_AML_sim_random_seeds_0.1pc_flowSet$RDataPath)
 
 
 
@@ -461,17 +461,17 @@ df_Weber_AML_sim_less_distinct_0.1pc_SE$RDataPath <- gsub("5pc", "0.1pc", df_Web
 df_Weber_AML_sim_less_distinct_5pc_flowSet <- df_Weber_AML_sim_less_distinct_5pc_SE
 df_Weber_AML_sim_less_distinct_5pc_flowSet$Title <- gsub("_SE$", "_flowSet", df_Weber_AML_sim_less_distinct_5pc_flowSet$Title)
 df_Weber_AML_sim_less_distinct_5pc_flowSet$RDataClass <- "flowSet"
-df_Weber_AML_sim_less_distinct_5pc_flowSet$RDataPath <- gsub("_SE$", "_flowSet", df_Weber_AML_sim_less_distinct_5pc_flowSet$RDataPath)
+df_Weber_AML_sim_less_distinct_5pc_flowSet$RDataPath <- gsub("_SE.rda", "_flowSet.rda", df_Weber_AML_sim_less_distinct_5pc_flowSet$RDataPath)
 
 df_Weber_AML_sim_less_distinct_1pc_flowSet <- df_Weber_AML_sim_less_distinct_1pc_SE
 df_Weber_AML_sim_less_distinct_1pc_flowSet$Title <- gsub("_SE$", "_flowSet", df_Weber_AML_sim_less_distinct_1pc_flowSet$Title)
 df_Weber_AML_sim_less_distinct_1pc_flowSet$RDataClass <- "flowSet"
-df_Weber_AML_sim_less_distinct_1pc_flowSet$RDataPath <- gsub("_SE$", "_flowSet", df_Weber_AML_sim_less_distinct_1pc_flowSet$RDataPath)
+df_Weber_AML_sim_less_distinct_1pc_flowSet$RDataPath <- gsub("_SE.rda", "_flowSet.rda", df_Weber_AML_sim_less_distinct_1pc_flowSet$RDataPath)
 
 df_Weber_AML_sim_less_distinct_0.1pc_flowSet <- df_Weber_AML_sim_less_distinct_0.1pc_SE
 df_Weber_AML_sim_less_distinct_0.1pc_flowSet$Title <- gsub("_SE$", "_flowSet", df_Weber_AML_sim_less_distinct_0.1pc_flowSet$Title)
 df_Weber_AML_sim_less_distinct_0.1pc_flowSet$RDataClass <- "flowSet"
-df_Weber_AML_sim_less_distinct_0.1pc_flowSet$RDataPath <- gsub("_SE$", "_flowSet", df_Weber_AML_sim_less_distinct_0.1pc_flowSet$RDataPath)
+df_Weber_AML_sim_less_distinct_0.1pc_flowSet$RDataPath <- gsub("_SE.rda", "_flowSet.rda", df_Weber_AML_sim_less_distinct_0.1pc_flowSet$RDataPath)
 
 
 
@@ -509,7 +509,7 @@ df_Weber_BCR_XL_sim_main_SE <- cbind(
 df_Weber_BCR_XL_sim_main_flowSet <- df_Weber_BCR_XL_sim_main_SE
 df_Weber_BCR_XL_sim_main_flowSet$Title <- gsub("_SE$", "_flowSet", df_Weber_BCR_XL_sim_main_flowSet$Title)
 df_Weber_BCR_XL_sim_main_flowSet$RDataClass <- "flowSet"
-df_Weber_BCR_XL_sim_main_flowSet$RDataPath <- gsub("_SE$", "_flowSet", df_Weber_BCR_XL_sim_main_flowSet$RDataPath)
+df_Weber_BCR_XL_sim_main_flowSet$RDataPath <- gsub("_SE.rda", "_flowSet.rda", df_Weber_BCR_XL_sim_main_flowSet$RDataPath)
 
 
 
@@ -556,17 +556,17 @@ df_Weber_BCR_XL_sim_null_rep3_SE$RDataPath <- gsub("rep1", "rep3", df_Weber_BCR_
 df_Weber_BCR_XL_sim_null_rep1_flowSet <- df_Weber_BCR_XL_sim_null_rep1_SE
 df_Weber_BCR_XL_sim_null_rep1_flowSet$Title <- gsub("_SE$", "_flowSet", df_Weber_BCR_XL_sim_null_rep1_flowSet$Title)
 df_Weber_BCR_XL_sim_null_rep1_flowSet$RDataClass <- "flowSet"
-df_Weber_BCR_XL_sim_null_rep1_flowSet$RDataPath <- gsub("_SE$", "_flowSet", df_Weber_BCR_XL_sim_null_rep1_flowSet$RDataPath)
+df_Weber_BCR_XL_sim_null_rep1_flowSet$RDataPath <- gsub("_SE.rda", "_flowSet.rda", df_Weber_BCR_XL_sim_null_rep1_flowSet$RDataPath)
 
 df_Weber_BCR_XL_sim_null_rep2_flowSet <- df_Weber_BCR_XL_sim_null_rep2_SE
 df_Weber_BCR_XL_sim_null_rep2_flowSet$Title <- gsub("_SE$", "_flowSet", df_Weber_BCR_XL_sim_null_rep2_flowSet$Title)
 df_Weber_BCR_XL_sim_null_rep2_flowSet$RDataClass <- "flowSet"
-df_Weber_BCR_XL_sim_null_rep2_flowSet$RDataPath <- gsub("_SE$", "_flowSet", df_Weber_BCR_XL_sim_null_rep2_flowSet$RDataPath)
+df_Weber_BCR_XL_sim_null_rep2_flowSet$RDataPath <- gsub("_SE.rda", "_flowSet.rda", df_Weber_BCR_XL_sim_null_rep2_flowSet$RDataPath)
 
 df_Weber_BCR_XL_sim_null_rep3_flowSet <- df_Weber_BCR_XL_sim_null_rep3_SE
 df_Weber_BCR_XL_sim_null_rep3_flowSet$Title <- gsub("_SE$", "_flowSet", df_Weber_BCR_XL_sim_null_rep3_flowSet$Title)
 df_Weber_BCR_XL_sim_null_rep3_flowSet$RDataClass <- "flowSet"
-df_Weber_BCR_XL_sim_null_rep3_flowSet$RDataPath <- gsub("_SE$", "_flowSet", df_Weber_BCR_XL_sim_null_rep3_flowSet$RDataPath)
+df_Weber_BCR_XL_sim_null_rep3_flowSet$RDataPath <- gsub("_SE.rda", "_flowSet.rda", df_Weber_BCR_XL_sim_null_rep3_flowSet$RDataPath)
 
 
 
@@ -613,17 +613,17 @@ df_Weber_BCR_XL_sim_random_seeds_rep3_SE$RDataPath <- gsub("rep1", "rep3", df_We
 df_Weber_BCR_XL_sim_random_seeds_rep1_flowSet <- df_Weber_BCR_XL_sim_random_seeds_rep1_SE
 df_Weber_BCR_XL_sim_random_seeds_rep1_flowSet$Title <- gsub("_SE$", "_flowSet", df_Weber_BCR_XL_sim_random_seeds_rep1_flowSet$Title)
 df_Weber_BCR_XL_sim_random_seeds_rep1_flowSet$RDataClass <- "flowSet"
-df_Weber_BCR_XL_sim_random_seeds_rep1_flowSet$RDataPath <- gsub("_SE$", "_flowSet", df_Weber_BCR_XL_sim_random_seeds_rep1_flowSet$RDataPath)
+df_Weber_BCR_XL_sim_random_seeds_rep1_flowSet$RDataPath <- gsub("_SE.rda", "_flowSet.rda", df_Weber_BCR_XL_sim_random_seeds_rep1_flowSet$RDataPath)
 
 df_Weber_BCR_XL_sim_random_seeds_rep2_flowSet <- df_Weber_BCR_XL_sim_random_seeds_rep2_SE
 df_Weber_BCR_XL_sim_random_seeds_rep2_flowSet$Title <- gsub("_SE$", "_flowSet", df_Weber_BCR_XL_sim_random_seeds_rep2_flowSet$Title)
 df_Weber_BCR_XL_sim_random_seeds_rep2_flowSet$RDataClass <- "flowSet"
-df_Weber_BCR_XL_sim_random_seeds_rep2_flowSet$RDataPath <- gsub("_SE$", "_flowSet", df_Weber_BCR_XL_sim_random_seeds_rep2_flowSet$RDataPath)
+df_Weber_BCR_XL_sim_random_seeds_rep2_flowSet$RDataPath <- gsub("_SE.rda", "_flowSet.rda", df_Weber_BCR_XL_sim_random_seeds_rep2_flowSet$RDataPath)
 
 df_Weber_BCR_XL_sim_random_seeds_rep3_flowSet <- df_Weber_BCR_XL_sim_random_seeds_rep3_SE
 df_Weber_BCR_XL_sim_random_seeds_rep3_flowSet$Title <- gsub("_SE$", "_flowSet", df_Weber_BCR_XL_sim_random_seeds_rep3_flowSet$Title)
 df_Weber_BCR_XL_sim_random_seeds_rep3_flowSet$RDataClass <- "flowSet"
-df_Weber_BCR_XL_sim_random_seeds_rep3_flowSet$RDataPath <- gsub("_SE$", "_flowSet", df_Weber_BCR_XL_sim_random_seeds_rep3_flowSet$RDataPath)
+df_Weber_BCR_XL_sim_random_seeds_rep3_flowSet$RDataPath <- gsub("_SE.rda", "_flowSet.rda", df_Weber_BCR_XL_sim_random_seeds_rep3_flowSet$RDataPath)
 
 
 
@@ -666,12 +666,12 @@ df_Weber_BCR_XL_sim_less_distinct_less_75pc_SE$RDataPath <- gsub("less_50pc", "l
 df_Weber_BCR_XL_sim_less_distinct_less_50pc_flowSet <- df_Weber_BCR_XL_sim_less_distinct_less_50pc_SE
 df_Weber_BCR_XL_sim_less_distinct_less_50pc_flowSet$Title <- gsub("_SE$", "_flowSet", df_Weber_BCR_XL_sim_less_distinct_less_50pc_flowSet$Title)
 df_Weber_BCR_XL_sim_less_distinct_less_50pc_flowSet$RDataClass <- "flowSet"
-df_Weber_BCR_XL_sim_less_distinct_less_50pc_flowSet$RDataPath <- gsub("_SE$", "_flowSet", df_Weber_BCR_XL_sim_less_distinct_less_50pc_flowSet$RDataPath)
+df_Weber_BCR_XL_sim_less_distinct_less_50pc_flowSet$RDataPath <- gsub("_SE.rda", "_flowSet.rda", df_Weber_BCR_XL_sim_less_distinct_less_50pc_flowSet$RDataPath)
 
 df_Weber_BCR_XL_sim_less_distinct_less_75pc_flowSet <- df_Weber_BCR_XL_sim_less_distinct_less_75pc_SE
 df_Weber_BCR_XL_sim_less_distinct_less_75pc_flowSet$Title <- gsub("_SE$", "_flowSet", df_Weber_BCR_XL_sim_less_distinct_less_75pc_flowSet$Title)
 df_Weber_BCR_XL_sim_less_distinct_less_75pc_flowSet$RDataClass <- "flowSet"
-df_Weber_BCR_XL_sim_less_distinct_less_75pc_flowSet$RDataPath <- gsub("_SE$", "_flowSet", df_Weber_BCR_XL_sim_less_distinct_less_75pc_flowSet$RDataPath)
+df_Weber_BCR_XL_sim_less_distinct_less_75pc_flowSet$RDataPath <- gsub("_SE.rda", "_flowSet.rda", df_Weber_BCR_XL_sim_less_distinct_less_75pc_flowSet$RDataPath)
 
 
 
