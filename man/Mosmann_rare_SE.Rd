@@ -64,8 +64,8 @@ cytometry in our article, Weber and Robinson (2016): https://www.ncbi.nlm.nih.go
 Data files are also available from FlowRepository (FR-FCM-ZZPH): http://flowrepository.org/id/FR-FCM-ZZPH
 }
 \usage{
-Mosmann_rare_SE()
-Mosmann_rare_flowSet()
+Mosmann_rare_SE(metadata = FALSE)
+Mosmann_rare_flowSet(metadata = FALSE)
 }
 \arguments{
 \item{metadata}{\code{logical} value indicating whether ExperimentHub metadata (describing the 

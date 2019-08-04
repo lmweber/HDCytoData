@@ -77,8 +77,8 @@ Weber et al. (2019) (https://www.ncbi.nlm.nih.gov/pubmed/31098416).
 Data files are also available from FlowRepository (FR-FCM-ZYL8): http://flowrepository.org/id/FR-FCM-ZYL8
 }
 \usage{
-Bodenmiller_BCR_XL_SE()
-Bodenmiller_BCR_XL_flowSet()
+Bodenmiller_BCR_XL_SE(metadata = FALSE)
+Bodenmiller_BCR_XL_flowSet(metadata = FALSE)
 }
 \arguments{
 \item{metadata}{\code{logical} value indicating whether ExperimentHub metadata (describing the 

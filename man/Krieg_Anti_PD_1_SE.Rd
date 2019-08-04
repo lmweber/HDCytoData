@@ -77,8 +77,8 @@ the dataset, see Supplementary Note 1: Benchmark datasets.)
 Data files are also available from FlowRepository (FR-FCM-ZYL8): http://flowrepository.org/id/FR-FCM-ZYL8
 }
 \usage{
-Krieg_Anti_PD_1_SE()
-Krieg_Anti_PD_1_flowSet()
+Krieg_Anti_PD_1_SE(metadata = FALSE)
+Krieg_Anti_PD_1_flowSet(metadata = FALSE)
 }
 \arguments{
 \item{metadata}{\code{logical} value indicating whether ExperimentHub metadata (describing the 
