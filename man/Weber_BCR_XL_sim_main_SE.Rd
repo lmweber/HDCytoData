@@ -89,15 +89,18 @@ and lookup tables to identify row data values) is stored in the \code{descriptio
 the \code{flowFrames}.
 
 \strong{Main simulations}
+
 \itemize{
 \item Weber_BCR_XL_sim_main_SE
 \item Weber_BCR_XL_sim_main_flowSet
 }
 
 \strong{Additional simulations: null simulations}
+
 \emph{
 Separate files for each replicate.
 }
+
 \itemize{
 \item Weber_BCR_XL_sim_null_rep1_SE
 \item Weber_BCR_XL_sim_null_rep1_flowSet
@@ -108,9 +111,11 @@ Separate files for each replicate.
 }
 
 \strong{Additional simulations: modified random seeds}
+
 \emph{
 Separate files for each replicate.
 }
+
 \itemize{
 \item Weber_BCR_XL_sim_random_seeds_rep1_SE
 \item Weber_BCR_XL_sim_random_seeds_rep1_flowSet
@@ -121,9 +126,11 @@ Separate files for each replicate.
 }
 
 \strong{Additional simulations: 'less distinct' spike-in cells}
+
 \emph{
 Separate files for each replicate.
 }
+
 \itemize{
 \item Weber_BCR_XL_sim_less_distinct_less_50pc_SE
 \item Weber_BCR_XL_sim_less_distinct_less_50pc_flowSet

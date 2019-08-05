@@ -99,10 +99,12 @@ and lookup tables to identify row data values) is stored in the \code{descriptio
 the \code{flowFrames}.
 
 \strong{Main simulations}
+
 \emph{
 Separate files for each threshold of abundance (5\%, 1\%, and 0.1\%), as well additional objects 
 containing all blast cells.
 }
+
 \itemize{
 \item Weber_AML_sim_main_5pc_SE
 \item Weber_AML_sim_main_5pc_flowSet
@@ -115,15 +117,18 @@ containing all blast cells.
 }
 
 \strong{Additional simulations: null simulations}
+
 \itemize{
 \item Weber_AML_sim_null_SE
 \item Weber_AML_sim_null_flowSet
 }
 
 \strong{Additional simulations: modified random seeds}
+
 \emph{
 Separate files for each threshold of abundance (5\%, 1\%, and 0.1\%).
 }
+
 \itemize{
 \item Weber_AML_sim_random_seeds_5pc_SE
 \item Weber_AML_sim_random_seeds_5pc_flowSet
@@ -134,9 +139,11 @@ Separate files for each threshold of abundance (5\%, 1\%, and 0.1\%).
 }
 
 \strong{Additional simulations: 'less distinct' spike-in cells}
+
 \emph{
 Separate files for each threshold of abundance (5\%, 1\%, and 0.1\%).
 }
+
 \itemize{
 \item Weber_AML_sim_less_distinct_5pc_SE
 \item Weber_AML_sim_less_distinct_5pc_flowSet
