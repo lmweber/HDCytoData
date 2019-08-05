@@ -70,7 +70,7 @@ In each case, the objects are available in both \code{\link{SummarizedExperiment
 the usual format for cytometry data). After loading the datasets, they can be inspected using the 
 standard accessor functions for either \code{SummarizedExperiments} or \code{flowSets} (e.g. for 
 \code{SummarizedExperiments}: \code{\link{rowData}}, \code{\link{colData}}, \code{\link{assays}}, 
-and \code{\link{metadata}}).
+and \code{\link[S4Vectors]{metadata}}).
 
 For the \code{SummarizedExperiments}: \code{assays} contain tables of expression values 
 (with multiple objects for datasets with multiple replicates; note that the replicates cannot be 
