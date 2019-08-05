@@ -161,8 +161,10 @@ The raw data is sourced from Levine et al. (2015), and the data generation strat
 from Arvaniti et al. (2017). See Weber et al. (2019), Supplementary Note 1, for more details.
 
 Original links to raw data from Cytobank:
+
 - all cells (also contains gating scheme for CD34+CD45mid cells, i.e. blasts): 
 https://community.cytobank.org/cytobank/experiments/46098/illustrations/121588
+
 - blasts (repository cloned from the one for 'all cells' above, using the gating scheme 
 for CD34+CD45mid cells; this allows .fcs files for the subset to be exported): 
 https://community.cytobank.org/cytobank/experiments/63534/illustrations/125318
