@@ -1,0 +1,31 @@
+---
+title: "How to contribute"
+author: 
+  - name: Lukas M. Weber
+    affiliation: 
+      - &id1 "Institute of Molecular Life Sciences, University of Zurich, Zurich, Switzerland"
+      - &id2 "SIB Swiss Institute of Bioinformatics, Zurich, Switzerland"
+  - name: Charlotte Soneson
+    affiliation: 
+      - &id3 "Friedrich Miescher Institute for Biomedical Research, Basel, Switzerland"
+      - &id4 "SIB Swiss Institute of Bioinformatics, Basel, Switzerland"
+package: HDCytoData
+output: 
+  BiocStyle::html_document
+vignette: >
+  %\VignetteIndexEntry{3. How to contribute}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+# How to contribute
+
+testing
+
+

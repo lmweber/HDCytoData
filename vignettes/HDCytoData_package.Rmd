@@ -13,7 +13,7 @@ package: HDCytoData
 output: 
   BiocStyle::html_document
 vignette: >
-  %\VignetteIndexEntry{HDCytoData package}
+  %\VignetteIndexEntry{1. HDCytoData package}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
