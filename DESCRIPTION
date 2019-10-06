@@ -11,6 +11,7 @@ biocViews:
     ExperimentData, 
     ExpressionData, 
     FlowCytometryData, 
+    SingleCellData, 
     Homo_sapiens_Data, 
     ImmunoOncologyData
 Depends: 
