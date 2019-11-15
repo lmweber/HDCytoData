@@ -14,11 +14,15 @@ Note that raw expression values should be transformed prior to any downstream an
 Currently, the package includes benchmark datasets used in our previous work to evaluate methods for clustering and differential analyses. The datasets are provided here in `SummarizedExperiment` and `flowSet` formats in order to make them easier to access and integrate into R/Bioconductor workflows.
 
 
-## Details
+## Vignettes
 
-For additional details and an example showing how to load the datasets, see the package vignette available from [Bioconductor](http://bioconductor.org/packages/HDCytoData).
+Additional details are provided in the following [Bioconductor vignettes](http://bioconductor.org/packages/HDCytoData):
 
-For details on the individual datasets, see the help files within the package.
+- [HDCytoData package](http://bioconductor.org/packages/release/data/experiment/vignettes/HDCytoData/inst/doc/HDCytoData_package.html): Overview of the package and example showing how to load the datasets
+- [Use cases](http://bioconductor.org/packages/release/data/experiment/vignettes/HDCytoData/inst/doc/Use_cases.html): Examples of use cases
+- [How to contribute](http://bioconductor.org/packages/release/data/experiment/vignettes/HDCytoData/inst/doc/How_to_contribute.html): Guidelines for contributing new datasets
+
+For details on the datasets, see the help files for each dataset available within the package.
 
 
 ## Availability and installation
