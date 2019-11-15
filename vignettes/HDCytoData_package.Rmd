@@ -60,22 +60,6 @@ The help files can be accessed by the dataset names, e.g. `?Bodenmiller_BCR_XL` 
 
 
 
-# Contributing new datasets
-
-We welcome contributions or suggestions for new datasets to include in the `HDCytoData` package. Suitable datasets are any high-dimensional cytometry datasets that are useful for benchmarking, and contain some sort of ground truth or known signal (e.g. a known ground truth in simulated data, or a known biological result in experimental data).
-
-To contribute a dataset, the following are required:
-
-- formatted `SummarizedExperiment` and `flowSet` objects containing table(s) of expression values and all required row, column, and other metadata
-- reproducible R scripts showing how the formatted objects were generated from the original raw data files (for examples, see the `.R` files in the directory `inst/scripts` in the source code of the `HDCytoData` package)
-- comprehensive documentation (for examples, see the `.Rd` files in the directory `man` in the source code of the `HDCytoData` package)
-
-Contributions or suggestions can be provided via GitHub issues on the [HDCytoData GitHub page](https://github.com/lmweber/HDCytoData).
-
-For more details on how to contribute resources to `ExperimentHub`, see the `ExperimentHub` vignettes available from [Bioconductor](http://bioconductor.org/packages/ExperimentHub).
-
-
-
 # How to load data
 
 This section shows how to load the datasets, using one of the datasets (`Bodenmiller_BCR_XL`) as an example.
@@ -114,8 +98,7 @@ ehub[["EH2255"]]
 ```
 
 
-
-# Using the data
+## Using the data
 
 Once the datasets have been loaded from `ExperimentHub`, they can be used as normal within an R session. For example, using the `SummarizedExperiment` form of the dataset loaded above:
 
@@ -133,16 +116,20 @@ metadata(d_SE)
 ```
 
 
-
-# Transformation of raw data
+## Transformation of raw data
 
 Note that flow and mass cytometry data should be transformed prior to performing any downstream analyses, such as clustering. Standard transformations include the `asinh` with `cofactor` parameter equal to 5 for mass cytometry (CyTOF) data, or 150 for flow cytometry data (see Bendall et al. 2011, Supplementary Figure S2).
 
 
-
-# Exploring the data
+## Exploring the data
 
 Interactive visualizations to explore the datasets can be generated from the `SummarizedExperiment` objects using the [iSEE](http://bioconductor.org/packages/iSEE) ("Interactive SummarizedExperiment Explorer") package, available from Bioconductor (Soneson, Lun, Marini, and Rue-Albrecht, 2018), which provides a Shiny-based graphical user interface to explore single-cell datasets stored in the `SummarizedExperiment` format. For more details, see the `iSEE` package vignettes.
+
+
+
+# Contribution guidelines
+
+We welcome contributions or suggestions for new datasets to include in the `HDCytoData` package. Contribution guidelines are provided in the [How to contribute new datasets](http://bioconductor.org/packages/release/data/experiment/vignettes/HDCytoData/inst/doc/How_to_contribute_new_datasets.html) vignette, available from [Bioconductor](http://bioconductor.org/packages/HDCytoData).
 
 
 
