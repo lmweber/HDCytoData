@@ -1,0 +1,112 @@
+---
+title: "How to contribute new datasets"
+author: 
+  - name: Lukas M. Weber
+    affiliation: 
+      - &id1 "Institute of Molecular Life Sciences, University of Zurich, Zurich, Switzerland"
+      - &id2 "SIB Swiss Institute of Bioinformatics, Zurich, Switzerland"
+  - name: Charlotte Soneson
+    affiliation: 
+      - &id3 "Friedrich Miescher Institute for Biomedical Research, Basel, Switzerland"
+      - &id4 "SIB Swiss Institute of Bioinformatics, Basel, Switzerland"
+package: HDCytoData
+output: 
+  BiocStyle::html_document
+vignette: >
+  %\VignetteIndexEntry{3. How to contribute new datasets}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+# How to contribute new datasets
+
+We welcome contributions or suggestions for new datasets to include in the `HDCytoData` package. Suitable datasets are any high-dimensional cytometry datasets that: (i) are useful for benchmarking purposes, and/or other activities such as teaching, examples, and tutorials, and (ii) contain some sort of ground truth or known signal (e.g. a known ground truth in simulated data, or a known biological result in experimental data).
+
+Below, we summarize the key steps required to contribute a new dataset to the `HDCytoData` package. For more details on how to use Bioconductor's `ExperimentHub` resource and creating `ExperimentHub` packages, see the `ExperimentHub` vignettes available from [Bioconductor](http://bioconductor.org/packages/ExperimentHub).
+
+
+## Open GitHub issue
+
+Open a GitHub issue (or pull request, if you already have all files available) at the [HDCytoData](https://github.com/lmweber/HDCytoData) GitHub page to contact the maintainers and discuss the suitability of the new dataset.
+
+Using GitHub (instead of email) ensures that there is a public record of the contribution. If you are unfamiliar with GitHub, please contact the maintainers by email for assistance.
+
+
+## Prepare object files
+
+If the contribution is approved, the following are required for each dataset:
+
+1. Formatted `SummarizedExperiment` and `flowSet` objects containing table(s) of expression values and all required row, column, and other metadata. The objects should be saved as `.rda` files with filenames `dataset_name_SE.rda` and `dataset_name_flowSet.rda` (where `dataset_name` is the name of the new dataset; e.g. `Levine_32dim_SE.rda` and `Levine_32dim_flowSet.rda`).
+
+    For an example of the object structures, load one of the existing datasets and inspect the various elements of the `SummarizedExperiment` and `flowSet` objects:
+    
+```{r, results="hide", message=FALSE}
+library(HDCytoData)
+
+# example: SummarizedExperiment
+d_SE <- Levine_32dim_SE()
+
+d_SE
+length(assays(d_SE))
+dim(d_SE)
+head(assay(d_SE))
+rowData(d_SE)
+colData(d_SE)
+metadata(d_SE)
+
+# example: flowSet
+d_flowSet <- Levine_32dim_flowSet()
+
+d_flowSet
+length(d_flowSet)
+fsApply(d_flowSet, dim)
+head(exprs(d_flowSet[[1]]))
+parameters(d_flowSet[[1]])@data
+colnames(d_flowSet)
+description(d_flowSet[[1]])
+```
+
+
+2. A reproducible R script showing how the formatted `SummarizedExperiment` and `flowSet` objects were generated from the original raw data files. The script should be named `make-data-dataset-name.R` (e.g. `make-data-Levine-32dim.R`), and will be saved in the `inst/scripts` directory in the source code of the `HDCytoData` package for reproducibility purposes.
+
+    For an example, see the script for one of the existing datasets, e.g. [inst/scripts/make-data-Levine-32dim.R](https://github.com/lmweber/HDCytoData/blob/master/inst/scripts/make-data-Levine-32dim.R) (see [GitHub](https://github.com/lmweber/HDCytoData) for more examples).
+
+
+3. Comprehensive documentation describing the dataset, what it can be used for, and the object structure. This should be formatted as an `.Rd` file, to be saved in the `man` directory in the source code of the `HDCytoData` package. (Note that `Roxygen` cannot be used for `ExperimentHub` packages, so the `.Rd` file needs to be written manually.)
+
+    For an example, see the help file for one of the existing datasets, e.g. `?Levine_32dim`, or source code at [man/Levine_32dim_SE.Rd](https://github.com/lmweber/HDCytoData/blob/master/man/Levine_32dim_SE.Rd) (see [GitHub](https://github.com/lmweber/HDCytoData) for more examples).
+
+
+4. Metadata to describe the dataset in the `ExperimentHub` database, which will be saved in the file [inst/scripts/make-metadata.R](https://github.com/lmweber/HDCytoData/blob/master/inst/scripts/make-metadata.R). For examples, see the metadata for the existing datasets in this file.
+
+
+For more details on how to structure the files for a dataset stored on `ExperimentHub`, see the vignette titled "Creating An ExperimentHub Package" on the [Bioconductor](http://bioconductor.org/packages/ExperimentHub) page.
+
+
+## Create pull request
+
+Once all the parts described above have been generated, create a fork of the `HDCytoData` GitHub repository, add the files (except the `.rda` files), and send a pull request. Please make sure that the files are in the correct directories, and that the package passes all the usual Bioconductor checks.
+
+
+## Contact Bioconductor maintainers to upload `.rda` files
+
+In consultation with the `HDCytoData` maintainers, you will then need to contact the Bioconductor `ExperimentHub` maintainers to upload the `.rda` files. The `ExperimentHub` maintainers will then manually add them to the `ExperimentHub` database, as described in the "Creating An ExperimentHub Package" vignette on the [Bioconductor](http://bioconductor.org/packages/ExperimentHub) page. Note that any future updates to the `.rda` files will need to be manually added in the same way, so please check the objects carefully.
+
+
+## Acknowledgment of contributions
+
+Names of contributors will be added to the `contributor` field in the DESCRIPTION file of the `HDCytoData` package in order to recognize the contribution.
+
+
+## Code of conduct
+
+All contributors are expected to abide by the [Contributor Covenant Code of Conduct](https://www.contributor-covenant.org/version/1/4/code-of-conduct). Any concerns regarding the code of conduct may be reported by contacting the package maintainers by email.
+
+
+
