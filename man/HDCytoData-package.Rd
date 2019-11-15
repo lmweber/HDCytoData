@@ -11,6 +11,9 @@ Data package containing a collection of high-dimensional cytometry datasets save
 hosted on Bioconductor ExperimentHub.
 }
 \details{
+
+\emph{Overview}
+
 This package contains a set of publicly available high-dimensional flow cytometry and 
 mass cytometry (CyTOF) datasets, which have been formatted into \code{\link{SummarizedExperiment}} 
 and \code{\link{flowSet}} Bioconductor object formats.
@@ -45,10 +48,25 @@ Differential analysis:
 \item \code{\link{Bodenmiller_BCR_XL}}
 }
 
+
+\emph{Programmatic access to list of datasets}
+
+An updated list of all available datasets can also be obtained programmatically using the 
+\code{ExperimentHub} accessor functions, as follows. This retrieves a table of metadata from 
+the \code{ExperimentHub} database, which includes information such as the ExperimentHub ID, 
+title, and description for each dataset.
+
+\code{ehub <- ExperimentHub()  # create ExperimentHub object} \cr
+\code{ehub <- query(ehub, "HDCytoData")  # find HDCytoData entries} \cr
+\code{md <- as.data.frame(mcols(ehub))  # retrieve metadata table}
+
+
+\emph{Additional details}
+
 For additional details on each dataset, including references and raw data sources, see the 
 help files for each dataset.
 
-For a short tutorial showing how to load the data objects, see the package vignette.
+For a short tutorial showing how to load the data objects, see the "HDCytoData package" vignette.
 
 Note that flow and mass cytometry datasets should be transformed prior to performing any 
 downstream analyses, such as clustering. Standard transforms include the \code{\link{asinh}} with 
