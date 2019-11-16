@@ -389,7 +389,7 @@ For more more details on how to use the `diffcyt` package, see the [Bioconductor
 
 For a complete workflow for performing differential discovery analyses in high-dimensional cytometry data, including exploratory analyses, differential testing, and visualizations, see Nowicka et al. (2017, 2019) (also available as a [Bioconductor workflow package](http://bioconductor.org/packages/cytofWorkflow)).
 
-We perform two sets of differential analyses: testing for differential abundance (DA) of cell populations (using the `Weber_AML_sim` dataset), and testing for differential states (DS) within cell populations (using the `Weber_BCR_XL_sim` dataset). In both cases, clusters are defined using "cell type" markers, while for DS testing we also use additional "cell state" markers to test for differential expression within clusters. See our paper introducing the `diffcyt` framework (Weber et al. 2019) for more details.
+We perform two sets of differential analyses: testing for differential abundance (DA) of cell populations (using the `Weber_AML_sim` dataset), and testing for differential states (DS) within cell populations (using the `Weber_BCR_XL_sim` dataset). In both cases, clusters are defined using "cell type" markers, while for DS testing we also use additional "cell state" markers to test for differential expression within clusters. See our paper introducing the `diffcyt` framework (Weber et al. 2019) for more details. For extended evaluations showing how to calculate performance using the ground truth labels (spike-in cells), see the code in our GitHub repository accompanying our previous publication (Weber et al. 2019), available at https://github.com/lmweber/diffcyt-evaluations.
 
 
 ## Differential abundance (DA)
