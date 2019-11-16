@@ -30,6 +30,6 @@ Suggests:
     umap, 
     ggplot2, 
     FlowSOM, 
-    flowCore, 
-    mclust
-RoxygenNote: 6.1.1
+    mclust, 
+    diffcyt
+RoxygenNote: 7.0.0
