@@ -56,8 +56,8 @@ An updated list of all available datasets can also be obtained programmatically 
 the \code{ExperimentHub} database, which includes information such as the ExperimentHub ID, 
 title, and description for each dataset.
 
-\code{ehub <- ExperimentHub()  # create ExperimentHub object} \cr
-\code{ehub <- query(ehub, "HDCytoData")  # find HDCytoData entries} \cr
+\code{ehub <- ExperimentHub()  # create ExperimentHub instance} \cr
+\code{ehub <- query(ehub, "HDCytoData")  # find HDCytoData datasets} \cr
 \code{md <- as.data.frame(mcols(ehub))  # retrieve metadata table}
 
 
