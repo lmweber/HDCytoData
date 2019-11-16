@@ -1,5 +1,5 @@
 ---
-title: "How to contribute new datasets"
+title: "Contribution guidelines"
 author: 
   - name: Lukas M. Weber
     affiliation: 
@@ -13,7 +13,7 @@ package: HDCytoData
 output: 
   BiocStyle::html_document
 vignette: >
-  %\VignetteIndexEntry{3. How to contribute new datasets}
+  %\VignetteIndexEntry{3. Contribution guidelines}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -24,7 +24,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 
-# How to contribute new datasets
+# Contribution guidelines
 
 We welcome contributions or suggestions for new datasets to include in the `HDCytoData` package. Suitable datasets are any high-dimensional cytometry datasets that: (i) are useful for benchmarking purposes, and/or other activities such as teaching, examples, and tutorials, and (ii) contain some sort of ground truth or known signal (e.g. a known ground truth in simulated data, or a known biological result in experimental data).
 
