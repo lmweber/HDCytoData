@@ -148,7 +148,7 @@ Interactive visualizations to explore the datasets can be generated from the `Su
 
 # Contribution guidelines
 
-We welcome contributions or suggestions for new datasets to include in the `HDCytoData` package. Contribution guidelines are provided in the [How to contribute new datasets](http://bioconductor.org/packages/release/data/experiment/vignettes/HDCytoData/inst/doc/How_to_contribute_new_datasets.html) vignette, available from [Bioconductor](http://bioconductor.org/packages/HDCytoData).
+We welcome contributions or suggestions for new datasets to include in the `HDCytoData` package. Contribution guidelines are provided in the [Contribution guidelines](http://bioconductor.org/packages/release/data/experiment/vignettes/HDCytoData/inst/doc/Contribution_ _guidelines.html) vignette, available from [Bioconductor](http://bioconductor.org/packages/HDCytoData).
 
 
 
