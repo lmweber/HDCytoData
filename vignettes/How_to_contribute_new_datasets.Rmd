@@ -99,12 +99,14 @@ Once all the parts described above have been generated, create a fork of the `HD
 In consultation with the `HDCytoData` maintainers, you will then need to contact the Bioconductor `ExperimentHub` maintainers to upload the `.rda` files. The `ExperimentHub` maintainers will then manually add them to the `ExperimentHub` database, as described in the "Creating An ExperimentHub Package" vignette on the [Bioconductor](http://bioconductor.org/packages/ExperimentHub) page. Note that any future updates to the `.rda` files will need to be manually added in the same way, so please check the objects carefully.
 
 
-## Acknowledgment of contributions
+
+# Acknowledgment of contributions
 
 Names of contributors will be added to the `contributor` field in the DESCRIPTION file of the `HDCytoData` package in order to recognize the contribution.
 
 
-## Code of conduct
+
+# Code of conduct
 
 All contributors are expected to abide by the [Contributor Covenant Code of Conduct](https://www.contributor-covenant.org/version/1/4/code-of-conduct). Any concerns regarding the code of conduct may be reported by contacting the package maintainers by email.
 
