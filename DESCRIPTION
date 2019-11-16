@@ -1,5 +1,5 @@
 Package: HDCytoData
-Version: 1.7.0
+Version: 1.7.1
 Title: Collection of high-dimensional cytometry benchmark datasets in Bioconductor object formats
 Description: Data package containing a set of publicly available high-dimensional cytometry benchmark datasets, formatted into SummarizedExperiment and flowSet Bioconductor object formats, including all required metadata. Row metadata includes sample IDs, group IDs, patient IDs, reference cell population or cluster labels (where available), and labels identifying 'spiked in' cells (where available). Column metadata includes channel names, protein marker names, and protein marker classes (cell type or cell state).
 Authors@R: c(person("Lukas M.", "Weber", email = "lukmweber@gmail.com", role = c("aut", "cre")), person("Charlotte", "Soneson", email = "charlottesoneson@gmail.com", role = "aut"))
