@@ -381,4 +381,149 @@ ggplot(d_plot, aes(x = UMAP_1, y = UMAP_2, color = labels)) +
 
 
 
+# Differential analysis
+
+In this section, we use the semi-simulated differential analysis datasets (`Weber_AML_sim` and `Weber_BCR_XL_sim`) to demonstrate how to perform differential analyses using the `diffcyt` package (Weber et al. 2019).
+
+For more more details on how to use the `diffcyt` package, see the [Bioconductor vignette](http://bioconductor.org/packages/diffcyt).
+
+For a complete workflow for performing differential discovery analyses in high-dimensional cytometry data, including exploratory analyses, differential testing, and visualizations, see Nowicka et al. (2017, 2019) (also available as a [Bioconductor workflow package](http://bioconductor.org/packages/cytofWorkflow)).
+
+We perform two sets of differential analyses: testing for differential abundance (DA) of cell populations (using the `Weber_AML_sim` dataset), and testing for differential states (DS) within cell populations (using the `Weber_BCR_XL_sim` dataset). In both cases, clusters are defined using "cell type" markers, while for DS testing we also use additional "cell state" markers to test for differential expression within clusters. See our paper introducing the `diffcyt` framework (Weber et al. 2019) for more details.
+
+
+## Differential abundance (DA)
+
+```{r}
+suppressPackageStartupMessages(library(diffcyt))
+suppressPackageStartupMessages(library(SummarizedExperiment))
+```
+
+
+```{r}
+# ---------
+# Load data
+# ---------
+
+d_SE <- Weber_AML_sim_main_5pc_SE()
+```
+
+
+```{r}
+# ---------------
+# Set up metadata
+# ---------------
+
+# set column names
+colnames(d_SE) <- colData(d_SE)$marker_name
+
+# split input data into one matrix per sample
+d_input <- split(as.data.frame(assay(d_SE)), rowData(d_SE)$sample_id)
+
+# extract sample information
+experiment_info <- metadata(d_SE)$experiment_info
+experiment_info
+
+# extract marker information
+marker_info <- colData(d_SE)
+marker_info
+```
+
+
+```{r}
+# -----------------------------------
+# Differential abundance (DA) testing
+# -----------------------------------
+
+# create design matrix
+design <- createDesignMatrix(
+  experiment_info, cols_design = c("group_id", "patient_id")
+)
+design
+
+# create contrast matrix
+# note: testing condition CN vs. healthy
+contrast <- createContrast(c(0, 1, 0, 0, 0, 0, 0))
+contrast
+
+# test for differential abundance (DA) of clusters
+out_DA <- diffcyt(
+  d_input, 
+  experiment_info, 
+  marker_info, 
+  design = design, 
+  contrast = contrast, 
+  analysis_type = "DA", 
+  seed_clustering = 1234
+)
+
+# display results for top DA clusters
+topTable(out_DA, format_vals = TRUE)
+```
+
+
+## Differential states (DS)
+
+```{r}
+# ---------
+# Load data
+# ---------
+
+d_SE <- Weber_BCR_XL_sim_main_SE()
+```
+
+
+```{r}
+# ---------------
+# Set up metadata
+# ---------------
+
+# set column names
+colnames(d_SE) <- colData(d_SE)$marker_name
+
+# split input data into one matrix per sample
+d_input <- split(as.data.frame(assay(d_SE)), rowData(d_SE)$sample_id)
+
+# extract sample information
+experiment_info <- metadata(d_SE)$experiment_info
+experiment_info
+
+# extract marker information
+marker_info <- colData(d_SE)
+marker_info
+```
+
+
+```{r}
+# -------------------------------
+# Differential state (DS) testing
+# -------------------------------
+
+# create design matrix
+design <- createDesignMatrix(
+  experiment_info, cols_design = c("group_id", "patient_id")
+)
+design
+
+# create contrast matrix
+# note: testing condition spike vs. base
+contrast <- createContrast(c(0, 1, 0, 0, 0, 0, 0, 0, 0))
+contrast
+
+# test for differential abundance (DA) of clusters
+out_DS <- diffcyt(
+  d_input, 
+  experiment_info, 
+  marker_info, 
+  design = design, 
+  contrast = contrast, 
+  analysis_type = "DS", 
+  seed_clustering = 1234
+)
+
+# display results for top DA clusters
+topTable(out_DS, format_vals = TRUE)
+```
+
+
 
