@@ -21,7 +21,7 @@ and \code{\link{flowSet}} Bioconductor object formats.
 The objects contain the cell-level expression values, as well as row and column metadata. 
 The row metadata includes sample IDs, group IDs, and true cell population labels or cluster labels 
 (where available). The column metadata includes channel names, protein marker names, and 
-protein marker classes (cell type or cell state).
+protein marker classes (cell type, cell state, as well as non protein marker columns).
 
 These datasets have been used in our previous work and publications for benchmarking purposes, 
 e.g. to benchmark clustering algorithms or methods for differential analysis. They are provided 
@@ -74,5 +74,8 @@ downstream analyses, such as clustering. Standard transforms include the \code{\
 
 The steps to prepare each data object from the raw data files are included in the \code{make-data} 
 scripts in the directory \code{inst/scripts}.
+
+File sizes are listed in the help files for the datasets. The \code{\link{removeCache}} 
+function from the \code{ExperimentHub} package can be used to clear the local download cache.
 }
 \keyword{datasets}

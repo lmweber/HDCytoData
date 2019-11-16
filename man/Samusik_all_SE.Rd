@@ -53,6 +53,8 @@ Prior to performing any downstream analyses, the expression values should be tra
 A standard transformation used for mass cytometry data is the \code{\link{asinh}} with 
 \code{cofactor = 5}.
 
+File sizes: 192.2 MB (\code{SummarizedExperiment}), 194.5 MB (\code{flowSet}).
+
 Original source: Samusik et al. (2016): https://www.ncbi.nlm.nih.gov/pubmed/27183440
 
 Original link to raw data (.zip file): "https://web.stanford.edu/~samusik/Panorama BM 1-10.zip"
