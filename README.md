@@ -16,13 +16,13 @@ Currently, the package includes benchmark datasets used in our previous work to 
 
 ## Vignettes
 
-Additional details are provided in the following [Bioconductor vignettes](http://bioconductor.org/packages/HDCytoData):
+Additional details are provided in the following vignettes, available from the [Bioconductor](http://bioconductor.org/packages/HDCytoData) website:
 
 - [HDCytoData package](http://bioconductor.org/packages/release/data/experiment/vignettes/HDCytoData/inst/doc/HDCytoData_package.html): Overview of the package and example showing how to load the datasets
 - [Use cases](http://bioconductor.org/packages/release/data/experiment/vignettes/HDCytoData/inst/doc/Use_cases.html): Examples of use cases
-- [How to contribute](http://bioconductor.org/packages/release/data/experiment/vignettes/HDCytoData/inst/doc/How_to_contribute.html): Guidelines for contributing new datasets
+- [How to contribute new datasets](http://bioconductor.org/packages/release/data/experiment/vignettes/HDCytoData/inst/doc/How_to_contribute.html): Guidelines for contributing new datasets
 
-For details on the datasets, see the help files for each dataset available within the package.
+For details on the datasets, see the help files for each dataset available within the package, or the metadata from the `ExperimentHub` database (see "HDCytoData package" vignette).
 
 
 ## Availability and installation
