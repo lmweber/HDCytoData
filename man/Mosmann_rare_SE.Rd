@@ -53,6 +53,8 @@ Prior to performing any downstream analyses, the expression values should be tra
 A standard transformation used for flow cytometry data is the \code{\link{asinh}} with 
 \code{cofactor = 150}.
 
+File sizes: 23.1 MB (\code{SummarizedExperiment}), 23.0 MB (\code{flowSet}).
+
 Original source: Figure 4 in Mosmann et al. (2014): https://www.ncbi.nlm.nih.gov/pubmed/24532172
 
 Original link to raw data: http://flowrepository.org/id/FR-FCM-ZZ8J (filename: 

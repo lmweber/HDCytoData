@@ -106,21 +106,21 @@ containing all blast cells.
 }
 
 \itemize{
-\item Weber_AML_sim_main_5pc_SE
-\item Weber_AML_sim_main_5pc_flowSet
-\item Weber_AML_sim_main_1pc_SE
-\item Weber_AML_sim_main_1pc_flowSet
-\item Weber_AML_sim_main_0.1pc_SE
-\item Weber_AML_sim_main_0.1pc_flowSet
-\item Weber_AML_sim_main_blasts_all_SE
-\item Weber_AML_sim_main_blasts_all_flowSet
+\item Weber_AML_sim_main_5pc_SE (31.2 MB)
+\item Weber_AML_sim_main_5pc_flowSet (31.2 MB)
+\item Weber_AML_sim_main_1pc_SE (30.4 MB)
+\item Weber_AML_sim_main_1pc_flowSet (30.4 MB)
+\item Weber_AML_sim_main_0.1pc_SE (30.2 MB)
+\item Weber_AML_sim_main_0.1pc_flowSet (30.2 MB)
+\item Weber_AML_sim_main_blasts_all_SE (11.0 MB)
+\item Weber_AML_sim_main_blasts_all_flowSet (11.0 MB)
 }
 
 \strong{Additional simulations: null simulations}
 
 \itemize{
-\item Weber_AML_sim_null_SE
-\item Weber_AML_sim_null_flowSet
+\item Weber_AML_sim_null_SE (90.3 MB)
+\item Weber_AML_sim_null_flowSet (90.3 MB)
 }
 
 \strong{Additional simulations: modified random seeds}
@@ -130,12 +130,12 @@ Separate files for each threshold of abundance (5\%, 1\%, and 0.1\%).
 }
 
 \itemize{
-\item Weber_AML_sim_random_seeds_5pc_SE
-\item Weber_AML_sim_random_seeds_5pc_flowSet
-\item Weber_AML_sim_random_seeds_1pc_SE
-\item Weber_AML_sim_random_seeds_1pc_flowSet
-\item Weber_AML_sim_random_seeds_0.1pc_SE
-\item Weber_AML_sim_random_seeds_0.1pc_flowSet
+\item Weber_AML_sim_random_seeds_5pc_SE (93.6 MB)
+\item Weber_AML_sim_random_seeds_5pc_flowSet (93.6 MB)
+\item Weber_AML_sim_random_seeds_1pc_SE (91.1 MB)
+\item Weber_AML_sim_random_seeds_1pc_flowSet (91.1 MB)
+\item Weber_AML_sim_random_seeds_0.1pc_SE (90.6 MB)
+\item Weber_AML_sim_random_seeds_0.1pc_flowSet (90.6 MB)
 }
 
 \strong{Additional simulations: 'less distinct' spike-in cells}
@@ -145,12 +145,12 @@ Separate files for each threshold of abundance (5\%, 1\%, and 0.1\%).
 }
 
 \itemize{
-\item Weber_AML_sim_less_distinct_5pc_SE
-\item Weber_AML_sim_less_distinct_5pc_flowSet
-\item Weber_AML_sim_less_distinct_1pc_SE
-\item Weber_AML_sim_less_distinct_1pc_flowSet
-\item Weber_AML_sim_less_distinct_0.1pc_SE
-\item Weber_AML_sim_less_distinct_0.1pc_flowSet
+\item Weber_AML_sim_less_distinct_5pc_SE (64.1 MB)
+\item Weber_AML_sim_less_distinct_5pc_flowSet (64.1 MB)
+\item Weber_AML_sim_less_distinct_1pc_SE (61.1 MB)
+\item Weber_AML_sim_less_distinct_1pc_flowSet (61.1 MB)
+\item Weber_AML_sim_less_distinct_0.1pc_SE (60.4 MB)
+\item Weber_AML_sim_less_distinct_0.1pc_flowSet (60.4 MB)
 }
 
 Note that prior to performing any downstream analyses, the expression values should be 

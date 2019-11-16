@@ -91,8 +91,8 @@ the \code{flowFrames}.
 \strong{Main simulations}
 
 \itemize{
-\item Weber_BCR_XL_sim_main_SE
-\item Weber_BCR_XL_sim_main_flowSet
+\item Weber_BCR_XL_sim_main_SE (12.7 MB)
+\item Weber_BCR_XL_sim_main_flowSet (12.7 MB)
 }
 
 \strong{Additional simulations: null simulations}
@@ -102,12 +102,12 @@ Separate files for each replicate.
 }
 
 \itemize{
-\item Weber_BCR_XL_sim_null_rep1_SE
-\item Weber_BCR_XL_sim_null_rep1_flowSet
-\item Weber_BCR_XL_sim_null_rep2_SE
-\item Weber_BCR_XL_sim_null_rep2_flowSet
-\item Weber_BCR_XL_sim_null_rep3_SE
-\item Weber_BCR_XL_sim_null_rep3_flowSet
+\item Weber_BCR_XL_sim_null_rep1_SE (12.7 MB)
+\item Weber_BCR_XL_sim_null_rep1_flowSet (12.7 MB)
+\item Weber_BCR_XL_sim_null_rep2_SE (12.7 MB)
+\item Weber_BCR_XL_sim_null_rep2_flowSet (12.7 MB)
+\item Weber_BCR_XL_sim_null_rep3_SE (12.7 MB)
+\item Weber_BCR_XL_sim_null_rep3_flowSet (12.7 MB)
 }
 
 \strong{Additional simulations: modified random seeds}
@@ -117,12 +117,12 @@ Separate files for each replicate.
 }
 
 \itemize{
-\item Weber_BCR_XL_sim_random_seeds_rep1_SE
-\item Weber_BCR_XL_sim_random_seeds_rep1_flowSet
-\item Weber_BCR_XL_sim_random_seeds_rep2_SE
-\item Weber_BCR_XL_sim_random_seeds_rep2_flowSet
-\item Weber_BCR_XL_sim_random_seeds_rep3_SE
-\item Weber_BCR_XL_sim_random_seeds_rep3_flowSet
+\item Weber_BCR_XL_sim_random_seeds_rep1_SE (12.7 MB)
+\item Weber_BCR_XL_sim_random_seeds_rep1_flowSet (12.7 MB)
+\item Weber_BCR_XL_sim_random_seeds_rep2_SE (12.7 MB)
+\item Weber_BCR_XL_sim_random_seeds_rep2_flowSet (12.7 MB)
+\item Weber_BCR_XL_sim_random_seeds_rep3_SE (12.7 MB)
+\item Weber_BCR_XL_sim_random_seeds_rep3_flowSet (12.7 MB)
 }
 
 \strong{Additional simulations: 'less distinct' spike-in cells}
@@ -132,10 +132,10 @@ Separate files for each replicate.
 }
 
 \itemize{
-\item Weber_BCR_XL_sim_less_distinct_less_50pc_SE
-\item Weber_BCR_XL_sim_less_distinct_less_50pc_flowSet
-\item Weber_BCR_XL_sim_less_distinct_less_75pc_SE
-\item Weber_BCR_XL_sim_less_distinct_less_75pc_flowSet
+\item Weber_BCR_XL_sim_less_distinct_less_50pc_SE (13.1 MB)
+\item Weber_BCR_XL_sim_less_distinct_less_50pc_flowSet (13.1 MB)
+\item Weber_BCR_XL_sim_less_distinct_less_75pc_SE (13.1 MB)
+\item Weber_BCR_XL_sim_less_distinct_less_75pc_flowSet (13.1 MB)
 }
 
 Note that prior to performing any downstream analyses, the expression values should be 

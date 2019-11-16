@@ -28,7 +28,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 The `HDCytoData` package is an extensible resource containing a set of publicly available high-dimensional flow cytometry and mass cytometry (CyTOF) benchmark datasets, which have been formatted into `SummarizedExperiment` and `flowSet` Bioconductor object formats. The data objects are hosted on Bioconductor's `ExperimentHub` platform.
 
-The objects each contain one or more tables of cell-level expression values, as well as all required metadata. Row metadata includes sample IDs, group IDs, patient IDs, reference cell population or cluster labels (where available), and labels identifying 'spiked in' cells (where available). Column metadata includes channel names, protein marker names, and protein marker classes (cell type or cell state).
+The objects each contain one or more tables of cell-level expression values, as well as all required metadata. Row metadata includes sample IDs, group IDs, patient IDs, reference cell population or cluster labels (where available), and labels identifying 'spiked in' cells (where available). Column metadata includes channel names, protein marker names, and protein marker classes (cell type, cell state, as well as non protein marker columns).
 
 Note that raw expression values should be transformed prior to any downstream analyses (see below).
 
@@ -55,6 +55,8 @@ The package contains the following datasets, which can be grouped into datasets 
     - Weber_BCR_XL_sim (multiple datasets from several simulation scenarios)
 
 Extensive documentation is available in the help files for the objects. For each dataset, this includes a description of the dataset (e.g. biological context, number of samples and conditions, number of cells, number of reference cell populations, number and classes of protein markers, etc.), as well as an explanation of the object structures, details on accessor functions required to access the expression tables and metadata, and references to original data sources.
+
+File sizes are listed in the help files for the datasets. The `removeCache` function from the `ExperimentHub` package can be used to clear the local download cache (see `ExperimentHub` documentation).
 
 The help files can be accessed by the dataset names, e.g. `?Bodenmiller_BCR_XL` or `help(Bodenmiller_BCR_XL)`.
 
