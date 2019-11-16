@@ -75,7 +75,7 @@ downstream analyses, such as clustering. Standard transforms include the \code{\
 The steps to prepare each data object from the raw data files are included in the \code{make-data} 
 scripts in the directory \code{inst/scripts}.
 
-File sizes are listed in the help files for the datasets. The \code{\link{removeCache}} 
+File sizes are listed in the help files for the datasets. The \code{removeCache} 
 function from the \code{ExperimentHub} package can be used to clear the local download cache.
 }
 \keyword{datasets}
