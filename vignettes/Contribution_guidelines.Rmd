@@ -73,7 +73,7 @@ description(d_flowSet[[1]])
 ```
 
 
-2. A reproducible R script showing how the formatted `SummarizedExperiment` and `flowSet` objects were generated from the original raw data files. The script should be named `make-data-dataset-name.R` (e.g. `make-data-Levine-32dim.R`), and will be saved in the `inst/scripts` directory in the source code of the `HDCytoData` package for reproducibility purposes.
+2. A reproducible R script showing how the formatted `SummarizedExperiment` and `flowSet` objects were generated from the original raw data files (`.fcs` files). The script should be named `make-data-dataset-name.R` (e.g. `make-data-Levine-32dim.R`), and will be saved in the `inst/scripts` directory in the source code of the `HDCytoData` package for reproducibility purposes.
 
     For an example, see the script for one of the existing datasets, e.g. [inst/scripts/make-data-Levine-32dim.R](https://github.com/lmweber/HDCytoData/blob/master/inst/scripts/make-data-Levine-32dim.R) (see [GitHub](https://github.com/lmweber/HDCytoData) for more examples).
 
@@ -91,12 +91,12 @@ For more details on how to structure the files for a dataset stored on `Experime
 
 ## Create pull request
 
-Once all the parts described above have been generated, create a fork of the `HDCytoData` GitHub repository, add the files (except the `.rda` files), and send a pull request. Please make sure that the files are in the correct directories, and that the package passes all the usual Bioconductor checks.
+Once all the parts described above have been generated, create a fork of the `HDCytoData` GitHub repository, add the files (except the `.rda` files), and send a pull request. Please make sure that the files are in the correct directories, and that the package passes all the usual Bioconductor and CRAN checks.
 
 
 ## Contact Bioconductor maintainers to upload `.rda` files
 
-In consultation with the `HDCytoData` maintainers, you will then need to contact the Bioconductor `ExperimentHub` maintainers to upload the `.rda` files. The `ExperimentHub` maintainers will then manually add them to the `ExperimentHub` database, as described in the "Creating An ExperimentHub Package" vignette on the [Bioconductor](http://bioconductor.org/packages/ExperimentHub) page. Note that any future updates to the `.rda` files will need to be manually added in the same way, so please check the objects carefully.
+In consultation with the `HDCytoData` maintainers, you will then need to contact the Bioconductor `ExperimentHub` maintainers to upload the `.rda` files. The `ExperimentHub` maintainers will then manually add them to the `ExperimentHub` database, as described in the "Creating An ExperimentHub Package" vignette on the [Bioconductor](http://bioconductor.org/packages/ExperimentHub) page. Note that any future updates (e.g. bug fixes) to the `.rda` files will need to be manually added in the same way, so please check the objects carefully.
 
 
 
