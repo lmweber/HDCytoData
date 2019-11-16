@@ -59,6 +59,25 @@ Extensive documentation is available in the help files for the objects. For each
 The help files can be accessed by the dataset names, e.g. `?Bodenmiller_BCR_XL` or `help(Bodenmiller_BCR_XL)`.
 
 
+## Programmatic access to list of datasets
+
+An updated list of all available datasets can also be obtained programmatically using the `ExperimentHub` accessor functions, as follows. This retrieves a table of metadata from the `ExperimentHub` database, which includes information such as the ExperimentHub ID, title, and description for each dataset.
+
+```{r, eval=FALSE}
+# Create ExperimentHub instance
+ehub <- ExperimentHub()
+
+# Find HDCytoData datasets
+ehub <- query(ehub, "HDCytoData")
+ehub
+
+# Retrieve metadata table
+md <- as.data.frame(mcols(ehub))
+
+head(md, 2)
+```
+
+
 
 # How to load data
 
@@ -84,10 +103,10 @@ Bodenmiller_BCR_XL_flowSet()
 Alternatively, load the datasets by creating an `ExperimentHub` instance:
 
 ```{r}
-# Create an ExperimentHub instance
+# Create ExperimentHub instance
 ehub <- ExperimentHub()
 
-# Query ExperimentHub instance to find datasets
+# Find HDCytoData datasets
 query(ehub, "HDCytoData")
 
 # Load 'SummarizedExperiment' object using dataset ID
