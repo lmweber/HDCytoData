@@ -41,7 +41,8 @@ For the \code{link{SummarizedExperiment}}, row and column metadata can be access
 \code{\link{rowData}} and \code{\link{colData}} accessor functions from the 
 \code{SummarizedExperiment} package. The row data contains group IDs, patient IDs, sample IDs, 
 and cell population IDs. The column data contains channel names, protein marker names, and a 
-factor \code{marker_class} to identify the class of each protein marker ('cell type' or 'cell state'). 
+factor \code{marker_class} to identify the class of each protein marker ('cell type', 'cell state', 
+as well as 'none' for any non protein marker columns that are not needed for downstream analyses). 
 The expression values for each cell can be accessed with \code{\link{assay}}. The expression 
 values are formatted as a single table.
 
