@@ -65,7 +65,9 @@ The help files can be accessed by the dataset names, e.g. `?Bodenmiller_BCR_XL` 
 
 An updated list of all available datasets can also be obtained programmatically using the `ExperimentHub` accessor functions, as follows. This retrieves a table of metadata from the `ExperimentHub` database, which includes information such as the ExperimentHub ID, title, and description for each dataset.
 
-```{r, eval=FALSE}
+```{r}
+suppressPackageStartupMessages(library(ExperimentHub))
+
 # Create ExperimentHub instance
 ehub <- ExperimentHub()
 
