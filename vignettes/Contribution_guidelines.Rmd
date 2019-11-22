@@ -26,7 +26,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Contribution guidelines
 
-We welcome contributions or suggestions for new datasets to include in the `HDCytoData` package. Suitable datasets are any high-dimensional cytometry datasets that: (i) are useful for benchmarking purposes, and/or other activities such as teaching, examples, and tutorials, and (ii) contain some sort of ground truth or known signal (e.g. a known ground truth in simulated data, or a known biological result in experimental data).
+We welcome contributions or suggestions for new datasets to include in the `HDCytoData` package. Suitable datasets are any high-dimensional cytometry datasets that either: (i) are useful for benchmarking purposes, e.g. containing some sort of ground truth or known signal (e.g. a known ground truth in simulated data, or a known biological result in experimental data), and/or (ii) are useful for other activities such as teaching, examples, and tutorials.
 
 Below, we summarize the key steps required to contribute a new dataset to the `HDCytoData` package. For more details on how to use Bioconductor's `ExperimentHub` resource and creating `ExperimentHub` packages, see the `ExperimentHub` vignettes available from [Bioconductor](http://bioconductor.org/packages/ExperimentHub).
 
@@ -42,7 +42,9 @@ Using GitHub (instead of email) ensures that there is a public record of the con
 
 If the contribution is approved, the following are required for each dataset:
 
-1. Formatted `SummarizedExperiment` and `flowSet` objects containing table(s) of expression values and all required row, column, and other metadata. The objects should be saved as `.rda` files with filenames `dataset_name_SE.rda` and `dataset_name_flowSet.rda` (where `dataset_name` is the name of the new dataset; e.g. `Levine_32dim_SE.rda` and `Levine_32dim_flowSet.rda`).
+1. Formatted `SummarizedExperiment` and `flowSet` objects containing table(s) of expression values and all row, column, and other metadata required for users to fully understand the dataset (e.g. sample IDs, group IDs, patient IDs, cluster labels, spike-in labels, channel names, protein marker names, protein marker classes, etc.) Note that expression values should be be raw values (not transformed).
+
+    The objects should be saved as `.rda` files with filenames `dataset_name_SE.rda` and `dataset_name_flowSet.rda` (where `dataset_name` is the name of the new dataset; e.g. `Levine_32dim_SE.rda` and `Levine_32dim_flowSet.rda`).
 
     For an example of the object structures, load one of the existing datasets and inspect the various elements of the `SummarizedExperiment` and `flowSet` objects:
     
@@ -108,7 +110,7 @@ Names of contributors will be added to the `contributor` field in the DESCRIPTIO
 
 # Code of conduct
 
-All contributors are expected to abide by the [Contributor Covenant Code of Conduct](https://www.contributor-covenant.org/version/1/4/code-of-conduct). Any concerns regarding the code of conduct may be reported by contacting the package maintainers by email.
+This project is released in accordance with the [Contributor Covenant Code of Conduct](https://www.contributor-covenant.org/version/2/0/code_of_conduct). By contributing to this project, you agree to abide by its terms. Any concerns regarding the code of conduct may be reported by contacting the package maintainers by email.
 
 
 
