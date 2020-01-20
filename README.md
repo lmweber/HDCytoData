@@ -13,6 +13,10 @@ Note that raw expression values should be transformed prior to any downstream an
 
 Currently, the package includes benchmark datasets used in our previous work to evaluate methods for clustering and differential analyses. The datasets are provided here in `SummarizedExperiment` and `flowSet` formats in order to make them easier to access and integrate into R/Bioconductor workflows.
 
+For more details, see our paper describing the `HDCytoData` package:
+
+- [Weber L.M. and Soneson C. (2019), *HDCytoData: Collection of high-dimensional cytometry benchmark datasets in Bioconductor object formats*, F1000Research, 8:1459, v2.](https://f1000research.com/articles/8-1459)
+
 
 ## Vignettes
 
@@ -36,4 +40,12 @@ install.packages("BiocManager")
 # install HDCytoData package
 BiocManager::install("HDCytoData")
 ```
+
+
+## Citation
+
+Please cite the following paper:
+
+- [Weber L.M. and Soneson C. (2019), *HDCytoData: Collection of high-dimensional cytometry benchmark datasets in Bioconductor object formats*, F1000Research, 8:1459, v2.](https://f1000research.com/articles/8-1459)
+
 
