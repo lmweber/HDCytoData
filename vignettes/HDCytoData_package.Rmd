@@ -34,6 +34,10 @@ Note that raw expression values should be transformed prior to any downstream an
 
 Currently, the package includes benchmark datasets used in our previous work to evaluate methods for clustering and differential analyses. The datasets are provided here in `SummarizedExperiment` and `flowSet` formats in order to make them easier to access and integrate into R/Bioconductor workflows.
 
+For more details, see our paper describing the `HDCytoData` package:
+
+- [Weber L.M. and Soneson C. (2019), *HDCytoData: Collection of high-dimensional cytometry benchmark datasets in Bioconductor object formats*, F1000Research, 8:1459, v2.](https://f1000research.com/articles/8-1459)
+
 
 
 # Datasets
@@ -153,6 +157,14 @@ Interactive visualizations to explore the datasets can be generated from the `Su
 # Contribution guidelines
 
 We welcome contributions or suggestions for new datasets to include in the `HDCytoData` package. Contribution guidelines are provided in the [Contribution guidelines](http://bioconductor.org/packages/release/data/experiment/vignettes/HDCytoData/inst/doc/Contribution_ _guidelines.html) vignette, available from [Bioconductor](http://bioconductor.org/packages/HDCytoData).
+
+
+
+# Citation
+
+If the `HDCytoData` package is useful in your work, please cite the following paper:
+
+- [Weber L.M. and Soneson C. (2019), *HDCytoData: Collection of high-dimensional cytometry benchmark datasets in Bioconductor object formats*, F1000Research, 8:1459, v2.](https://f1000research.com/articles/8-1459)
 
 
 

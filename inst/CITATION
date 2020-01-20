@@ -1,0 +1,9 @@
+bibentry("Article",
+         title   = "{HDCytoData}: Collection of high-dimensional cytometry benchmark datasets in {Bioconductor} object formats",
+         author  = "Weber, Lukas M and Soneson, Charlotte",
+         journal = "F1000Research",
+         volume  = 8,
+         number  = "v2",
+         pages   = "1459",
+         year    = 2019
+         )
