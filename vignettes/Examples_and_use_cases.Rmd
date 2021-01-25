@@ -395,7 +395,7 @@ We perform two sets of differential analyses: testing for differential abundance
 ## Differential abundance (DA)
 
 ```{r}
-suppressPackageStartupMessages(library(diffcyt))
+# suppressPackageStartupMessages(library(diffcyt))
 suppressPackageStartupMessages(library(SummarizedExperiment))
 ```
 
@@ -431,34 +431,34 @@ marker_info
 
 
 ```{r}
-# -----------------------------------
-# Differential abundance (DA) testing
-# -----------------------------------
-
-# create design matrix
-design <- createDesignMatrix(
-  experiment_info, cols_design = c("group_id", "patient_id")
-)
-design
-
-# create contrast matrix
-# note: testing condition CN vs. healthy
-contrast <- createContrast(c(0, 1, 0, 0, 0, 0, 0))
-contrast
-
-# test for differential abundance (DA) of clusters
-out_DA <- diffcyt(
-  d_input, 
-  experiment_info, 
-  marker_info, 
-  design = design, 
-  contrast = contrast, 
-  analysis_type = "DA", 
-  seed_clustering = 1234
-)
-
-# display results for top DA clusters
-topTable(out_DA, format_vals = TRUE)
+# # -----------------------------------
+# # Differential abundance (DA) testing
+# # -----------------------------------
+# 
+# # create design matrix
+# design <- createDesignMatrix(
+#   experiment_info, cols_design = c("group_id", "patient_id")
+# )
+# design
+# 
+# # create contrast matrix
+# # note: testing condition CN vs. healthy
+# contrast <- createContrast(c(0, 1, 0, 0, 0, 0, 0))
+# contrast
+# 
+# # test for differential abundance (DA) of clusters
+# out_DA <- diffcyt(
+#   d_input, 
+#   experiment_info, 
+#   marker_info, 
+#   design = design, 
+#   contrast = contrast, 
+#   analysis_type = "DA", 
+#   seed_clustering = 1234
+# )
+# 
+# # display results for top DA clusters
+# topTable(out_DA, format_vals = TRUE)
 ```
 
 
@@ -495,34 +495,34 @@ marker_info
 
 
 ```{r}
-# -------------------------------
-# Differential state (DS) testing
-# -------------------------------
-
-# create design matrix
-design <- createDesignMatrix(
-  experiment_info, cols_design = c("group_id", "patient_id")
-)
-design
-
-# create contrast matrix
-# note: testing condition spike vs. base
-contrast <- createContrast(c(0, 1, 0, 0, 0, 0, 0, 0, 0))
-contrast
-
-# test for differential abundance (DA) of clusters
-out_DS <- diffcyt(
-  d_input, 
-  experiment_info, 
-  marker_info, 
-  design = design, 
-  contrast = contrast, 
-  analysis_type = "DS", 
-  seed_clustering = 1234
-)
-
-# display results for top DA clusters
-topTable(out_DS, format_vals = TRUE)
+# # -------------------------------
+# # Differential state (DS) testing
+# # -------------------------------
+# 
+# # create design matrix
+# design <- createDesignMatrix(
+#   experiment_info, cols_design = c("group_id", "patient_id")
+# )
+# design
+# 
+# # create contrast matrix
+# # note: testing condition spike vs. base
+# contrast <- createContrast(c(0, 1, 0, 0, 0, 0, 0, 0, 0))
+# contrast
+# 
+# # test for differential abundance (DA) of clusters
+# out_DS <- diffcyt(
+#   d_input, 
+#   experiment_info, 
+#   marker_info, 
+#   design = design, 
+#   contrast = contrast, 
+#   analysis_type = "DS", 
+#   seed_clustering = 1234
+# )
+# 
+# # display results for top DA clusters
+# topTable(out_DS, format_vals = TRUE)
 ```
 
 
