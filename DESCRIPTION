@@ -30,6 +30,5 @@ Suggests:
     umap, 
     ggplot2, 
     FlowSOM, 
-    mclust, 
-    diffcyt
+    mclust
 RoxygenNote: 7.0.0
